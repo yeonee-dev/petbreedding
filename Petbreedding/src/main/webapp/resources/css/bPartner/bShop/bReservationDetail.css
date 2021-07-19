@@ -1,0 +1,98 @@
+.section{
+    padding-bottom: 200px;
+}
+
+/* 공통박스작업 */
+.infoBox{
+    border: 1px solid var(--border-color);
+    width: 800px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+}
+.infoBox tr{
+    display: block;
+}
+.infoTitle{
+    margin-bottom: 20px;
+    
+}
+.info{
+    margin-bottom: 10px;
+}
+.info td:nth-child(1){
+    width: 80px;
+}
+
+.dogInfo{
+    margin-bottom: 50px;
+}
+.dogInfo tr td {
+    display: inline-block;
+    border-right: 1px solid var(--border-color);
+    padding-right: 10px;
+    margin-right: 10px;
+}
+.btnBox{
+    width: 500px;
+    margin: 0 auto;
+}
+.chatBtn, .cancleBtn{
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.cancleBtn{
+    margin-left: 30px;
+}
+/* MODAL */
+#my_modal {
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+#my_modal h1{
+    text-align: center;
+}
+#my_modal p {
+    text-align: center;
+}
+#my_modal #closeBtn{
+    cursor: pointer;
+}
+
+#my_modal .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#my_modal button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+#goTOCancle{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+#goTOCancle:hover{
+    background-color: var(--hover-color);
+}
+#nextTime{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+#nextTime:hover{
+    border: 1px solid var(--hover-color);
+}

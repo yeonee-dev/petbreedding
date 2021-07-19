@@ -1,0 +1,216 @@
+@charset "UTF-8";
+.nowLocation{
+    margin-bottom: 50px;
+}
+.section{
+    width: 1190px;
+
+}
+/*스토어 라인*/
+#storeLine{
+    width: 1190px;
+}
+
+/*인기순, 거리순. 별점순 버튼*/
+.selectOpt{
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+}
+.selectOpt input{
+   display: none;
+}
+.selectOpt label{
+   width: 100px;
+   cursor: pointer;
+   border-radius: 20px;
+   padding: 5px;
+   border: 1px solid #707070;
+}
+.selectOpt input:checked + label{
+    background: var(--hover-color);
+    color: var(--font-color);
+    border: 1px solid var(--hover-color);
+}
+
+
+/*울트라콜 박스*/
+#ultra_ad{
+    color: #707070;
+    font-size: 10px;
+    margin-left: 10px;
+}
+.ultraS{
+    width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 80px;
+    border: solid 1px #707070;
+    box-sizing: border-box;
+}
+.ultraStore{
+    padding: 30px 20px;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 30px;
+}
+.ultraList_img_area, .ultraList_title_area, .ultraList_info_area, .ultraList_etc_area, .ultraList_button{
+    display: inline-block;
+}
+
+/*스토어 제목*/
+.ultraList_title_area{
+    position: absolute;
+}
+
+/*스토어 간단소개*/
+.ultraList_info_area{
+    position: absolute;
+    top: 70px;
+}
+
+/*정보보기 버튼*/
+.goList{
+    background: var(--button-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 30px;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 70px;
+}
+.goList:hover{
+    background: var(--hover-color);
+}
+
+/*일반 스토어*/
+.storeS{
+    width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 50px;
+    border: solid 1px #707070;
+    box-sizing: border-box;
+}
+.Store{
+    padding: 30px 20px;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 30px;
+}
+.storeList_img_area, .storeList_title_area, .storeList_info_area, .storeList_etc_area, .storeList_button{
+    display: inline-block;
+}
+/*스토어 제목*/
+.storeList_title_area{
+    position: absolute;
+}
+
+/*스토어 간단소개*/
+.storeList_info_area{
+    position: absolute;
+    top: 70px;
+}
+
+/* MODAL */
+#my_modal {
+    display: none;
+    width: 500px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+
+#my_modal p {
+    text-align: center;
+}
+#my_modal #closeBtn{
+    cursor: pointer;
+}
+
+#my_modal .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* select 박스 */
+#locCon {
+    width: 330px;
+    margin: 0 auto;
+}
+#locCon select {
+    padding: 10px;   
+    border: #707070;
+}
+#locCon #chooseLoc{
+    width: 100px;
+    margin-left: 10px;
+}
+#locCon #changeLoc{
+    display: inline-block;
+    margin-left: 10px;
+    background: var(--button-color);
+    color: var(--font-color);
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    width: 50px;
+    outline: none;
+    cursor: pointer;
+}
+#locCon #changeLoc:hover{
+    background: var(--hover-color);
+}
+#Loc{
+    margin-left: 20px;
+    color: var(--hover-color);
+}
+
+/* 페이징 */
+.page_wrap {
+	text-align:center;
+	margin-top: 30px;
+}
+
+.page_nation {
+	display:inline-block;
+}
+
+.page_nation .none {
+	display:none;
+}
+
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:none;
+	width:40px;
+	height:30px;
+	line-height:28px;
+}
+
+.page_nation a:hover {
+	color: var(--hover-color)
+}
+
+.page_nation .arrow {
+    font-weight: bold;
+}
+
+.page_nation a.active {
+	font-size: 15px;
+    font-weight: bold;
+	color:#ff9914;
+}
+
+b{
+    float: left;
+    padding-top: 3px;
+    width:40px;
+}

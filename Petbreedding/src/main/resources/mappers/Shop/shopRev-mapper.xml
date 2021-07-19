@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ShopRev">
+	<!-- 펫정보 -->
+	<resultMap type="Pet" id="Pet">
+		<id column="PET_NUM" property="pet_num" />
+		<result column="PET_NAME" property="pet_name"/>
+		<result column="PET_IMG" property="pet_img"/>
+		<result column="PET_NUM" property="pet_num"/>
+	</resultMap>
+
+	<!--스타일  -->
+	<resultMap type="Style" id="Style">
+		<id column="STYLE_NUM" property="style_num"/>
+		<result column="HAR_NUM" property="harNum"/>
+		<result column="STYLE_NAME" property="style_name"/>
+		<result column="PRICE" property="price"/>
+		<result column="STYLE_TIME" property="style_time"/>
+		<result column="STYLE_DEEP" property="style_deep"/>
+	</resultMap>
+	
+	<!-- 미용실 예약VO -->
+	<resultMap type="HairRev" id="HairRev">
+		<id column="HAR_RNUM" property="har_rnum"/>
+		<result column="CL_NUM" property="cl_num" />
+		<result column="PET_NUM" property="pet_num" />
+		<result column="STYLE_NUM" property="style_num" />
+		<result column="HAR_NUM" property="har_num" />
+		<result column="RES_DATE" property="res_date" />
+		<result column="RES_STATUS" property="res_status" />
+		<result column="RES_TIME" property="res_time" />
+		<result column="STYLE_NUM2" property="style_num2" />
+		<result column="RES_CHK" property="res_chk"/>
+	</resultMap>
+	
+		
+	<!-- HAR_SARLON 테이블  -->
+	<resultMap type="HairSalon" id="HairSalon">
+		<id column="HAR_NUM" property="harNum"/>
+		<result column="0" property="sun"/>
+		<result column="1" property="mon"/>
+		<result column="2" property="tue"/>
+		<result column="3" property="wed"/>
+		<result column="4" property="thu"/>
+		<result column="5" property="fri"/>
+		<result column="6" property="sat"/>
+	</resultMap>
+	
+	<!-- 미용실 예약 등록 -->
+		<!-- 메인 메뉴 -->
+		<select id="revPage" resultMap="Style" parameterType="string">
+				SELECT * 
+				FROM style  
+				WHERE HAR_NUM = #{harNum} AND STYLE_DEEP = 0
+				ORDER BY style_num ASC
+		</select> 
+	
+		<!-- 펫정보 -->
+		<select id="revPage2" resultMap="Pet" parameterType="string">
+				SELECT pet_num,pet_name,pet_img 
+				FROM pet_info  
+				WHERE cl_num = #{cl_num}
+				ORDER BY pet_num ASC
+		</select> 
+		
+		<!-- 추가 메뉴 -->
+		<select id="revPage3" resultMap="Style" parameterType="string">
+				SELECT * 
+				FROM style  
+				WHERE HAR_NUM = #{harNum} AND STYLE_DEEP = 1
+				ORDER BY style_num ASC
+		</select> 
+		
+		<!-- 예약등록 -->
+		<insert id="insertHairRev" parameterType="HairRev">
+			INSERT INTO HAR_RESERVATION 
+			VALUES('HAR000' || SEQ_HAR_RESERVATION.NEXTVAL, #{cl_num}, #{pet_num},#{style_num}, #{har_num},#{res_date},#{style_num2},0,#{res_time},0)
+			
+			<selectKey keyProperty="har_rnum" resultType="string"  order="AFTER">
+				SELECT SEQ_HAR_RESERVATION.CURRVAL AS HAR_RNUM FROM DUAL
+			</selectKey>
+
+		</insert>
+	
+		<!-- 미용실 예약 시간 확인 -->
+		<select id="checkTime" parameterType="string" resultType="string">
+			<![CDATA[
+			select res_time,res_date from har_reservation where har_num = #{har_num} and res_date = #{res_date} and (res_status = 0 OR res_status = 1)
+			]]>
+		</select>
+	
+		<!-- 미용실 주휴일 조회 -->
+		<select id="checkDayOff" parameterType="string" resultMap="HairSalon">
+			SELECT *
+			FROM (
+			SELECT H.har_num, D.har_dayoff AS DAYOFF
+			FROM HAIR_SALON H
+			LEFT JOIN HAIR_DAYOFF D
+			ON H.HAR_NUM = D.HAR_NUM
+			WHERE H.HAR_NUM = #{har_num}
+			)
+			PIVOT (
+			SUM(DAYOFF) 
+			FOR DAYOFF
+			IN (0,1,2,3,4,5,6))
+		</select>
+		
+	<!-- 동물병원 -->
+	<resultMap type="Hospital" id="Hospital">
+		<id column="HOS_NUM" property="hosNum"/>
+		<result column="0" property="sun"/>
+		<result column="1" property="mon"/>
+		<result column="2" property="tue"/>
+		<result column="3" property="wed"/>
+		<result column="4" property="thu"/>
+		<result column="5" property="fri"/>
+		<result column="6" property="sat"/>
+	</resultMap>
+	
+	<!-- 동물병원 예약VO  -->
+	<resultMap type="HosRev" id="HosRev">
+		<id column="HOS_RNUM" property="hos_rnum"/>
+		<result column="CL_NUM" property="cl_num"/>
+		<result column="PET_NUM" property="pet_num" />
+		<result column="MED_NUM" property="med_num"/>
+		<result column="HOS_NUM" property="hos_num"/>
+		<result column="HOS_DATE" property="hos_date"/>
+		<result column="MED_NUM2" property="med_num2"/>
+		<result column="HOS_STATUS" property="hos_status" />
+		<result column="HOS_TIME" property="hos_time"/>
+		<result column="RES_CHK" property="res_chk"/>
+	</resultMap>
+	
+	<!-- 진료 정보 테이블 -->
+	<resultMap type="MedicalType" id="MedicalType">
+		<id column="MED_NUM" property="medNum"/>
+		<result column="HOS_NUM" property="hosNum"/>
+		<result column="MED_NAME" property="medName"/>
+		<result column="MED_PRICE" property="medPrice"/>
+	</resultMap>
+	
+	<!-- 병원 예약 등록 -->
+	
+		<!-- 병원메뉴 -->
+		<select id="hosMenu" resultMap="MedicalType" parameterType="string">
+				SELECT * 
+				FROM Medical_Type  
+				WHERE HOS_NUM = #{hos_num}
+				ORDER BY med_num ASC
+		</select>
+	
+		<!-- 예약등록 -->
+		<insert id="insertHosRev" parameterType="HosRev">
+			INSERT INTO HOS_RESERVATION 
+			VALUES('HOS000' || SEQ_HOS_RESERVATION.NEXTVAL, #{cl_num},#{pet_num}, #{med_num}, #{hos_num},#{hos_date},null,#{hos_status},#{hos_time},0)
+			
+			<selectKey keyProperty="hos_rnum" resultType="string"  order="AFTER">
+				SELECT SEQ_HOS_RESERVATION.CURRVAL AS HOS_RNUM FROM DUAL
+			</selectKey>
+
+		</insert>
+	
+		<!-- 병원 예약 시간 확인 -->
+		<select id="checkTime2" parameterType="string" resultType="string">
+			<![CDATA[
+			select hos_time,hos_date from hos_reservation where hos_num = #{hos_num} and hos_date = #{hos_date} and (hos_status = 0 OR hos_status = 1)
+			]]>
+		</select>
+		
+		<!-- 병원 주휴일 조회 -->
+		<select id="checkDayOff2" parameterType="string" resultMap="Hospital">
+			SELECT *
+			FROM (
+			SELECT H.hos_num, D.hos_dayoff AS DAYOFF
+			FROM Hospital H
+			LEFT JOIN HOSPITAL_DAYOFF D
+			ON H.HOS_NUM = D.HOS_NUM
+			WHERE H.HOS_NUM = #{hos_num}
+			)
+			PIVOT (
+			SUM(DAYOFF) 
+			FOR DAYOFF
+			IN (0,1,2,3,4,5,6))
+		</select>
+	
+</mapper>

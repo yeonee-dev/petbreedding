@@ -1,0 +1,245 @@
+.bheader{
+    height: 120px;
+ 
+}
+.bheader .title{
+    margin-bottom: 40px;
+}
+.bheader .title p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.writer, .regdate, .count{
+    font-size: 15px;
+    float: left;
+}
+.regdate, .count{
+    margin-left: 60px;
+}
+.bcon{
+    clear: both;
+}
+
+/* 글조회 시  */
+.con{
+    margin-bottom: 100px;
+}
+.bcon > div > figure > img{
+	width : 300px;
+}
+#boNone{
+	display:none;
+}
+#form1 > img {
+	display:none;
+}
+
+.bcon .img{
+    clear: both;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.bcon .img img{
+    display: flex;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+   border: 1px solid #000;
+}
+.con p{
+    font-weight: 100;
+}
+.backbtn{
+    float: left;
+}
+.backbtn, .modifybtn, .delbtn{
+    width: 90px;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.modifybtn, .delbtn{
+    float: right;
+    margin-left: 20px;
+}
+.rArea{
+	display:none;
+}
+.replyArea {
+	display: flex;
+	justify-content: space-between;
+    width: 828.5px;
+    margin: 0 auto;
+}
+
+.replyNickName {
+	width:200px;
+}
+
+.replyUserInfo {
+	display: flex;
+}
+
+.replyTime {
+	margin-bottom: 0px;
+    width: 150px;
+}
+
+.reply{
+    border-top: 1px solid #000;
+    overflow:hidden;
+    height:100%;
+    clear: both;
+}
+
+
+/* 작성한 댓글 */
+.replyCon{
+	width:400px;
+}
+/* 댓글 input 박스 */
+.replycon{
+	width: 900px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    overflow: hidden;
+    justify-content: center;
+	
+}
+.reply .replycon input{
+    width: 80%;
+    height: 50px;
+    float: left;
+}
+/* 댓글 수정 삭제 버튼 */
+.fboCommentUpdBtn {
+	float:left;
+	cursor: pointer;
+    margin-right: 20px;
+    margin-left: 30px;
+}
+.fboCommentDelBtn {
+	float:left;
+	cursor: pointer;
+}
+
+
+#bocSubmitBtn, #bocUpdateBtn, #bocNoneBtn{
+    width: 9%;
+    float: left;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-left: 30px;
+}
+#bocUpdateBtn{
+	display:none;
+}
+#bocUpdCancelBtn{
+    width: 9%;
+    float: left;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-left: 30px;
+}
+#bocUpdSubmitBtn{
+    width: 9%;
+    float: left;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-left: 30px;
+}
+.adDelBox {
+	display: flex;
+    justify-content: space-evenly;
+}
+.adDelComment {
+	margin-right: 10px;
+}
+
+#replyUpdCont {
+	width: 68%;
+}
+.btnBox{
+	margin : 20px;
+}
+
+/* MODAL */
+.cModal {
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+.cModal h1{
+    text-align: center;
+}
+.cModal p {
+    text-align: center;
+}
+.cModal #closeBtn{
+    cursor: pointer;
+}
+
+.cModal .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.cModal button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.yesBtn{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+.yesBtn:hover{
+    background-color: var(--hover-color);
+}
+.closeBtn{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+.closeBtn:hover{
+    border: 1px solid var(--hover-color);
+}
+
+/* 컨텐츠 수정 */
+#replyUpdCont {
+    width: 100%;
+    height: 51px;
+}
+
+.bocUpdTitle {
+	margin-top: 12px;
+    margin-bottom: 14px;
+}
+/* 더보기 */
+.moreBox{
+	width: 120px;
+	margin: 0 auto;
+}
+#moreBtn{
+    width: 120px;
+    height: 40px;
+    font-family: "GmarketM";
+    border-radius: 10px;
+}
+

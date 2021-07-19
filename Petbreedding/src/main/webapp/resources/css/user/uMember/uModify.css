@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+.uContent {
+	width: 870px;
+	float:left;
+    margin-top: 20px;
+}
+
+.frmBasic {
+  width: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+td > span {
+  display: block;
+  margin-top: 20px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.updFrm {
+  width: 420px;
+  margin: 0 auto;
+}
+.updFrm td{
+	text-align : center;
+}
+.updTitle {
+	text-align: center;
+}
+.mBtnBox {
+	text-align : center;
+}
+.updBtn {
+  width: 400px;
+  padding: 20px;
+  margin-top: 20px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.errorMsg {
+	padding-top: 10px;
+	font-size: 14px;
+	text-align: justify;
+	padding-left: 5px;
+}
+
+.getPhone_bar {
+  width: 300px;
+  float:left;
+  padding: 20px;
+  margin-left:5px;
+}
+
+.updPhobe_btn {
+  width: 95px;
+  padding: 12px;
+  margin-left: 10px;
+}
+
+
+/* MODAL */
+#my_modal, #my_modal2{
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+
+#my_modal h1{
+    text-align: center;
+}
+#my_modal p {
+    text-align: center;
+}
+
+.modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#my_modal button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.locCon{
+	width: 350px;
+    margin: 30px auto;
+}
+.btnBox{
+	width: 220px;
+    margin: 20px auto;
+}
+#confirm,.refuse, #confirm2{
+	width: 100px;
+    padding: 10px;
+    outline:none;
+    cursor:pointer;
+}
+#confirm, #confirm2{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+#confirm:hover, #confirm2:hover{
+    background-color: var(--hover-color);
+}
+.refuse{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+.refuse:hover{
+    border: 1px solid var(--hover-color);
+}
+
+#tel, #num {
+	padding : 10px;
+}
+#tel {
+    width: 250px;
+}
+#num{
+	width: 360px;
+}
+#sendMessage,#cfMessage{
+	padding:10px;
+}
+#cfMessage{
+	display: none;
+}
+#con2{
+	width:300px;
+}
+#nickName{
+	width: 300px;
+    padding: 15px;
+}

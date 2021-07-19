@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ANN_NUM   NOT NULL VARCHAR2(10)    -->
+<!-- ADMIN_ID           VARCHAR2(50)    -->
+<!-- ANN_TITLE NOT NULL VARCHAR2(100)   -->
+<!-- ANN_CONT  NOT NULL VARCHAR2(3000)  -->
+<!-- ANN_DATE  NOT NULL VARCHAR2(20)  -->
+
+<!-- 	private String annNum; -->
+<!-- 	private String adminId; -->
+<!-- 	private String annTitle; -->
+<!-- 	private String annCont; -->
+<!-- 	private String annDate; -->
+
+<mapper namespace="CustomerService">
+	<resultMap type="CustomerService" id="CustomerServiceMap">
+		<id column="ANN_NUM" property="annNum"/>
+		<result column="ADMIN_ID" property="adminId"/>
+		<result column="ANN_TITLE" property="annTitle"/>
+		<result column="ANN_CONT" property="annCont"/>
+		<result column="ANN_DATE" property="annDate"/>
+		<result column="ANN_TYPE" property="annType"/>
+	</resultMap>
+	
+	<!-- 관리자 공지사항 전체 개수 조회 -->
+	<select id="CustomerServiceListCount" resultType="int">
+		SELECT COUNT(*) FROM ANNOUNCEMENT
+	</select>
+	
+	<!-- 관리자 공지사항 ANN TYPE 선택 개수 조회 -->
+	<select id="CustomerServiceListCountS" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM ANNOUNCEMENT WHERE ANN_TYPE = #{annType}
+	</select>
+	
+	<!-- 전체 공지사항 조회 -->
+	<select id="CustomerServiceSelectListA" parameterType="map" resultMap="CustomerServiceMap">
+	 	<![CDATA[
+		 	SELECT B.*
+			FROM (
+			    SELECT ROWNUM R, A.*
+			    FROM(
+			        SELECT * FROM ANNOUNCEMENT 
+			        ORDER BY SUBSTR(ANN_NUM,-3) DESC
+			    ) A
+			)B
+			WHERE R>= #{start} AND R<=#{end}
+		]]>
+	</select>
+	
+	<!-- 관리자 공지사항 선택 조회 -->
+	<select id="CustomerServiceSelectListS" parameterType="map" resultMap="CustomerServiceMap">
+	 	<![CDATA[
+		 	SELECT B.*
+			FROM (
+			    SELECT ROWNUM R, A.*
+			    FROM(
+			        SELECT * FROM ANNOUNCEMENT 
+			        WHERE ANN_TYPE = #{annType}
+			        ORDER BY SUBSTR(ANN_NUM,-3) DESC
+			    ) A
+			)B
+			WHERE R>= #{start} AND R<=#{end}
+		]]>
+	</select>
+	
+	<!-- 일반회원공지사항 -->
+	<select id="CustomerServiceSelectListC" parameterType="CustomerService" resultMap="CustomerServiceMap">
+		SELECT * FROM ANNOUNCEMENT WHERE ANN_TYPE = 0 OR ANN_TYPE = 1
+	</select>
+	
+	<!-- 사업자회원공지사항 -->
+	<select id="CustomerServiceSelectListB" parameterType="map" resultMap="CustomerServiceMap">
+		<![CDATA[
+		SELECT * 
+		FROM(
+		    SELECT ROWNUM R, A.* 
+		    FROM ANNOUNCEMENT A
+		    WHERE ANN_TYPE = 0 OR ANN_TYPE = 2
+		    order by substr(ann_num,-2)DESC
+		)
+		WHERE #{start}<= R AND R<=#{end}
+		]]>
+	</select>
+	<!-- 사업자 공지사항 개수 -->
+	<select id="ListBCount" resultType="int">
+		 SELECT COUNT(*) FROM ANNOUNCEMENT A
+		 WHERE ANN_TYPE = 0 OR ANN_TYPE = 2
+	</select>
+	
+	<!-- 공지사항 상세조회 -->
+	<select id="CustomerServiceSelectOne" parameterType="string" resultMap="CustomerServiceMap">
+		SELECT * FROM ANNOUNCEMENT WHERE ANN_NUM = #{annNum}
+	</select>
+	
+	<insert id="CustomerServiceInsert" parameterType="CustomerService">
+		INSERT INTO ANNOUNCEMENT VALUES
+		(
+			'AN'||SEQ_ANNOUNCEMENT.NEXTVAL, #{adminId}, #{annTitle}
+			,#{annCont}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{annType}
+		)
+	</insert>
+	
+	<update id="CustomerServiceUpdate" parameterType="CustomerService">
+		UPDATE ANNOUNCEMENT SET ANN_TITLE = #{annTitle}, ANN_CONT = #{annCont}, ANN_TYPE = #{annType} WHERE ANN_NUM = #{annNum}
+	</update>
+	
+	<delete id="CustomerServiceDelete" parameterType="string">
+		DELETE FROM ANNOUNCEMENT WHERE ANN_NUM = #{annNum}
+	</delete>
+</mapper>

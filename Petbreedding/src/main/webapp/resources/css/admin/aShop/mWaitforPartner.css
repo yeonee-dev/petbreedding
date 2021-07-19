@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+.mContent{
+    padding-left: 10px !important;
+	margin-bottom: 70px;
+	float: left;
+	width: 780px;
+}
+/*  */
+#mShopm{
+	display:inline-block;
+}
+.mAside{
+	width: 310px;
+}
+#mShop{
+	background-color:var(--bmenu-color);
+	color:var(--font-color);
+}
+
+
+
+
+/* 제휴 관리 테이블 */
+table{
+	width : 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+table tr{
+	height: 50px;
+	border-top: 1px solid #aaa;
+}
+
+table tr:last-child{
+	border-bottom: 1px solid #aaa;
+}
+
+.checkTR:hover{
+	background-color: var(--trhover-color);
+}
+
+table td:first-child, table th:first-child  {
+	width: 15%;
+}
+
+table td:last-child, table th:last-child  {
+	width: 20%;
+}
+
+.inputBox{
+	text-align: left;
+    padding-left: 14px;
+}
+/* 승인, 거절 버튼 */
+.partnerbtns{
+	float: right;
+}
+
+.basicBtn{
+	width: 70px;
+	height: 30px;
+	border-radius: 10px;
+	font-weight: bold;
+}
+
+/* 페이징 */
+.page_wrap {
+	text-align:center;
+}
+
+.page_nation {
+	display:inline-block;
+}
+
+.page_nation .none {
+	display:none;
+}
+
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:none;
+	width:40px;
+	height:30px;
+	line-height:28px;
+}
+
+.page_nation a:hover {
+	color: var(--hover-color)
+}
+
+.page_nation .arrow {
+    font-weight: bold;
+}
+
+.page_nation a.active {
+	font-size: 15px;
+    font-weight: bold;
+	color:#ff9914;
+}
+
+b{
+    float: left;
+    padding-top: 3px;
+    width:40px;
+}

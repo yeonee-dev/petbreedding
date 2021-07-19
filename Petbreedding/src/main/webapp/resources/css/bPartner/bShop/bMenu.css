@@ -1,0 +1,284 @@
+
+/* 페이지마다 바뀌는 항목 */
+#menuOP{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#menuOP a{
+	display:block;
+	color: var(--font-color);
+}
+
+.bContent{
+	width: 950px;
+}
+.section {
+    padding-bottom: 150px;
+}
+
+
+
+#addItemBtn1{
+    float: right;
+    margin-bottom: 30px;
+    margin-right: 70px;
+    width: 75px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: "GmarketM";
+    
+}
+
+
+.menuhead thead tr th{
+	height: 60px;
+	
+}
+
+
+.dynamicTable{
+    
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    height: 40px;
+    float: left;
+    clear: right;
+    width: 110%; 
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.newDynamicTable{
+	border-left: none;
+    border-right: none;
+    text-align: center;
+    height: 40px;
+    float: left;
+    clear: right;
+    width: 110%; 
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.newDynamicTable #menu{
+	width: 202.39px;
+}
+
+.newDynamicTable #price{
+	width: 88px;
+}
+
+.newDynamicTable #time{
+	width: 88px;
+}
+
+
+#dynamicTable th{
+    height: 40px;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+}
+#dynamicTable tr{
+    border-collapse: collapse;
+    
+}
+#dynamicTable td{
+    border: 1px solid #aaa;
+    border-collapse: collapse;
+    border-left: none;
+    border-right: none;
+    height: 40px;
+    border-collapse: collapse;
+}
+
+#addItemBtn{
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    font-family: "GmarketM";
+}
+
+#delItemBtn{
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    font-family: "GmarketM";
+    float: right;
+    margin-right: 20px;
+    background-color: #ff9914;
+}
+
+#delItemBtn:hover{
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    font-family: "GmarketM";
+    float: right;
+    margin-right: 20px;
+    background:#4dbbff; /*버튼 기본 배경색상*/
+
+}
+
+#type{
+	width: 120px;
+	margin: 0px;
+}
+
+input[type=radio] {
+	margin: 0px;
+	padding:0px;
+}
+
+#menu{
+	width: 23%;
+	margin-left: 50px;
+}
+
+.modalC{
+	display: none;
+	position: absolute;
+	top: 45%;
+	left: 45%;
+	width: 300px;
+	height: 120px;
+	padding: 20px 10px 20px 10px;
+	background: white;
+	border: 1px solid #000;
+	overflow: auto;	
+}
+
+.contentC{
+	width: 100%;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.contentC button {
+	border-radius: 6px;
+	font-size: 14px;
+	width: 80px;
+	height: 25px;
+	font-family: "GmarketM";
+    src: url("../../font/GmarketSansTTFMedium.ttf");
+}
+
+
+input {
+    font-family: "GmarketM";
+    src: url("../../font/GmarketSansTTFMedium.ttf");	
+    text-align: center;
+}
+
+.insert label input {
+	width: 3%;
+	height: 8px;
+
+}
+
+#yes{
+	margin-right: 20px;
+
+}
+.insert {
+	margin: 0px;
+	width: 800px;
+	clear: both;
+}
+
+.insert input[type=text]{
+	width: 10%;
+    height: 30px;
+    border: 1px solid #aaa;
+    margin-left: 25px;
+}
+
+
+.okBtn{
+	clear: both;
+	float: none;
+    margin-left: 100px;
+    width: 50px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: "GmarketM";
+    
+}
+
+.updatebtn{
+    border-radius: 5px;
+    font-family: "GmarketM";	
+}
+
+#okbtn {
+	clear: both;
+	float: none;
+    margin-left: 20px;
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: "GmarketM";	
+}
+
+.rebtn{
+    width: 50px;
+    height: 30px;
+    border-radius: 5px;	
+    font-family: "GmarketM";	
+}
+
+.menucon{
+	float: right;
+	position: relative;
+	left: 10px;
+}
+
+#rebtn1{
+	margin-left: 50px;
+}
+
+
+/* 동물병원 진료 종류 관리 */
+
+.medHead table{
+	text-align: center;
+	margin-left:100px;
+	padding-bottom: 20px;
+}
+
+
+.medInsert input {
+	height: 30px;
+}
+
+#medName{
+	margin-right: 110px;
+}
+
+#medPrice{
+	width: 160px;
+	margin-right: 130px;
+}
+
+.medOkBtn{
+	margin: 0px;
+	clear: both;
+	float: none;
+    width: 50px;
+    height: 30px;
+    margin-right: 40px;
+    border-radius: 5px;
+    font-family: "GmarketM";	
+}
+
+#addItemBtn2{
+    float: right;
+    margin-bottom: 30px;
+    margin-right: 70px;
+    width: 75px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: "GmarketM";
+    
+}

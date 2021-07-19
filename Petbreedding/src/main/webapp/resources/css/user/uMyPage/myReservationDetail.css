@@ -1,0 +1,121 @@
+@charset "UTF-8";
+/* 기본 div 박스 테두리 */
+.rborder{
+    border: 1px solid #aaa;
+    padding: 20px 0px 10px 20px;
+    margin: 20px 0;
+    height: auto;
+    overflow: hidden;
+}
+/* div 박스 안 타이틀 */
+.rOrderTitle{
+    font-size: 20px;
+    font-weight: 600;
+}
+.r1{
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+}
+.buttons{
+    text-align: center;
+}
+.basicBtn{
+	width : 200px;
+    height: 40px;
+    border-radius : 10px;
+}
+#rOrderNum{
+    font-size: 12px;
+}
+/* 테이블들 */
+.rborder table{
+    border-spacing: 0 10px;
+    text-align: left;
+}
+.rborder table td {
+    padding-right: 30px;
+}
+/* 결제금액 */
+#rOrderAmount{
+    float: right;
+    padding-right: 20px;
+}
+.dmap{
+    height: 350px;
+    padding-bottom: 20px;
+}
+.map{
+    width: 400px;
+    height: 280px;
+    float: left;
+    position: absolute;
+    border: 1px solid #aaa;
+}
+.rText{
+    float: right;
+    height: 280px;
+    width: 340px;
+    margin-right: 80px;
+}
+p.rOrderTitle{
+    margin-top: 0;
+}
+.rTextBold{
+    font-weight: 600;
+}
+
+
+
+/* MODAL */
+#my_modal {
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+#my_modal h1{
+    text-align: center;
+}
+#my_modal p {
+    text-align: center;
+}
+#my_modal #closeBtn{
+    cursor: pointer;
+}
+
+#my_modal .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#my_modal button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+#goCancle{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+#goCancle:hover{
+    background-color: var(--hover-color);
+}
+#nextTime{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+#nextTime:hover{
+    border: 1px solid var(--hover-color);
+}

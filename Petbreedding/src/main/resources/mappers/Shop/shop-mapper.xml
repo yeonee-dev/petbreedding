@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Shop">
+	
+	
+		<!-- 미용실 -->
+	
+	
+		<!-- HAR_SARLON 테이블  -->
+		<resultMap type="HairSalon" id="HairSalon">
+			<id column="HAR_NUM" property="harNum"/>
+			<result column="BP_ID" property="bpId"/>
+			<result column="HAR_NAME" property="shopName"/>
+			<result column="HAR_ADDR" property="shopAddr"/>
+			<result column="HAR_TEL" property="shopTel"/>
+			<result column="HOPEN_TIME" property="shopTime"/>
+			<result column="HAR_MINFO" property="shopMInfo"/>
+			<result column="HAR_MIMG" property="shopMImg"/>
+			<result column="0" property="sun"/>
+			<result column="1" property="mon"/>
+			<result column="2" property="tue"/>
+			<result column="3" property="wed"/>
+			<result column="4" property="thu"/>
+			<result column="5" property="fri"/>
+			<result column="6" property="sat"/>
+			<result column="AVG_REV_VAL" property="avgRevVal"/>
+			<result column="COUNT" property="count"/>
+			<result column="LIKES" property="likes"/>
+		</resultMap>
+		
+		<!-- 
+			<collection property="shopImgList" column="SHOP_IMG_LIST" ofType="HairSalonImg" columnPrefix="IMG_">
+				<id column="IMG_NUM" property="imgNum"/>
+				<result column="HAR_NUM" property="harNumImg"/>
+				<result column="HAR_IMG" property="shopImg"/>
+			</collection>
+		 -->
+		 
+		 <!-- BP 테이블 -->
+		 <resultMap type="BPartner" id="BPartner">
+			<id column="BP_ID" property="bp_Id"/>
+			<result column="BP_REG" property="bp_reg"/>
+		</resultMap>
+	
+		<!-- HAIR_SALON_IMG 테이블 -->
+		<resultMap type="HairSalonImg" id="HairSalonImg">
+			<id column="IMG_NUM" property="imgNum"/>
+			<result column="HAR_NUM" property="harNum"/>
+			<result column="HAR_IMG" property="shopImg"/>
+		</resultMap>
+
+		<!-- HAIR_DAYOFF 테이블 -->
+		<resultMap type="HairDayOff" id="HairDayOff">
+			<id column="DAY_NUM" property="dayNum"/>
+			<result column="HAR_NUM" property="harNumDayOff"/>
+			<result column="HAR_DAYOFF" property="harDayOff"/>
+		</resultMap>
+			
+			
+		<!-- 사업장 등록 - BP 테이블에서 사업장 등록여부 상태 1로 바꾸기 -->
+		<update id="updateBpReg" parameterType="BPartner">
+			UPDATE BUSINESS_PARTNER 
+			SET BP_REG = 1
+			WHERE BP_ID = #{bpId}		
+		</update>
+		
+		
+		<!-- 전체 미용실 리스트  -->
+		
+		<!-- 미용실 리스트 갯수 출력 -->
+		<select id="countHarList" resultType="int">
+			SELECT COUNT(*) FROM HAIR_SALON
+		</select>
+		
+		
+		<!-- 수정중 -->
+		<!-- 최신순  -->
+		
+		<select id="selectHarListNew" parameterType="page" resultMap="HairSalon">
+		<![CDATA[
+		SELECT  C.*
+		FROM(
+		    SELECT B.* 
+		    FROM(
+		        
+		        SELECT ROWNUM R , A.*
+		        FROM(
+		            select * 
+		            from hair_salon
+		            order by substr(har_num, -3) DESC
+		        )A
+		    )B
+		) C
+		WHERE #{start}<= R AND R <= #{end}
+		
+			]]>
+		</select>
+		
+		<!-- TODO -->
+		<!-- 별점순 정렬-->
+
+		<select id="selectHarListRev" parameterType="page" resultMap="HairSalon">
+		<![CDATA[
+			SELECT B.*
+			FROM(
+				SELECT ROWNUM R, A.*
+				FROM (
+					SELECT *
+        FROM
+        (SELECT *
+        FROM HAIR_SALON HAR
+        INNER JOIN (SELECT BP_ID, AVG(REV_VAL) AVG_REV_VAL
+        FROM(
+            SELECT B.BP_ID, R.REV_VAL
+            FROM business_partner B
+            LEFT JOIN review R
+            ON (b.bp_id = r.bp_id)
+        )  
+        group by BP_ID) BR
+         	ON (har.bp_id = br.bp_id AND har.har_name LIKE '%' ||  #{keyword} || '%' AND har.har_addr LIKE #{locCon} || '%' AND har.har_addr LIKE '%' ||  #{chooseLoc} || '%' )) HARBP
+        ORDER BY HARBP.AVG_REV_VAL DESC NULLS LAST
+                    ) A
+			) B
+        WHERE #{start} <= R AND R <=#{end}
+			]]>
+		</select>
+		
+		<!-- TODO -->
+		<!-- 인기순 정렬-->
+		
+		<select id="selectHarListLikes" parameterType="page" resultMap="HairSalon">
+		<![CDATA[
+	select  C.*
+			from(		
+	    SELECT ROWNUM R, B.*
+			FROM(
+	SELECT  A.*
+		FROM (
+		    SELECT har_hl.*, BR.AVG_REV_VAL
+		    FROM
+		    (
+		        SELECT har.*, hl.likes
+		        FROM hair_salon HAR
+		        LEFT JOIN
+		            (SELECT h.har_num, COUNT(*) LIKES
+		                FROM hair_salon H
+		                JOIN likes L
+		                ON (h.har_num = l.har_num)
+		                GROUP BY h.har_num
+		        ) HL
+		        ON HAR.har_num = HL.har_num
+		    ) har_hl
+		    LEFT JOIN (
+		         SELECT BP_ID, AVG(REV_VAL) AVG_REV_VAL
+		                FROM(
+		                SELECT B.BP_ID, R.REV_VAL
+		                FROM business_partner B
+		                LEFT JOIN review R
+		                ON (b.bp_id = r.bp_id)
+		                )  
+		                group by BP_ID
+		    ) BR
+		    ON (br.bp_id = har_hl.bp_id AND har_hl.har_name LIKE '%' ||  #{keyword} || '%' AND har_hl.har_addr LIKE #{locCon} || '%' AND har_hl.har_addr LIKE '%' ||  #{chooseLoc} || '%')
+		                        ) A
+					        ORDER BY LIKES DESC NULLS LAST
+								) B
+) C 
+			WHERE #{start} <= R AND R <=#{end}
+			]]>
+		</select>
+		
+		
+		 	<!-- 사업장 평균  별점 -->
+		 	<select id="selectRevVal" parameterType="string" resultType="string">
+		 	SELECT AVG(REV_VAL) AVG_REV_VAL
+			FROM(
+			    SELECT B.BP_ID, R.REV_VAL
+			    FROM business_partner B
+			    INNER JOIN review R
+			    ON (b.bp_id = r.bp_id)
+			)  
+				group by BP_ID
+				HAVING BP_ID = #{bpId}
+		 	</select>
+		 	
+		 	
+		 	<!-- 울트라콜 미용실 리스트 출력 (평균 별점 포함) -->
+		 	<select id="selectCtaHarList" resultMap="HairSalon">
+		 	SELECT *
+			FROM ( SELECT har.*, BR.AVG_REV_VAL
+			 FROM HAIR_SALON HAR
+			 LEFT JOIN (SELECT BP_ID, AVG(REV_VAL) AVG_REV_VAL
+			    FROM(
+			        SELECT B.BP_ID, R.REV_VAL
+			        FROM business_partner B
+			        JOIN review R
+			        ON (b.bp_id = r.bp_id)
+			    )  
+			    group by BP_ID) BR
+			    ON har.bp_id = br.bp_id
+			) TABLE1
+			JOIN my_cta TABLE2
+			ON TABLE1.BP_ID = TABLE2.BP_ID
+			order by table2.cta_number DESC
+			</select>
+		 	
+		 	<!-- 울트라콜 사업장 평균 별점 -->
+		 	<select id="selectCtaRevVal" parameterType="string" resultType="string">
+		 	select AVG(REV_VAL) AVG_REV_VAL
+			from 
+				(select bp.bp_id, bp.bp_name 
+				from business_partner bp
+				join my_cta cta
+				on bp.bp_id = cta.bp_id) bpcta
+			join review r
+			on bpcta.bp_id=r.bp_id and bpcta.bp_id = #{bpId}
+		 	</select>
+		 	
+		 	<!-- 울트라콜 사업장 리뷰 건수 -->
+		 	<select id="selectCountCtaReview" parameterType="string" resultType="string">
+			SELECT COUNT(*)
+			FROM
+			(
+			    SELECT R.BP_ID, BPCTA.CTA_NUMBER
+			    FROM REVIEW R
+			    JOIN (
+			        select business_partner.*, my_cta.cta_number
+			            from business_partner join my_cta
+			            on business_partner.bp_id = my_cta.bp_id
+			    ) BPCTA
+			    ON R.bp_id = BPCTA.bp_id
+			)
+			group by BP_ID
+			HAVING BP_ID = #{bpId}
+			</select>
+			
+			
+			
+			
+			
+			
+		<!-- 사업장 리스트: 리뷰 건수 -->
+	 	<select id="selectCountReview" parameterType="string" resultType="string">
+	 	SELECT COUNT(*)
+		FROM REVIEW
+		group by BP_ID
+		HAVING BP_ID = #{bpId}
+		</select>
+		
+		
+		
+		
+		
+		<!-- 미용실 전체 리스트 -->
+		<!-- 페이징 작업 완료 -->
+		<select id="selectHarList" parameterType="page" resultMap="HairSalon">
+		<![CDATA[
+			SELECT B.*
+			FROM(
+				SELECT ROWNUM R, A.*
+				FROM (
+					SELECT *
+					FROM HAIR_SALON) A
+			) B
+			WHERE #{start} <= R AND R <=#{end}
+			]]>
+		</select>
+		
+		<!-- TODO -->	
+		<!-- 미용실 키워드 & 위치 검색  -->
+		<!-- 최신순 정렬 -->
+		<!-- 인기순 정렬 -->
+		<!-- 별점순 정렬 -->
+		
+		
+		
+		
+		<!-- 미용실 등록/수정 부분 -->
+		
+		
+		
+		<!-- 미용실 기본 정보 기입 -->
+		<insert id="insertHarInfo" parameterType="HairSalon">
+		INSERT INTO HAIR_SALON (HAR_NUM, BP_ID, HAR_NAME, HAR_ADDR, HAR_TEL, HOPEN_TIME, HAR_MINFO, HAR_MIMG)
+		VALUES (SEQ_HAIR_SALON.NEXTVAL, #{bpId}, #{shopName},#{shopAddr},#{shopTel},#{shopTime},#{shopMInfo}, #{shopMImg})
+		</insert>
+		
+		
+		<!-- 미용실 기본 정보 불러오기 -->
+		<select id="selectHarInfo" parameterType="string" resultMap="HairSalon">
+			SELECT *
+			FROM (
+			SELECT H.*, D.har_dayoff AS DAYOFF
+			FROM HAIR_SALON H
+			LEFT JOIN HAIR_DAYOFF D
+			ON H.HAR_NUM = D.HAR_NUM
+			WHERE BP_ID = #{bpId}
+			)
+			PIVOT (
+			SUM(DAYOFF) 
+			FOR DAYOFF
+			IN (0,1,2,3,4,5,6))
+		</select>
+		
+
+		
+		<!-- 미용실 정보 수정 -->
+		<update id="updateHarInfo" parameterType="HairSalon">
+			UPDATE HAIR_SALON 
+			SET (HAR_NAME, HAR_ADDR, HAR_TEL, HOPEN_TIME, HAR_MINFO, HAR_MIMG)
+				= (
+					SELECT #{shopName},#{shopAddr},#{shopTel},#{shopTime},#{shopMInfo}, #{shopMImg} 
+					FROM dual
+				)
+			WHERE BP_ID = #{bpId}
+		</update>
+		
+		
+
+		
+		<!--미용실 매장 이미지 첨부 -->
+		<insert id="insertHarImg" parameterType="HairSalonImg">
+			<selectKey keyProperty="harNum" resultType="string" order="BEFORE">
+	       	 SELECT SEQ_HAIR_SALON.CURRVAL FROM DUAL
+	  		</selectKey>
+		INSERT INTO HAIR_SALON_IMG (IMG_NUM, HAR_NUM, HAR_IMG)
+		VALUES (SEQ_HAIR_SALON_IMG.NEXTVAL,#{harNum},#{shopImg})
+		</insert>
+		
+		
+		<!-- 미용실 이미지 리스트 불러오기 -->
+		<select id="selectHarImgList" parameterType="string" resultMap="HairSalonImg">
+		SELECT *
+		FROM HAIR_SALON_IMG
+		WHERE HAR_NUM = #{harNum}
+		</select>
+		
+		<!-- 미용실 이미지 수정(삭제) -->
+		<delete id="deleteHarImg" parameterType="string">
+			DELETE 
+			FROM HAIR_SALON_IMG
+			WHERE HAR_NUM = #{harNum}
+		</delete>
+		
+			<!-- 수정된 미용실 이미지 추가 -->
+			<insert id="insertNewHarImg" parameterType="HairSalonImg">
+		INSERT INTO HAIR_SALON_IMG (IMG_NUM, HAR_NUM, HAR_IMG)
+		VALUES (SEQ_HAIR_SALON_IMG.NEXTVAL,#{harNum},#{shopImg})
+		</insert>
+		
+		<!-- 미용실 주휴일 추가 -->
+		<insert id="insertHarDayOff" parameterType="HairDayOff">
+			<selectKey keyProperty="harNumDayOff" resultType="string" order="BEFORE">
+       	 		SELECT SEQ_HAIR_SALON.CURRVAL FROM DUAL
+  			</selectKey>
+		INSERT INTO HAIR_DAYOFF (DAY_NUM, HAR_NUM, HAR_DAYOFF)
+		VALUES (SEQ_HAIR_SALON_DAYOFF.NEXTVAL, #{harNumDayOff},#{shopDayOff})
+		</insert>
+	
+		<!-- 미용실 주휴일 수정(삭제) -->
+		<delete id="deleteHarDayOff" parameterType="string">
+			DELETE FROM HAIR_DAYOFF
+			WHERE HAR_NUM = #{harNumDayOff}
+		</delete>
+		
+		<!-- 수정된 미용실 주휴일 추가 -->
+		<insert id="insertNewHarDayOff" parameterType="HairDayOff">
+		INSERT INTO HAIR_DAYOFF (DAY_NUM, HAR_NUM, HAR_DAYOFF)
+		VALUES (SEQ_HAIR_SALON_DAYOFF.NEXTVAL, #{harNumDayOff},#{shopDayOff})
+		</insert>
+	
+	<!-- 동물병원 -->
+		<resultMap type="Hospital" id="Hospital">
+		<id column="HOS_NUM" property="hosNum"/>
+		<result column="BP_ID" property="bpId"/>
+		<result column="HOS_NAME" property="shopName"/>
+		<result column="HOS_ADDR" property="shopAddr"/>
+		<result column="HOS_TEL" property="shopTel"/>
+		<result column="OPEN_TIME" property="shopTime"/>
+		<result column="HOS_MINFO" property="shopMInfo"/>
+		<result column="HOS_MIMG" property="shopMImg"/>
+		<result column="0" property="sun"/>
+		<result column="1" property="mon"/>
+		<result column="2" property="tue"/>
+		<result column="3" property="wed"/>
+		<result column="4" property="thu"/>
+		<result column="5" property="fri"/>
+		<result column="6" property="sat"/>
+		<result column="AVG_REV_VAL" property="avgRevVal"/>
+		<result column="COUNT" property="count"/>
+	</resultMap>
+	
+	<!-- HOSPITAL_IMAGE 테이블-->
+		<resultMap type="HospitalImg" id="HospitalImg">
+			<id column="IMG_NUM" property="imgNum"/>
+			<result column="HOS_NUM" property="hosNum"/>
+			<result column="HOS_IMG" property="shopImg"/>
+		</resultMap>
+		
+			
+	<!-- HOSPITAL_DAYOFF 테이블 -->
+		<resultMap type="HosDayOff" id="HosDayOff">
+			<id column="DAY_NUM" property="dayNum"/>
+			<result column="HOS_NUM" property="hosNumDayOff"/>
+			<result column="HOS_DAYOFF" property="hosDayOff"/>
+		</resultMap>
+		
+	<!-- TODO -->
+	<!-- 동물병원 리스트 갯수 출력 -->
+	<select id="countHosList" resultType="int">
+			SELECT COUNT(*) FROM HOSPITAL
+		</select>
+		
+		<!-- 병원 울트라콜 리스트 : 리뷰 건수 -->
+		<select id="selectUltraHos" resultMap="Hospital">
+		 	SELECT *
+			FROM ( SELECT HOS.*, BR.AVG_REV_VAL
+			 FROM hospital HOS
+			 LEFT JOIN (SELECT BP_ID, AVG(REV_VAL) AVG_REV_VAL
+			    FROM(
+			        SELECT B.BP_ID, R.REV_VAL
+			        FROM business_partner B
+			        JOIN review R
+			        ON (b.bp_id = r.bp_id)
+			    )  
+			    group by BP_ID) BR
+			    ON HOS.bp_id = br.bp_id
+			) TABLE1
+			JOIN my_cta TABLE2
+			ON TABLE1.BP_ID = TABLE2.BP_ID
+			ORDER BY table2.cta_number DESC
+		</select>
+	
+	<!-- 동물병원 전체 리스트 -->
+	<select id="selectHosList" parameterType="Hospital" resultMap="Hospital">
+		<![CDATA[
+			SELECT B.*
+			FROM(
+				SELECT ROWNUM R, A.*
+				FROM (
+					SELECT *
+					FROM HOSPITAL) A
+			) B
+			WHERE #{start} <= R AND R <=#{end}
+			]]>
+	</select>	
+	
+		<!-- 동물병원 리스트 : 최신순  -->
+		<!-- 키워드 검색기능 추가완료 -->
+		<!-- 주소 검색 기능 추가완료 -->
+		<select id="selectHosListNew" parameterType="page" resultMap="Hospital">
+		<![CDATA[
+			SELECT B.*
+			FROM(
+				SELECT ROWNUM R, A.*
+				FROM (
+					SELECT *
+			        FROM
+			        (SELECT *
+			        FROM HOSPITAL HOS
+			        INNER JOIN (SELECT BP_ID, AVG(REV_VAL) AVG_REV_VAL
+			        FROM(
+			            SELECT B.BP_ID, R.REV_VAL
+			            FROM business_partner B
+			            LEFT JOIN review R
+			            ON (b.bp_id = r.bp_id)
+			        )  
+			        group by BP_ID) BR
+			        ON (hos.bp_id = br.bp_id AND hos.hos_name LIKE '%' ||  #{keyword} || '%' AND hos.hos_addr LIKE #{locCon} || '%' AND hos.hos_addr LIKE '%' ||  #{chooseLoc} || '%'  )) HOSBP
+			                    ) A
+			        ORDER BY HOS_NUM DESC
+						) B
+			WHERE #{start} <= R AND R <=#{end}
+			]]>
+		</select>
+		
+		<!-- 동물병원 리스트 : 인기순(찜)  -->
+		<!-- TODO -->
+		
+		<!-- 동물병원 리스트 : 별점순  -->
+	<select id="selectHosListRev" parameterType="page" resultMap="Hospital">
+		<![CDATA[
+			SELECT B.*
+			FROM(
+				SELECT ROWNUM R, A.*
+				FROM (
+					SELECT *
+        FROM
+        (SELECT *
+        FROM HOSPITAL HOS
+        INNER JOIN (SELECT BP_ID, AVG(REV_VAL) AVG_REV_VAL
+        FROM(
+            SELECT B.BP_ID, R.REV_VAL
+            FROM business_partner B
+            LEFT JOIN review R
+            ON (b.bp_id = r.bp_id)
+        )  
+        group by BP_ID) BR
+         ON (hos.bp_id = br.bp_id AND hos.hos_name LIKE '%' ||  #{keyword} || '%' AND hos.hos_addr LIKE #{locCon} || '%' AND hos.hos_addr LIKE '%' ||  #{chooseLoc} || '%'  )) HOSBP
+        ORDER BY HOSBP.AVG_REV_VAL DESC NULLS LAST
+                    ) A
+			) B
+        WHERE #{start} <= R AND R <=#{end}
+			]]>
+		</select>
+	
+	<!-- 동물병원 기본 정보 기입 -->
+	<insert id="insertHosInfo" parameterType="Hospital">
+	INSERT INTO HOSPITAL (HOS_NUM, BP_ID, HOS_NAME, HOS_ADDR, HOS_TEL, OPEN_TIME, HOS_MINFO, HOS_MIMG )
+	VALUES (SEQ_HOSPITAL.NEXTVAL, #{bpId}, #{shopName},#{shopAddr},#{shopTel},#{shopTime},#{shopMInfo}, #{shopMImg})
+	</insert>
+
+
+
+	<!-- 동물병원 기본 정보 불러오기 -->
+		<select id="selectHosInfo" parameterType="string" resultMap="Hospital">
+		SELECT *
+		FROM (
+		SELECT H.*, D.HOS_DAYOFF AS DAYOFF
+		FROM HOSPITAL H
+		LEFT JOIN HOSPITAL_DAYOFF D
+		ON H.HOS_NUM = D.HOS_NUM
+		WHERE BP_ID = #{bpId}
+		)
+		PIVOT (
+			SUM(DAYOFF) 
+			FOR DAYOFF
+			IN (0,1,2,3,4,5,6))
+		
+		</select>	
+	
+	<!-- 동물병원 기본 정보 수정 -->
+	<update id="updateHosInfo" parameterType="Hospital">
+		UPDATE HOSPITAL 
+		SET (HOS_NAME, HOS_ADDR, HOS_TEL, OPEN_TIME, HOS_MINFO, HOS_MIMG) 
+		= (
+			SELECT #{shopName},#{shopAddr},#{shopTel},#{shopTime},#{shopMInfo}, #{shopMImg}
+			FROM dual
+		)
+		WHERE BP_ID = #{bpId}	
+	</update>
+	
+	<!-- 동물병원 이미지 리스트 불러오기 -->
+		<select id="selectHosImgList" parameterType="string" resultMap="HospitalImg">
+		SELECT *
+		FROM HOSPITAL_IMAGE
+		WHERE HOS_NUM = #{hosNum}
+		</select>
+		
+	<!--동물병원 이미지 첨부 -->
+	<insert id="insertHosImg" parameterType="HospitalImg">
+			<selectKey keyProperty="hosNum" resultType="string" order="BEFORE">
+	       	 SELECT SEQ_HOSPITAL.CURRVAL FROM DUAL
+	  		</selectKey>
+		INSERT INTO HOSPITAL_IMAGE (IMG_NUM, HOS_NUM, HOS_IMG)
+		VALUES (SEQ_HOSPITAL_IMG.NEXTVAL,#{hosNum},#{shopImg})
+		</insert>
+		
+		<!-- 동물병원 이미지 수정(삭제) -->
+		<delete id="deleteHosImg" parameterType="HospitalImg">
+			DELETE 
+			FROM HOSPITAL_IMAGE img
+			WHERE EXISTS
+			(
+				SELECT 1
+				FROM HOSPITAL info
+				WHERE info.HOS_NUM = #{hosNum}
+			)
+		</delete>
+		
+		<!-- 수정된 동물병원 이미지 추가 -->
+		<insert id="insertNewHosImg" parameterType="HospitalImg">
+		INSERT INTO HOSPITAL_IMAGE (IMG_NUM, HOS_NUM, HOS_IMG)
+		VALUES (SEQ_HOSPITAL_IMG.NEXTVAL,#{hosNum},#{shopImg})
+		</insert>
+		
+		<!-- 동물병원 주휴일 추가 -->
+			<insert id="insertHosDayOff" parameterType="HosDayOff">
+			<selectKey keyProperty="hosNumDayOff" resultType="string" order="BEFORE">
+       	 		SELECT SEQ_HOSPITAL.CURRVAL FROM DUAL
+  			</selectKey>
+		INSERT INTO HOSPITAL_DAYOFF (DAY_NUM, HOS_NUM, HOS_DAYOFF)
+		VALUES (SEQ_HOSPITAL_DAYOFF.NEXTVAL, #{hosNumDayOff},#{shopDayOff})
+		</insert>
+	
+		<!-- 동물병원 주휴일 수정(삭제) -->
+			<delete id="deleteHosDayOff" parameterType="string">
+			DELETE FROM HOSPITAL_DAYOFF
+			WHERE HOS_NUM = #{hosNumDayOff}
+		</delete>
+		
+		<!-- 수정된 동물병원 주휴일 추가 -->
+			<insert id="insertNewHosDayOff" parameterType="HosDayOff">
+		INSERT INTO HOSPITAL_DAYOFF (DAY_NUM, HOS_NUM, HOS_DAYOFF)
+		VALUES (SEQ_HOSPITAL_DAYOFF.NEXTVAL, #{hosNumDayOff},#{shopDayOff})
+		</insert>
+		
+		
+		<!-- 미용실 리스트 -->
+		<select id="searchBpId" parameterType="string" resultType="string">
+			SELECT bp_id FROM HAIR_SALON where har_num=#{har_num}
+			union
+			SELECT bp_id FROM HOSPITAL where hos_num=#{har_num}
+		</select>
+		
+</mapper>

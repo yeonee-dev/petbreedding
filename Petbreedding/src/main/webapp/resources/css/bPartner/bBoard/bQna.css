@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+/* 페이지마다 변경되는 항목 */
+.bContent{
+	width: 750px;
+	text-align: center;
+	margin: 0;
+	float:left;
+	height: 606px;
+}
+.bAside{
+	width:350px;
+}
+#bMyPage{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#bMyPage a{
+	display:block;
+	color: var(--font-color);
+}
+#bMyPageM{
+	display: inline-block;
+	height: 606px;
+}
+.section{
+	padding-bottom: 150px;
+}
+.page_wrap{
+	margin-top: 50px;
+}
+
+.basicBtn {
+	width: 80px;
+	height: 30px;
+	border-radius : 10px;
+	float : right;
+	font-family: "GmarketM";
+    src: url("../font/GmarketSansTTFMedium.ttf");
+    padding: 5px;
+}
+
+/* 문의 내역 테이블 */
+.asktable {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.asktable .pointline {
+	border-top: 1px solid #aaa;
+}
+
+.asktable tr td, .asktable tr th {
+	padding: 15px 0px;
+	text-align: center;
+}
+
+.pointline:hover{
+	background-color: var(--trhover-color);
+    cursor: pointer;
+}
+
+
+
+.asktable tr:first-child:hover {
+    asktable: var(--font-color);
+    cursor: default;
+}

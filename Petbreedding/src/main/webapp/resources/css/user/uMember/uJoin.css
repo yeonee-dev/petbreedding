@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+.basicTextInput{
+	width: 400px;
+	padding: 10px;
+}
+.basicTextInput:focus{
+	outline : none;
+	border: 1px solid var(--hover-color);
+}
+td > span {
+  display: block;
+  margin-top: 20px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.joinFrm {
+  width: 400px;
+  margin: 0 auto;
+}
+.joinFrm h1{
+	text-align: center;
+}
+
+#joinBtn {
+  width: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+
+.getChkMsg_bar {
+  width: 100%;
+}
+#hpConfirm,#hpConfirm2{
+ 	 width: 100%;
+    padding: 9px 9px 12px 9px;
+}
+#hpConfirm2{
+    display: none;
+}
+
+#chkNumBar {
+  margin-top: 10px;
+}
+
+#hp::placeholder, #hp2::placeholder{
+	font-size: 12px;
+}
+
+.check_font{
+	padding-top: 10px;
+	font-size: 14px;
+}

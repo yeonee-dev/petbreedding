@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+/* 페이지마다 변경되는 항목 */
+.bContent{
+	width: 750px;
+	text-align: center;
+	margin: 0;
+	float:left;
+}
+.bAside{
+	width:350px;
+}
+#bMyPage{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#bMyPage a{
+	display:block;
+	color: var(--font-color);
+}
+#bMyPageM{
+	display: inline-block;
+}
+.section{
+	padding-bottom: 150px;
+}
+
+
+.title{
+	border-top: 1px solid #aaa;
+	cursor:pointer;
+}
+.fa-angle-down {
+	font-size: 20px;
+	float: right;
+}
+
+.fa-angle-up {
+	font-size: 20px;
+	float: right;
+}
+.up i,.down i{
+	padding-top : 10px;
+}
+.up {
+	display: none;	
+}
+
+.down:hover, .up:hover {
+	cursor: pointer;
+	background-color:var(- -hover-color);;
+}
+
+.content {
+	width: 100%;
+	display: none;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-top: 1px solid #aaa;
+    background: #f2f2f2;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+}
+
+hr{
+	margin-top : 0;
+}

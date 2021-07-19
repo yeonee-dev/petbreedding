@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+.joinBox{
+    width: 800px;
+    margin: 0 auto;
+    
+}
+.joinBox label{
+    display: block;
+    margin-top: 20px;
+}
+.joinBox2{
+    width: 500px;
+    margin: 0 auto;
+}
+.joinBox2 h1{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.joinFrm{
+    width: 400px;
+    margin: 0 auto;
+}
+.inputBox{
+    display: block;
+    width: 400px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.inputBox:focus, .hpBox:focus{
+    outline: 1px solid var(--hover-color);
+    border: 1px solid var(--hover-color);;
+}
+.hpBox{
+    width: 275px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+#hpConfirm,#hpConfirm2{
+    width: 120px;
+    padding: 9px 9px 12px 9px;
+}
+#hpConfirm2{
+    display: none;
+}
+.serviceC{
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+.checkShop, .radioL{
+    display: inline-block !important;
+}
+
+#submitBtn{
+    padding: 10px;
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.check_font{
+	padding-top: 10px;
+	font-size: 14px;
+}

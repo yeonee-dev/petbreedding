@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.bContent{
+    height: 820px;
+    margin: 0;
+    margin-top : -20px;
+}
+
+.tabCon{
+	height: 700px;
+}
+
+table tr td img {
+	width: 80px;
+	height: auto;
+	margin : 0 30px 0 10px;
+}
+
+#deleteMsg-modal{
+	left: 33%;
+    top: 50%;
+}
+
+#yesDelete{
+	padding: 10px 30px 10px 30px;
+	border-radius: 10px;
+	width: 100px;
+	margin-right: 30px;
+}
+
+#noDelete{
+	padding: 10px 30px 10px 30px;
+	border-radius: 10px;
+	width: 100px;
+}

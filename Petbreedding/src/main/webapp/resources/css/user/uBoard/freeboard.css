@@ -1,0 +1,261 @@
+.bheader{
+    text-align: center;
+    height: 150px;
+}
+.bheader h1{
+    margin-bottom: 50px;
+}
+.search-box{
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #4dbbff;
+    border-radius: 30px;
+    transition: 0.4s;
+    width:30px;
+  }
+  .search-box:hover{
+    box-shadow: 0px 0px .5px 1px #ff9914;
+    border: 1px solid #ff9914;
+    width: 282px;
+  }
+  .search-btn{
+    text-decoration: none;
+    float: right;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4dbbff;
+  }
+  .search-box:hover > .search-btn{
+    background-color: #ff9914;
+    color: white;
+  }
+  .search-txt{
+    display: flex;
+    padding: 0;
+    width: 0px;
+    border:none;
+    background: none;
+    outline: none;
+    float: left;
+    font-size: 1rem;
+    line-height: 30px;
+    transition: .4s;
+  }
+  .search-box:hover > .search-txt{
+    width: 240px;
+    padding: 0 6px;
+  }
+  .write{
+    float: right;
+    margin-bottom: 30px;
+  }
+  .writebtn{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  .writebtn a{
+    color: #fff;
+    font-size: 15px;
+    font-family: "GmarketB";
+  }
+
+  /*SEARCH2*/
+
+
+  #searchType {
+	width: 80px;
+	height: 65px;
+	border: none;
+	font-size: 18px;
+	color: #99ADB6;
+	margin-top: 20px;
+	padding: 0;
+	float: left;
+	text-align: left;
+	clear: both;
+	font-family: 'GmarketM';
+	font-weight: normal;
+	font-style: normal;
+    border-radius: 8px;
+    border:2px solid #E6E6E6;
+    border-right: none;
+
+}
+
+
+  #searchType:hover, #searchType:focus {
+	color: black;
+	transition: color 0.15s ease-in-out;
+}
+
+#search {
+	width: 650px;
+	height: 65px;
+	top: 0;
+	background-color: #fff;
+	border: none;
+	font-size: 18px;
+	margin-top: 20px;
+	padding: 0;
+	float: left;
+    border: 2px solid #E6E6E6;
+    border-right: none;
+    
+}
+
+#search:hover, #search:focus {
+	color: black;
+	background-color: #ffffff;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		box-shadow 0.15s ease-in-out;
+	box-shadow: 10px 10px 20px 5px #eeeeee;
+}
+
+#search::-webkit-input-placeholder {
+	background-size: contain;
+	background-position: 10px center;
+	background-repeat: no-repeat;
+	text-indent: 0;
+    
+}
+
+#btnsearch {
+	width: 70px;
+	height: 65px;
+	padding: 0;
+	border-style: hidden hidden hidden solid;
+	border-color: #E6E6E6;
+	font-size: 18px;
+	color: #99ADB6;
+	background-color: #efeff3;
+	margin-top: 20px;
+	float: left;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		box-shadow 0.15s ease-in-out;
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+    border-radius: 8px;
+}
+
+#btnsearch:hover, #btnsearch:focus {
+	color: black;
+	background-color: #ffffff;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		box-shadow 0.15s ease-in-out;
+	box-shadow: 10px 10px 20px 5px #eeeeee;
+}
+
+
+/* #replyUpdCont { */
+/* 	width: 68%; */
+/* } */
+
+/*BOARDLIST*/
+
+.boardlist{
+    border: 1px solid #E6E6E6;
+    clear: both;
+    padding: 30px 100px;
+    height: auto;
+    overflow:hidden;
+    margin-bottom: 30px;
+}
+
+.imgSize {
+	width: 150px;
+	height: 100px;
+}
+.boardlist .subdiv img{
+    float: left;
+    margin-right: 60px;
+}
+.boardlist .subdiv .title{
+    margin-bottom: 50px;
+    
+}
+.boardlist .subdiv .title p{
+    font-weight: bold;
+    font-size: 18px;
+    
+}
+.boardlist .subdiv .writer{
+    float: left;
+}
+.boardlist .subdiv .writer, .regdate{
+    font-size: 13px;
+    
+}
+.boardlist .subdiv .regdate{
+    float: right;
+    display: inline;
+    
+    
+}
+.boardlist .subdiv .regdate a{
+    margin-left: -300px;
+
+}
+.boardlist .subdiv .count{
+    clear: both;
+    float: right;
+    margin-top: -80px;
+   
+}
+
+/* PAGING */
+
+.page_wrap {
+	text-align:center;
+}
+
+.page_nation {
+	display:inline-block;
+}
+
+.page_nation .none {
+	display:none;
+}
+
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:none;
+	width:40px;
+	height:30px;
+	line-height:28px;
+}
+
+.page_nation a:hover {
+	color: var(--hover-color)
+}
+
+.page_nation .arrow {
+    font-weight: bold;
+}
+
+.page_nation a.active {
+	font-size: 15px;
+    font-weight: bold;
+	color:#ff9914;
+}
+
+b{
+    float: left;
+    padding-top: 3px;
+    width:40px;
+}

@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+#cta{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#cta a{
+	display:block;
+	color: var(--font-color);
+}
+
+.bContent{
+	width: 1000px;
+	margin-top:0;
+}
+
+.section {
+    padding-bottom: 140px !important;
+}
+
+
+
+
+.fs20 {
+  font-size: 20px;
+}
+.fs24 {
+  font-size: 24px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+#section {
+	padding-bottom: 150px;
+}
+
+.ctaFrm {
+	margin-bottom: 70px;
+}
+
+.viewInfo {
+  margin: 30px 30px;
+}
+
+.viewText {
+  line-height: 30px;
+}
+
+.views {
+  margin-left: 60px;
+}
+
+.aBox {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  border: 1px solid var(--border-color);
+  margin-top: 30px;
+}
+
+.CTAPayBtn {
+  width: 100px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  margin-top: 33px;
+ 
+}
+.CTAPayBtn a{
+	 font-family: "GmarketB";
+	 src: url("../font/GmarketSansTTFBold.ttf");
+	 color: #fff;
+}
+
+.price {
+  text-align: right;
+}
+
+.CTA_inst::before {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: var(--hover-color);
+}

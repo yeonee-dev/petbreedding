@@ -1,0 +1,43 @@
+@charset "UTF-8";
+.myPageAside{
+    display: block;
+    float: left;
+    margin : 20px;
+    width:220px;
+}
+.divborder{
+    border: 1px #aaa solid;
+    border-collapse: collapse;
+    width: 180px;
+   	padding : 20px
+}
+.myPageAside label{
+    font-size: 15px;
+}
+.myPageAside li{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.divBold{
+    font-size: 23px;
+    color: gray
+}
+.divBolder{
+    font-size: 35px;
+    color: #FF9914;
+}
+.myPageAside ul a:hover{
+    color: var(--hover-color);
+    cursor: pointer;
+}
+
+/* 네비 옆 페이지 공용 css */
+.mcontent{
+    padding-left:270px;
+}
+
+/* 타이틀 */
+.pageTitle{
+    text-align: left;
+    font-size: 23px;
+}

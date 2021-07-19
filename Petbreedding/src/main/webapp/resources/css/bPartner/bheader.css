@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+/*header 높이 지정*/
+.Bheader{
+    height: 180px;
+}
+
+/*알림/고객명/로그인/회원가입/예약확인조회/고객센터*/
+.UserNav{
+    float: right;
+}
+.UserNav li{
+    float: left;
+    margin-left: 30px;
+    font-size: 14px;
+}
+.UserNav #userName{
+    margin-left: 10px;
+}
+/*로고*/
+.logo{
+    height: 150px;
+}
+
+/*hover 시*/
+
+.UserNav li a:hover{
+    color: var(--hover-color);
+    cursor: pointer;
+}

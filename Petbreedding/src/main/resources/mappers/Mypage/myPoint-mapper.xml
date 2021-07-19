@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- CL_NUM              VARCHAR2(20)  -->
+<!-- POINT_NUM           VARCHAR2(20)  -->
+<!-- INDEXS     NOT NULL NUMBER(1)     -->
+<!-- EXP_DATE   NOT NULL VARCHAR2(20)  -->
+<!-- EXP_TYPE   NOT NULL VARCHAR2(20)  -->
+<!-- EXP_FROM   NOT NULL VARCHAR2(20)  -->
+<!-- EXP_ID     NOT NULL VARCHAR2(20)  -->
+<!-- EXP_POINT  NOT NULL NUMBER(5)     -->
+<!-- CURR_POINT NOT NULL NUMBER(5)    -->
+
+<!-- 	private String clNum; -->
+<!-- 	private String pointNum; -->
+<!-- 	private int indexs; -->
+<!-- 	private String expDate; -->
+<!-- 	private String expType; -->
+<!-- 	private String expFrom; -->
+<!-- 	private String expId; -->
+<!-- 	private int expPoint; -->
+<!-- 	private int currPoint; -->
+
+<mapper namespace="MyPoint">
+	<resultMap type="MyPoint" id="MyPointMap">
+		<result column="CL_NUM" property="clNum"/>
+		<result column="POINT_NUM" property="pointNum"/>
+		<result column="INDEXS" property="indexs"/>
+		<result column="EXP_DATE" property="expDate"/>
+		<result column="EXP_TYPE" property="expType"/>
+		<result column="EXP_FROM" property="expFrom"/>
+		<result column="EXP_ID" property="expId"/>
+		<result column="EXP_POINT" property="expPoint"/>
+		<result column="CURR_POINT" property="currPoint"/>
+	</resultMap>
+	
+	
+	<!-- 내 포인트 사용 목록  -->
+	<select id="myPointSelectList" parameterType="MyPoint" resultMap="MyPointMap">
+		<![CDATA[
+			SELECT * 
+			FROM MYPOINT  
+			WHERE CL_NUM = #{clNum}
+			ORDER BY INDEXS DESC
+		 ]]>
+	</select>
+	
+	<!-- 현재 포인트 조회  -->
+	<select id="CurrPointSelectOne" parameterType="string" resultType="int">
+		<![CDATA[
+			SELECT CURR_POINT
+			FROM (
+				SELECT * FROM MYPOINT ORDER BY INDEXS DESC
+			)
+			WHERE CL_NUM = #{clNum} AND ROWNUM = 1
+		]]>
+	</select>
+	
+<!-- 	INSERT INTO MYPOINT VALUES('CL1', 'PO2', SEQ_MYPOINT.NEXTVAL, TO_CHAR(SYSDATE, 'YYYYMMDD'), '취소', '미용실3', 'HAP1', 1000, 1000); -->
+
+	<!-- 포인트 초기화 -->
+	<insert id="myPointInit" parameterType="MyPoint">
+		INSERT INTO MYPOINT VALUES(
+		#{clNum}, #{pointNum}, SEQ_MYPOINT.NEXTVAL, TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+		#{expType}, #{expFrom}, #{expId}, #{expPoint}, #{currPoint}
+		)
+	</insert>
+
+	<!-- 포인트 적립-->
+	<insert id="myPointInsert" parameterType="MyPoint">
+		<![CDATA[
+			
+			insert into mypoint values (#{clNum}, #{pointNum}, seq_mypoint.nextval, to_char(sysdate, 'yyyy-mm-dd'), 
+			#{expType}, #{expFrom}, #{expId}, (select score from point where point_num=#{pointNum}), 
+			(select 
+				(
+					SELECT CURR_POINT FROM (
+			         	SELECT * FROM MYPOINT ORDER BY INDEXS DESC
+			        )
+			        WHERE CL_NUM = #{clNum}  AND ROWNUM = 1
+				) 
+			+ 
+				(
+					select score from point 
+					where point_num=#{pointNum}
+				)
+			from dual)
+			)
+	
+		]]>
+		
+	</insert>
+	
+	<!-- 포인트 사용 -->
+	<insert id="myPointUpdate" parameterType="MyPoint">
+		<![CDATA[
+			insert into mypoint
+			values (#{clNum},'PO1', seq_mypoint.nextval, to_char(sysdate, 'yyyy-mm-dd'),'사용', #{expFrom}, #{expId}, #{expPoint}, 
+			(SELECT (CURR_POINT-#{expPoint}) FROM (
+			    SELECT * FROM MYPOINT ORDER BY INDEXS DESC
+			)
+			WHERE CL_NUM = #{clNum}  AND ROWNUM = 1)
+			)
+			
+		]]>
+	</insert>
+	
+	<!-- 포인트 취소 -->
+	<insert id="myPointCancle" parameterType="MyPoint">
+		INSERT INTO mypoint
+		VALUES (#{clNum},'PO2', seq_mypoint.nextval, to_char(sysdate, 'yyyy-mm-dd'),'취소', #{expFrom}, #{expId}, 0, (SELECT EXP_POINT
+		FROM (
+		SELECT * FROM MYPOINT ORDER BY INDEXS DESC
+		)
+		WHERE CL_NUM = #{clNum} AND EXP_DATE = #{expDate} AND EXP_ID = #{expId}))
+	</insert>
+	
+	<!-- 3개월 조회  -->
+	<select id="myPoint3m" resultMap="MyPointMap" parameterType="string">
+		<![CDATA[
+			select * FROM MYPOINT WHERE EXP_DATE >= to_char(add_months(sysdate,-3),'yyyy-mm-dd') 
+			AND CL_NUM = #{clNum}
+			ORDER BY INDEXS DESC
+		]]>
+	</select>
+	
+	<!-- 6개월 조회  -->
+	<select id="myPoint6m" resultMap="MyPointMap" parameterType="string">
+		<![CDATA[
+			select * FROM MYPOINT WHERE EXP_DATE >= to_char(add_months(sysdate,-6),'yyyy-mm-dd') 
+			AND CL_NUM = #{clNum}
+			ORDER BY INDEXS DESC
+		]]>
+	</select>
+	
+	<!-- 12개월 조회  -->
+	<select id="myPoint12m" resultMap="MyPointMap" parameterType="string">
+		<![CDATA[
+			select * FROM MYPOINT WHERE EXP_DATE >= to_char(add_months(sysdate,-12),'yyyy-mm-dd') 
+			AND CL_NUM = #{clNum}
+			ORDER BY INDEXS DESC
+		]]>
+	</select>
+	
+	<select id="myPointDate" parameterType="map" resultMap="MyPointMap">
+		<![CDATA[
+			SELECT * FROM MYPOINT 
+			WHERE EXP_DATE >= #{expDate} AND EXP_DATE <= #{expDate2} 
+			AND CL_NUM = #{clNum}
+			ORDER BY INDEXS DESC
+		]]>
+	</select>
+	
+	
+	
+	
+	
+</mapper>

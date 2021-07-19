@@ -1,0 +1,25 @@
+@charset "UTF-8";
+.finishedPage{
+    border: 1px solid var(--border-color);
+    width: 600px;
+    height: 300px;
+    margin: 200px auto;
+    text-align: center;
+    display: table;
+}
+.finishedPage p {
+    font-size: 14px;
+}
+.finishedPage button{
+    background-color: var(--button-color);
+    border: none;
+    outline: none;
+    color: var(--font-color);
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.pageContent{
+   vertical-align: middle;
+   display: table-cell;
+}

@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+.pageTitle{
+	margin-top : 20px;
+	margin-bottom : 0;
+}
+.basicBtn {
+	width: 80px;
+	height: 30px;
+	border-radius : 10px;
+	float : right;
+}
+
+/* 문의 내역 테이블 */
+.asktable {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.asktable .pointline {
+	border-top: 1px solid #aaa;
+}
+
+.asktable tr td, .asktable tr th {
+	padding: 15px 0px;
+	text-align: center;
+}
+
+.asktable tr:hover {
+    background-color: var(--trhover-color);
+    cursor: pointer;
+}
+
+.asktable tr:first-child:hover {
+    asktable: var(--font-color);
+    cursor: default;
+}
+
+#myAskBtn {
+	width: 93px;
+}

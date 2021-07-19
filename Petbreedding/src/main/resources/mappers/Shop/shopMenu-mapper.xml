@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ShopMenu">
+
+
+	<!-- 미용실 -->
+	
+	
+	<!-- 스타일 테이블  -->
+	<resultMap type="Style" id="Style">
+		<id column="STYLE_NUM" property="style_num"/>
+		<result column="HAR_NUM" property="harNum"/>
+		<result column="STYLE_NAME" property="style_name"/>
+		<result column="PRICE" property="price"/>
+		<result column="STYLE_TIME" property="style_time"/>
+		<result column="STYLE_DEEP" property="style_deep"/>
+		<result column="STYLE_NUM2" property="style_num2"/>
+	</resultMap>
+	
+		
+	<!-- 미용실 주메뉴 추가 -->
+	<!-- ShopDao.java -->
+	<insert id="insertStyleMAinMenu" parameterType="Style">
+	INSERT INTO STYLE (STYLE_NUM,HAR_NUM,STYLE_NAME,PRICE,STYLE_TIME,STYLE_DEEP)
+	VALUES	(SEQ_STYLE.NEXTVAL,#{harNum},#{style_name},#{price},#{style_time},0)
+	</insert>
+	
+	<!-- 미용실 서브메뉴 추가 -->
+	<!-- ShopDao.java -->
+	<insert id="insertStyleSubMenu" parameterType="Style">
+	INSERT INTO STYLE (STYLE_NUM,HAR_NUM,STYLE_NAME,PRICE,STYLE_TIME,STYLE_DEEP,STYLE_NUM2)
+	VALUES	(SEQ_STYLE.NEXTVAL,#{harNum},#{style_name},#{price},#{style_time},1,SEQ_STYLE.NEXTVAL)
+	</insert>
+	
+	<!-- 등록한 미용실 메인 메뉴 조회 -->
+	<!-- ShopDao.java -->
+	<select id="selectStyleList" parameterType="string" resultMap="Style">
+		SELECT * 
+		FROM STYLE
+		WHERE HAR_NUM = #{harNum} AND STYLE_DEEP = 0
+	</select>
+	
+	<!-- 미용실 메뉴 수정 -->
+	<update id="updateStyle" parameterType="Style">
+	UPDATE STYLE
+	SET (STYLE_DEEP,STYLE_NAME,PRICE,STYLE_TIME)
+		= (
+			SELECT #{style_deep},#{style_name},#{price},#{style_time}
+			FROM dual
+		)
+	WHERE STYLE_NUM = #{style_num}
+	</update>
+	
+	<!-- 미용실 메뉴 삭제 -->
+	<delete id="deleteStyle" parameterType="string">
+		DELETE 
+		FROM STYLE 
+		WHERE STYLE_NUM = #{style_num}
+	</delete>
+
+	
+	
+	<!-- 동물병원 -->
+	
+	<!-- 진료 정보 테이블 -->
+	<resultMap type="MedicalType" id="MedicalType">
+	<id column="MED_NUM" property="medNum"/>
+	<result column="MED_NAME" property="medName"/>
+	<result column="MED_PRICE" property="medPrice"/>
+	</resultMap>
+	
+	
+	<!-- 동물병원 진료 정보 추가 -->
+	<!-- ShopDao.java -->
+	<insert id="insertMedicalType" parameterType="MedicalType">
+	INSERT INTO MEDICAL_TYPE (MED_NUM, MED_NAME, MED_PRICE, HOS_NUM)
+	VALUES	(SEQ_MEDICAL_TYPE.NEXTVAL, #{medName}, #{medPrice}, #{hosNum})
+	</insert>
+	
+	
+	<!-- 등록한 동물병원 진료 정보 리스트 조회 -->
+	<!-- ShopDao.java -->
+	<select id="selectMedList" parameterType="string" resultMap="MedicalType">
+		SELECT * 
+		FROM MEDICAL_TYPE
+		WHERE HOS_NUM = #{hosNum}
+	</select>
+	
+	
+
+	<!-- 동물병원 진료 정보 수정 -->
+	<update id="updateMedicalType" parameterType="MedicalType">
+	UPDATE MEDICAL_TYPE
+	SET (MED_NAME, MED_PRICE)
+		= (
+			SELECT #{medName},#{medPrice}
+			FROM dual
+		)
+	WHERE MED_NUM = #{medNum}
+	</update>
+
+	<!-- 동물병원 진료 정보 삭제 -->
+	<delete id="deleteMedicalType" parameterType="string">
+		DELETE 
+		FROM MEDICAL_TYPE 
+		WHERE MED_NUM = #{medNum}
+	</delete>
+
+</mapper>

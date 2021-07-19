@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- QNAC_NUM  NOT NULL VARCHAR2(10)    -->
+<!-- ADMIN_ID           VARCHAR2(50)    -->
+<!-- QNA_NUM            VARCHAR2(50)    -->
+<!-- QNAC_CONT          VARCHAR2(1000)  -->
+<!-- QNAC_DATE          VARCHAR2(20)  -->
+
+<!-- private String qnacNum; -->
+<!-- 	private String adminId; -->
+<!-- 	private String qndNum; -->
+<!-- 	private String qnacCont; -->
+<!-- 	private String qnacDate; -->
+
+<mapper namespace="MyAskComment">
+
+	<resultMap type="MyAskComment" id="MyAskCommentMap">
+		<id column="QNAC_NUM" property="qnacNum"/>
+		<result column="ADMIN_ID" property="adminId"/>
+		<result column="QNA_NUM" property="qnaNum"/>
+		<result column="QNAC_CONT" property="qnacCont"/>
+		<result column="QNAC_DATE" property="qnacDate"/>
+	</resultMap>
+
+	<!-- [관리자] 해당 문의 사항의 댓글 조회 (JSON) -->
+	<select id="myAskCommentSelectOne" parameterType="string" resultMap="MyAskCommentMap">
+		SELECT * FROM QNA_COMMENT WHERE QNA_NUM = #{qnaNum}
+	</select>
+	
+	<!-- [고객, 사업자] 해당 문의 사항의 댓글 조회 -->
+	<select id="myAskCommentSelectOneCB" parameterType="string" resultMap="MyAskCommentMap">
+		SELECT * FROM QNA_COMMENT WHERE QNA_NUM = #{qnaNum}
+	</select>
+	
+	<!-- 문의 사항 댓글 시퀀스 더미 테이블을 이용해 가져오기 -->
+	<select id="getMyAskCommentSeq" resultType="string">
+		<![CDATA[
+			SELECT 'QC'||SEQ_QNA_COMMENT.NEXTVAL from DUAL
+		]]>
+	</select>
+	
+	<!-- 문의 사항 댓글 등록 -->
+	<insert id="myAskCommentInsert" parameterType="MyAskComment">
+		INSERT INTO QNA_COMMENT VALUES(
+			#{qnacNum}, #{adminId}, #{qnaNum}
+			,#{qnacCont}, TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		)
+	</insert>
+	
+	<update id="myAskCommentUpdate" parameterType="MyAskComment">
+		UPDATE QNA_COMMENT SET QNAC_CONT = #{qnacCont} WHERE QNAC_NUM = #{qnacNum}
+	</update>
+
+	
+	<!-- 문의 사항 댓글 삭제 -->
+	<delete id="myAskCommentDelete" parameterType="string">
+		DELETE FROM QNA_COMMENT WHERE QNAC_NUM = #{qnacNum}
+	</delete>
+	
+		<!-- 문의 사항 답변 여부 등록  -->
+	<update id="myAskChkUpdate" parameterType="string">
+		UPDATE QNA_BOARD SET QNAR_CHK = 1 WHERE QNA_NUM = #{qnaNum}
+	</update>
+	
+</mapper>

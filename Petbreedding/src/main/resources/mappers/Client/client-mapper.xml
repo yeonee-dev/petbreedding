@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ClientMap">
+	<resultMap type="Client" id="Client">
+		<id column="CL_NUM" property="cl_num" />
+		<result  column="CL_EMAIL" property="email"/>
+		<result  column="CL_PWD" property="password"/>
+		<result  column="CL_NICKNAME" property="nickname"/>
+		<result  column="CL_NAME" property="name"/>
+		<result  column="CL_TEL" property="tel"/>
+		<result  column="NAVERLOGIN" property="naverlogin"/>
+		<result  column="KAKAOLOGIN" property="kakaologin"/>
+		<result column="REG_DATE" property="reg_date"/>
+	</resultMap>
+	
+	<!-- 사용자 회원가입 -->
+	<insert id="insertClient" parameterType="Client">
+			INSERT INTO client VALUES(#{cl_num}, #{email},#{password},#{nickname},#{name},#{tel},#{naverlogin},#{kakaologin}, default)	
+	</insert>
+	
+
+	<!-- 아이디 중복체크 -->
+	<select id="checkEmail" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM client WHERE CL_EMAIL = #{email}
+	</select>
+	<!-- 닉네임 중복체크 -->
+	<select id="checkNickName" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM client WHERE CL_NICKNAME = #{nickname} 
+	</select>
+	<!-- 휴대폰 중복체크 -->
+	<select id="checkHp" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM client WHERE CL_TEL = #{tel} 
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="deleteClient" parameterType="string">
+		DELETE FROM client WHERE CL_NUM = #{cl_num}
+	</delete>
+	
+	<delete id="deltePoint" parameterType="string">
+		DELETE FROM MYPOINT WHERE CL_NUM = #{cl_num}
+	</delete>
+	
+	<!-- 마이포인트 JOIN SEQ 값 가져오기 -->
+	<select id="getJoinSeq" resultType="string">
+		SELECT 'J'||SEQ_JOIN.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- client seq 다음 값 가져오기 -->
+	<select id="getClientSeqNextVal" resultType="string">
+			SELECT 'CL000'||SEQ_CLIENT.NEXTVAL FROM DUAL
+	</select>
+		
+	<!-- client seq 다음 값 가져오기 -->
+	<select id="getClientSeqCurrVal" resultType="string">
+		SELECT 'CL000'||SEQ_CLIENT.CURRVAL FROM DUAL
+	</select>
+
+</mapper>

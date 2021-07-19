@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+body{
+	text-align: center;
+	padding : 0 40px ;
+	height: 700px;
+}
+
+img{
+	margin-top : 20px;
+	height: 100px;
+}
+
+.closebtn{
+	margin-top : 20px;
+	float: right;
+}
+
+div a:hover{
+	cursor: pointer;
+	color: var(--hover-color);
+}
+
+.bInfo{
+	margin-top : 0;
+	clear: both;
+}
+
+.bInfoinner{
+	margin: 0px auto 20px auto; 
+	text-align: center; 
+	color: white; 
+	background-color: var(--button-color); 
+	padding: 10px 10px; 
+	border-radius: 10px;
+}
+
+.bInfoinner:hover{
+	background-color: var(--hover-color);
+	cursor: pointer;	
+}
+
+/* 채팅 내용 */
+#chatArea{
+	border: 1px solid #aaa; 
+	width : 470px;
+	height: 400px;  
+	overflow-y: auto;
+	overflow-x: hidden; 
+}
+
+#chatMessageArea{
+	margin-top: 10px; 
+	margin-left: 10px;
+}
+
+/* 채팅 입력창 */
+.dMessageO{
+	height : auto; 
+	margin-top : 5px;
+}
+
+.inputchatwrap{
+	margin-top: 20px; 
+	margin-bottom : 20px;
+	text-align: center;
+}
+
+.form-control{
+	border: 1px solid #aaa; 
+	float: left; 
+	display: inline-block;
+	font: inherit;
+	li
+}
+
+.basicBtn{
+	display : inline-block;
+	margin : 0 0 0 10px;
+	width: 60px;
+	height: 80px;
+}
+
+#sendBtn{
+	float: right; 
+	text-align: center; 
+	border-radius: 10px;
+	text-align: center; 
+	font-weight: bold;
+}
+
+/* 채팅 메시지 블럭 */
+.dMessageO{
+	height : auto; 
+	margin-top : 5px;
+}
+.dMessage{
+	padding-right:0px; 
+	padding-left : 0px;
+}
+.my{
+	float:right; 
+	padding-right: 10px;
+}
+.U{
+	float:left;
+}
+
+.mycolor{
+	float:right; 
+	background-color: var(--hover-color); 
+}
+
+.Ucolor{
+	float:left;
+	background-color: var(--button-color);
+}
+
+.dNick{
+	font-size:13px;
+	font-weight: bold; 
+	display:block;
+}
+
+.dConO{
+	overflow : y ; 
+	margin-top : 7px;
+}
+
+.dConI{
+	padding : 10px 5px; 
+	border-radius:10px;
+}
+
+.dConI span{
+	font-size : 13px;
+}
+
+.dTimeO{
+	font-size:10px; 
+	text-align:right; 
+	clear:both;
+}

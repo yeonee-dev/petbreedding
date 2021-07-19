@@ -1,0 +1,228 @@
+@charset "UTF-8";
+
+/* 페이지마다 변경되는 항목 */
+.bContent{
+	width: 750px;
+	margin: 0;
+	float:left;
+}
+.bAside{
+	width:350px;
+}
+#bMyPage{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#bMyPage a{
+	display:block;
+	color: var(--font-color);
+}
+#bMyPageM{
+	display: inline-block;
+}
+.section{
+	padding-bottom: 150px;
+}
+
+/* 리뷰 관리 테이블 */
+table{
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+table tr{
+	height: 50px;
+}
+
+table .pointline {
+	border-top: 1px solid #aaa;
+}
+
+table tr:last-child{
+	border-bottom: 1px solid #aaa;
+}
+
+table img{
+	height: 20px;
+}
+
+/* 버튼 */
+.basicBtn{
+	border-radius: 10px;
+	height: 30px;
+	width: 100px;
+	font-weight: 900;
+}
+
+.btnReCom{
+	background-color: var(--hover-color);
+	cursor: default;
+	
+}
+
+/* 페이징 */
+.page_wrap {
+	text-align:center;
+}
+
+.page_nation {
+	display:inline-block;
+}
+
+.page_nation .none {
+	display:none;
+}
+
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:none;
+	width:40px;
+	height:30px;
+	line-height:28px;
+}
+
+.page_nation a:hover {
+	color: var(--hover-color)
+}
+
+.page_nation .arrow {
+    font-weight: bold;
+}
+
+.page_nation a.active {
+	font-size: 15px;
+    font-weight: bold;
+	color:#ff9914;
+}
+
+/* 리뷰 답글 모달 */
+.modalRe-Overlay {
+	width: 100%;
+	height: 1400px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.4);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	display: none;
+}
+
+#modalReply-Win {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	width: 500px;
+	height: 400px;
+	top: -100px;
+	position: relative;
+	background-color: var(--font-color);
+}
+
+.Retitle{
+	border: 1px solid #aaa;
+	height: 50px;
+	line-height: 50px;
+	overflow : hidden;
+	padding : 0 20px;
+}
+
+#modalTitle{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.modal_close_btn {
+	line-height: 0;
+	margin-top : -30px;
+	float: right;
+}
+
+.modal_close_btn:hover, .btnAddFile:hover {
+	color: var(--hover-color);
+	cursor: pointer;
+}
+
+.reviewsection{
+	margin: 15px;
+	border: 1px solid #aaa;
+}
+
+#modalRetxt{
+	overflow : hidden;	
+	width: 250px;
+	display:inline-block;
+	margin: 10px;
+	padding : 20px 0 0 10px;
+	text-align: left;
+}
+
+.txtImg{
+	width: 100px;
+}
+
+#modalRetxt p {
+	display:inline-block;
+	margin: 10px 0;
+}
+
+#reTitle{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+#reDate{
+	position : relative;
+	float: right;
+}
+#modalReImg{
+	display:inline-block;
+	width: 100px;
+	float: right;
+	margin: 10px;
+}
+
+#modalReply-Win span{
+	padding-left: 20px;
+	font-weight: bold;
+}
+
+.replysection{
+	width: 100%;
+	overflow : hidden;	
+	height: 70px;
+	padding : 10px 40px 10px 20px;
+}
+
+.wraptextarea{
+	display: inline-block;
+	float: left;
+}
+.modalRe-Win textarea {
+	resize: none;
+	overflow-y: auto;
+	border: 1px solid #aaa;
+	font: inherit;
+}
+
+.replysection .brevRegBtn{
+	height: 60px;
+	width: 120px;
+	display: inline-block;
+	margin : 5px 20px;
+}
+.wrapbtn{
+	padding : 0 20px;
+}
+.btnnext{
+	float: right;	
+}
+
+
+
+

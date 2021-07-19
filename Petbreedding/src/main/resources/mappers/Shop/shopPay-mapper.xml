@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="shopPay">
+
+	<!-- 미용실 예약VO -->
+	<resultMap type="HairRev" id="HairRev">
+		<id column="HAR_RNUM" property="har_rnum" />
+		<result column="CL_NUM" property="cl_num" />
+		<result column="PET_NUM" property="pet_num" />
+		<result column="STYLE_NUM" property="style_num" />
+		<result column="HAR_NUM" property="har_num" />
+		<result column="RES_DATE" property="res_date" />
+		<result column="RES_STATUS" property="res_status" />
+		<result column="RES_TIME" property="res_time" />
+		<result column="STYLE_NUM2" property="style_num2" />
+		<result column="HAR_NAME" property="har_name" />
+		<result column="RES_DATE2" property="res_date2" />
+		<collection property="hairSalon" resultMap="HairSalon" />
+		<collection property="style" resultMap="Style" />
+	</resultMap>
+
+	<!-- HAR_SARLON 테이블 -->
+	<resultMap type="HairSalon" id="HairSalon">
+		<id column="HAR_NUM" property="harNum" />
+		<result column="HAR_NAME" property="shopName" />
+		<result column="HAR_ADDR" property="shopAddr" />
+		<result column="HAR_TEL" property="shopTel" />
+		<result column="BP_ID" property="bpId" />
+	</resultMap>
+	<!--스타일 -->
+	<resultMap type="Style" id="Style">
+		<id column="STYLE_NUM" property="style_num" />
+		<result column="HAR_NUM" property="harNum" />
+		<result column="STYLE_NAME" property="style_name" />
+		<result column="PRICE" property="price" />
+	</resultMap>
+
+	<!-- 미용실 결제VO -->
+	<resultMap type="HarPay" id="HarPay">
+		<id column="PAY_NUM" property="pay_num" />
+		<result column="HAR_RNUM" property="har_rnum" />
+		<result column="CARD_NUM" property="card_num" />
+		<result column="PAY_DATE" property="pay_date" />
+		<result column="PAY_PRICE" property="pay_price" />
+		<result column="TOTAL_PRICE" property="total_price" />
+		<result column="BP_ID" property="bpId" />
+	</resultMap>
+
+
+
+
+	<!-- 동물병원 -->
+	<resultMap type="Hospital" id="Hospital">
+		<id column="HOS_NUM" property="hosNum" />
+		<result column="BP_ID" property="bpId" />
+		<result column="HOS_NAME" property="shopName" />
+		<result column="HOS_ADDR" property="shopAddr" />
+		<result column="HOS_TEL" property="shopTel" />
+		<result column="OPEN_TIME" property="shopTime" />
+		<result column="HOS_MINFO" property="shopMInfo" />
+		<result column="HOS_CONN" property="hosConn" />
+		<result column="HOS_CLICK" property="hosClick" />
+	</resultMap>
+
+	<!-- 동물병원 예약VO -->
+	<resultMap type="HosRev" id="HosRev">
+		<id column="HOS_RNUM" property="hos_rnum" />
+		<result column="CL_NUM" property="cl_num" />
+		<result column="PET_NUM" property="pet_num" />
+		<result column="MED_NUM" property="med_num" />
+		<result column="HOS_NUM" property="hos_num" />
+		<result column="HOS_DATE" property="hos_date" />
+		<result column="HOS_DATE2" property="hos_date2" />
+		<result column="MED_NUM2" property="med_num2" />
+		<result column="HOS_STATUS" property="hos_status" />
+		<result column="HOS_TIME" property="hos_time" />
+		<collection property="hospital" resultMap="Hospital" />
+		<collection property="medical" resultMap="MedicalType" />
+	</resultMap>
+
+	<!-- 동물병원 결제VO -->
+	<resultMap type="HosPay" id="HosPay">
+		<id column="PAY_NUM" property="pay_num" />
+		<result column="HOS_RNUM" property="hos_rnum" />
+		<result column="CARD_NUM" property="card_num" />
+		<result column="PAY_DATE" property="pay_date" />
+		<result column="PAY_PRICE" property="pay_price" />
+		<result column="TOTAL_PRICE" property="total_price" />
+	</resultMap>
+
+	<!-- 병원 진료 테이블 -->
+	<resultMap type="MedicalType" id="MedicalType">
+		<result column="MED_NAME" property="medName" />
+		<result column="MED_PRICE" property="medPrice" />
+	</resultMap>
+
+
+
+	<!-- 미용실 -->
+	<!-- 결제 페이지 조회 -->
+	<select id="myRevPay" parameterType="string" resultMap="HairRev">
+		SELECT
+		h.*, s.style_name, hs.har_name, hs.har_addr, hs.har_tel
+		FROM
+		HAR_RESERVATION h
+		LEFT JOIN STYLE s ON h.style_num = s.style_num
+		LEFT
+		JOIN HAIR_SALON hs ON h.har_num = hs.har_num
+		WHERE h.har_rnum =
+		#{har_rnum}
+	</select>
+
+	<!-- 결제테이블 저장 -->
+	<insert id="harPay" parameterType="HarPay">
+		INSERT INTO HAR_PAY
+		VALUES('HARPAY000' || SEQ_HAR_PAY.nextval,
+		#{har_rnum},#{card_num},to_char(SYSDATE,
+		'YYYY-MM-DD'),#{pay_price},#{total_price})
+	</insert>
+
+	<!-- 예약현황 update -->
+	<update id="harRevUp" parameterType="string">
+		UPDATE HAR_RESERVATION SET
+		RES_STATUS = 1 WHERE HAR_RNUM = #{har_rnum}
+	</update>
+
+	<!-- 동물병원 -->
+	<!-- 결제 페이지 조회 -->
+	<select id="myRevPay2" parameterType="string" resultMap="HosRev">
+		SELECT
+		h.*, hs.hos_name, hs.hos_addr, hs.hos_tel, m.med_name, m.med_price
+		FROM HOS_RESERVATION h
+		LEFT JOIN HOSPITAL hs ON h.hos_num = hs.hos_num
+		LEFT JOIN MEDICAL_TYPE m ON
+		h.med_num = m.med_num
+		WHERE h.hos_rnum =
+		#{hos_rnum}
+	</select>
+
+	<!-- 결제테이블 저장 -->
+	<insert id="hosPay" parameterType="HosPay">
+		INSERT INTO HOS_PAY
+		VALUES('HOSPAY000' || SEQ_HOS_PAY.nextval,
+		#{hos_rnum},#{card_num},to_char(SYSDATE,
+		'YYYY-MM-DD'),#{pay_price},#{total_price})
+	</insert>
+
+	<!-- 예약현황 update -->
+	<update id="hosRevUp" parameterType="string">
+		UPDATE HOS_RESERVATION SET
+		HOS_STATUS = 1 WHERE HOS_RNUM = #{hos_rnum}
+	</update>
+
+	<update id="updateRevByScheduled" statementType="CALLABLE">
+		<![CDATA[
+		{CALL HAR_RESERVATION_DATE}
+		]]>
+	</update>
+
+	<update id="updateRevByScheduled2" statementType="CALLABLE">
+		<![CDATA[
+		{CALL HOS_RESERVATION_DATE}
+		]]>
+	</update>
+
+	<!-- 병원 매출관리 -->
+	<select id="HosAllPrice" resultType="int" parameterType="string">
+		select sum(b.total_price)
+		from (select hos_rnum from hos_reservation
+		where hos_num = #{hos_num}) A
+		JOIN
+		(select hos_rnum, total_price, to_char(to_date(pay_date), 'yyyy-mm')
+		from hos_pay
+		where to_char(to_date(pay_date), 'yyyy-mm') = to_char(to_date(sysdate),
+		'yyyy-mm')
+		order by to_char(to_date(pay_date), 'yyyy-mm') desc)b
+		on a.hos_rnum = b.hos_rnum
+	</select>
+
+	<!-- 미용실 매출관리 -->
+	<select id="HarAllPrice" resultType="int" parameterType="string">
+		select
+		sum(b.total_price)
+		from (select har_rnum from har_reservation
+		where
+		har_num = #{har_num}) A
+		JOIN
+		(select har_rnum, total_price,
+		to_char(to_date(pay_date), 'YYYY-MM')
+		from har_pay
+		where
+		to_char(to_date(pay_date), 'YYYY-MM') = to_char(to_date(SYSDATE),
+		'YYYY-MM')
+		order by to_char(to_date(pay_date), 'YYYY-MM') DESC)b
+		on
+		a.har_rnum = b.har_rnum
+	</select>
+
+	<!-- 최근 12개월 미용실 매출 차트 -->
+	<select id="HarsixPrice" resultType="int" parameterType="string">
+		select
+		sum(TOTAL_PRICE)
+		from (
+		SELECT b.*
+		FROM
+		(SELECT HAR_NUM, HAR_RNUM FROM HAR_RESERVATION
+		WHERE HAR_NUM = #{har_num})A
+		JOIN
+		(SELECT HAR_RNUM, TOTAL_PRICE, to_char(to_date(pay_date), 'YYYY-MM') as
+		totalpay
+		FROM HAR_PAY
+		WHERE <![CDATA[to_char(to_date(pay_date), 'YYYY-MM') >=
+		to_char(add_months(sysdate, -12), 'yyyy-mm')]]>
+		and <![CDATA[to_char(to_date(pay_date), 'YYYY-MM') <=
+		to_char(last_day(sysdate), 'yyyy-mm')]]>
+		order by to_char(to_date(pay_date), 'YYYY-MM') DESC)B
+		ON A.HAR_RNUM = B.HAR_RNUM
+		) c
+		GROUP BY TOTALPAY
+		order by  TOTALPAY desc
+	</select>
+
+	<!-- 최근 12개월 날짜 -->
+	<select id="yearMonth" resultType="string">
+		select distinct to_char(to_date(pay_date), 'YYYY-MM') from har_pay
+		where 
+ 	<![CDATA[to_char(to_date(pay_date), 'YYYY-MM') >=
+    to_char(add_months(sysdate, -12), 'yyyy-mm')]]>
+		and <![CDATA[to_char(to_date(pay_date), 'YYYY-MM') <=
+    to_char(last_day(sysdate), 'yyyy-mm')]]>
+		order by to_char(to_date(pay_date), 'YYYY-MM') DESC
+
+	</select>
+
+	<!-- 최근 12개월 병원 매출 -->
+	<select id="hosYearPrice" resultType="int"
+		parameterType="string">
+			select
+		sum(TOTAL_PRICE)
+		from (
+		SELECT b.*
+		FROM
+		(SELECT HOS_NUM, HOS_RNUM FROM HOS_RESERVATION
+		WHERE HOS_NUM = #{hos_num})A
+		JOIN
+		(SELECT HOS_RNUM, TOTAL_PRICE, to_char(to_date(pay_date), 'YYYY-MM') as
+		totalpay
+		FROM HOS_PAY
+		WHERE <![CDATA[to_char(to_date(pay_date), 'YYYY-MM') >=
+		to_char(add_months(sysdate, -12), 'yyyy-mm')]]>
+		and <![CDATA[to_char(to_date(pay_date), 'YYYY-MM') <=
+		to_char(last_day(sysdate), 'yyyy-mm')]]>
+		order by to_char(to_date(pay_date), 'YYYY-MM') DESC)B
+		ON A.HOS_RNUM = B.HOS_RNUM
+		) c
+		GROUP BY TOTALPAY
+		order by  TOTALPAY desc
+	</select>
+</mapper>

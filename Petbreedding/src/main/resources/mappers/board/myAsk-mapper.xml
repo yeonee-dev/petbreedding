@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- //QNA_NUM   NOT NULL VARCHAR2(10)    -->
+<!-- //USER_NUM  NOT NULL VARCHAR2(20)    -->
+<!-- //QNA_TITLE NOT NULL VARCHAR2(100)   -->
+<!-- //QNA_CONT  NOT NULL VARCHAR2(3000)  -->
+<!-- //QNA_IMG            VARCHAR2(200)   -->
+<!-- //QNA_DATE  NOT NULL VARCHAR2(20)    -->
+<!-- //QNA_WR             VARCHAR2(50)    -->
+<!-- //QNAR_CHK           NUMBER(1)   -->
+
+<!-- 	private String qnaNum; -->
+<!-- 	private String userNum; -->
+<!-- 	private String qnaTitle; -->
+<!-- 	private String qnaCont; -->
+<!-- 	private String qnaImg; -->
+<!-- 	private String qnaDate; -->
+<!-- 	private String qnaWr; -->
+<!-- 	private String qnaChk; -->
+
+<mapper namespace="MyAsk">
+	<resultMap type="MyAsk" id="MyAskMap">
+		<id column="QNA_NUM" property="qnaNum"/>
+		<result column="USER_NUM" property="userNum"/>
+		<result column="QNA_TITLE" property="qnaTitle"/>
+		<result column="QNA_CONT" property="qnaCont"/>
+		<result column="QNA_IMG" property="qnaImg"/>
+		<result column="QNA_DATE" property="qnaDate"/>
+		<result column="QNA_WR" property="qnaWr"/>
+		<result column="QNA_TYPE" property="qnaType"/>
+		<result column="QNAR_CHK" property="qnaChk"/>
+	</resultMap>
+	
+	<select id="listCount" resultType="int">
+		SELECT COUNT(*) FROM QNA_BOARD
+	</select>
+	
+	<select id="listCountAll" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM QNA_BOARD WHERE QNAR_CHK = #{qnaChk}
+	</select>
+	
+	<select id="listCountClBp" parameterType="MyAsk" resultType="int">
+		SELECT COUNT(*) FROM QNA_BOARD WHERE QNA_TYPE = #{qnaType} AND QNAR_CHK = #{qnaChk}
+	</select>
+	
+	<select id="clBpListCount" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM QNA_BOARD WHERE USER_NUM = #{userNum}
+	</select>
+	
+	<select id="MyAskSelectList" parameterType="map" resultMap="MyAskMap">
+	 	<![CDATA[
+		 	SELECT B.*
+			FROM (
+			    SELECT ROWNUM R, A.*
+			    FROM(
+			        SELECT * FROM QNA_BOARD 
+			        WHERE USER_NUM = #{userNum}
+			        ORDER BY SUBSTR(QNA_NUM,-3) DESC
+			    ) A
+			)B
+			WHERE R>= #{start} AND R<=#{end}
+		]]>
+	</select>
+	
+	<select id="MyAskSelectListM" parameterType="map" resultMap="MyAskMap">
+	 	<![CDATA[
+		 	SELECT B.*
+			FROM (
+			    SELECT ROWNUM R, A.*
+			    FROM(
+			        SELECT * FROM QNA_BOARD 
+			        ORDER BY SUBSTR(QNA_NUM,-3) DESC
+			    ) A
+			)B
+			WHERE R>= #{start} AND R<=#{end}
+		]]>
+	</select>
+	
+	<select id="MyAskSelectListClBpM" parameterType="map" resultMap="MyAskMap">
+	 	<![CDATA[
+		 	SELECT B.*
+			FROM (
+			    SELECT ROWNUM R, A.*
+			    FROM(
+			        SELECT * FROM QNA_BOARD
+			        WHERE QNA_TYPE = #{qnaType} AND QNAR_CHK = #{qnaChk}
+			        ORDER BY SUBSTR(QNA_NUM,-3) DESC
+			    ) A
+			)B
+			WHERE R>= #{start} AND R<=#{end}
+		]]>
+	</select>
+	
+		<select id="MyAskSelectListClBpAllM" parameterType="map" resultMap="MyAskMap">
+	 	<![CDATA[
+		 	SELECT B.*
+			FROM (
+			    SELECT ROWNUM R, A.*
+			    FROM(
+			        SELECT * FROM QNA_BOARD
+			        WHERE QNAR_CHK = #{qnaChk}
+			        ORDER BY SUBSTR(QNA_NUM,-3) DESC
+			    ) A
+			)B
+			WHERE R>= #{start} AND R<=#{end}
+		]]>
+	</select>
+	
+	<select id="MyAskSelectOne" parameterType="string" resultMap="MyAskMap">
+		SELECT * FROM QNA_BOARD WHERE QNA_NUM = #{qnaNum}
+	</select>
+	
+	<select id="getClientNickName" parameterType="string" resultType="string">
+		SELECT CL_NICKNAME FROM CLIENT WHERE CL_NUM = #{userNum}
+	</select>  
+	
+	<select id="getBpNickName" parameterType="string" resultType="string">
+		SELECT BP_NAME FROM BUSINESS_PARTNER WHERE BP_ID = #{userNum}
+	</select>
+	
+	<update id="updateQnarChk" parameterType="string">
+		UPDATE QNA_BOARD SET QNAR_CHK = 0 WHERE QNA_NUM = #{qnaNum}
+	</update>
+	
+	<insert id="MyAskInsert" parameterType="MyAsk">
+		<![CDATA[
+			INSERT INTO QNA_BOARD VALUES (
+			'Q'||SEQ_QNA_BOARD.NEXTVAL, #{userNum}, #{qnaTitle}, #{qnaCont},
+			#{qnaImg}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{qnaWr}, #{qnaType}, 0
+			)
+		]]>
+	</insert>
+	
+	<delete id="MyAskDelete" parameterType="string">
+		DELETE FROM QNA_BOARD WHERE QNA_NUM = #{qnaNum}
+	</delete>
+	
+	
+</mapper>

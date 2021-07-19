@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+#bCal{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#bCal a{
+	display:block;
+	color: var(--font-color);
+}
+
+.bContent{
+	width: 1000px;
+}
+.section{
+	padding-bottom:150px;
+}
+
+
+.calhead{
+    height: 40px;
+}
+.calhead p{
+    font-weight: bold;
+    font-size: 20px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: -40px;
+}
+.calhead p:nth-child(2){
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 2.2em;
+}
+.calrow h1{
+    font-weight: bold;
+    font-size: 50px;
+}
+.calbtn{
+    float: left;
+    margin-right: 30px;
+}
+.timeBtn{
+    width: 90px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #aaa;
+    border-radius: 15px;
+    font-family: "GmarketB";
+    
+}
+.timeBtn:hover{
+    width: 90px;
+    height: 40px;
+    background: #ff9914;
+    border: 1px solid #aaa;
+    border-radius: 15px;
+    font-family: "GmarketB";
+    cursor: pointer;
+}
+.timeOption{
+    float: left;
+    width: 40%;
+}
+.timeOption p{
+    font-weight: bold;
+    line-height: 0.5;
+}
+.timeOptionRow{
+    float: right;
+    margin-top: -34px;
+}
+#inquiryBtn{
+    width: 70px;
+    height: 30px;
+    border-radius: 8px;
+    margin-left: 20px;
+    font-family: "GmarketM";
+}

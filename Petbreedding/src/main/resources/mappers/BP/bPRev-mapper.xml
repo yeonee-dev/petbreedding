@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bprev">
+	<!-- 미용실 예약VO -->
+	<resultMap type="HairRev" id="HairRev">
+		<id column="HAR_RNUM" property="har_rnum" />
+		<result column="MSG_NUM" property="msg_num" />
+		<result column="CL_NUM" property="cl_num" />
+		<result column="PET_NUM" property="pet_num" />
+		<result column="STYLE_NUM" property="style_num" />
+		<result column="HAR_NUM" property="har_num" />
+		<result column="RES_DATE" property="res_date" />
+		<result column="RES_STATUS" property="res_status" />
+		<result column="RES_TIME" property="res_time" />
+		<result column="STYLE_NUM2" property="style_num2" />
+		<result column="CL_NAME" property="name" />
+		<result column="RES_CHK" property="res_chk"/>
+		<collection property="pet" resultMap="Pet" />
+		<collection property="client" resultMap="Client" />
+		<collection property="style" resultMap="Style" />
+		<collection property="hairSalon" resultMap="HairSalon" />
+	
+		
+	</resultMap>
+
+	<!-- 병원 예약 vo -->
+	<resultMap type="HosRev" id="HosRev">
+		<id column="HOS_RNUM" property="hos_rnum"/>
+		<result column="MSG_NUM" property="msg_num"/>
+		<result column="CL_NUM" property="cl_num"/>
+		<result column="PET_NUM" property="pet_num" />
+		<result column="MED_NUM" property="med_num"/>
+		<result column="HOS_NUM" property="hos_num"/>
+		<result column="HOS_DATE" property="hos_date"/>
+		<result column="MED_NUM2" property="med_num2"/>
+		<result column="HOS_STATUS" property="hos_status" />
+		<result column="HOS_TIME" property="hos_time"/>
+		<result column="CL_NAME" property="name" />
+		<result column="RES_CHK" property="res_chk"/>
+		<collection property="pet" resultMap="Pet" />
+		<collection property="client" resultMap="Client" />
+		<collection property="medical" resultMap="MedicalType"/>
+		<collection property="hospital" resultMap="Hospital"/>
+		
+	</resultMap>
+
+	<!-- 펫정보 -->
+   <resultMap type="Pet" id="Pet">
+      <id column="PET_NUM" property="pet_num" />
+      <result column="PET_NAME" property="pet_name"/>
+      <result column="PET_KIND" property="pet_kind"/>
+      <result column="PET_BIRTH" property="pet_birth"/>
+      <result column="PET_GEN" property="pet_gen"/>
+      <result column="PET_NEUT" property="pet_neut"/>
+      <result column="PET_EXPER" property="pet_exper"/>
+      <result column="PET_VACCIN" property="pet_vaccin"/>
+      <result column="PET_BITE" property="pet_bite"/>
+      <result column="PET_KNEECAP" property="kneecap"/>
+      <result column="DISLIKE" property="dislike"/>
+      <result column="PET_OTHERS" property="pet_others"/>
+      <result column="PET_WEIGHT" property="pet_weight"/>
+   </resultMap>
+	
+	<resultMap type="Client" id="Client">
+		<result  column="CL_EMAIL" property="email"/>
+		<result  column="CL_NAME" property="name"/>
+		<result  column="CL_TEL" property="tel"/>
+	</resultMap>
+	
+		<!-- 스타일 테이블  -->
+	<resultMap type="Style" id="Style">
+		<id column="STYLE_NUM" property="style_num"/>
+		<result column="STYLE_NAME" property="style_name"/>
+	</resultMap>
+	
+		<!-- HAR_SARLON 테이블  -->
+		<resultMap type="HairSalon" id="HairSalon">
+			<result column="HAR_NAME" property="shopName"/>
+		</resultMap>
+		
+		<!-- 병원 진료 테이블 -->
+
+	<resultMap type="MedicalType" id="MedicalType">
+	<result column="MED_NAME" property="medName"/>
+	</resultMap>
+	
+	
+		<resultMap type="Hospital" id="Hospital">
+		<result column="HOS_NAME" property="shopName"/>
+		</resultMap>
+
+
+	<!-- 미용실 예약조회 (사용자 페이지) -->
+	<select id="hartRavList" resultMap="HairRev"
+		parameterType="HairRev">
+		select client.cl_name, HAR_RESERVATION.*
+		from HAR_RESERVATION join client
+		on HAR_RESERVATION.cl_num = client.cl_num
+		join hair_salon
+		on har_reservation.har_num = hair_salon.har_num
+		join business_partner
+		on hair_salon.bp_id = #{bp_id}
+		and res_date = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</select>
+
+	<!-- 미용실 예약조회 (사용자 페이지) 날짜별 전체 조회 -->
+	<select id="hartRavListDate" resultMap="HairRev"
+		parameterType="HairRev">
+		select client.cl_name, HAR_RESERVATION.*
+		from HAR_RESERVATION join client
+		on HAR_RESERVATION.cl_num = client.cl_num
+		join hair_salon
+		on har_reservation.har_num = hair_salon.har_num
+		join business_partner
+		on hair_salon.bp_id = #{bp_id}
+		and RES_DATE = #{res_date}
+	</select>
+
+	<!-- 옵션별로 출력 -->
+	<select id="harRavListeach" resultMap="HairRev"
+		parameterType="HairRev">
+		select client.cl_name, HAR_RESERVATION.*
+		from HAR_RESERVATION join client
+		on HAR_RESERVATION.cl_num = client.cl_num
+		join hair_salon
+		on har_reservation.har_num = hair_salon.har_num
+		join business_partner
+		on hair_salon.bp_id = #{bp_id}
+		and RES_DATE = #{res_date}
+		and RES_STATUS = #{res_status}
+
+	</select>
+	
+	<!-- 예약관리 상세페이지 -->
+	<select id="HarRevCon" resultMap="HairRev" parameterType="string">
+		select client.*, har_reservation.*, pet_info.*, style.style_name, hair_salon.har_name
+		from HAR_RESERVATION join client
+		on HAR_RESERVATION.cl_num = client.cl_num
+		join hair_salon
+		on har_reservation.har_num = hair_salon.har_num
+        join pet_info
+        on pet_info.pet_num = har_reservation.pet_num
+        join style
+        on har_reservation.style_num = style.style_num
+        and har_rnum = #{har_num}
+	</select>
+	
+	<!-- 미용실 결제취소 -->
+	<select id="harstatus" parameterType="string" >
+		update har_reservation SET RES_STATUS = 2 WHERE har_rnum = #{har_num}
+	</select>
+	
+	
+	
+	<!-- 병원 예약 조회  (로그인 이후 랜딩 페이지 / 현재 날짜 전체 리스트 출력 ) -->
+	<select id="hosrevList" resultMap="HosRev" parameterType="HosRev">
+		select client.cl_name, HOS_RESERVATION.*
+		from HOS_RESERVATION join client
+		on HOS_RESERVATION.cl_num = client.cl_num
+		join HOSPITAL
+		on hos_reservation.hos_num = hospital.hos_num
+		join business_partner
+		on HOSPITAL.bp_id = #{bp_id}
+		and hos_date = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</select>
+	
+	
+	<!-- 병원 예약조회 (사용자 페이지) 날짜별 전체 조회 -->
+	<select id="hosRevListDate" resultMap="HosRev"
+		parameterType="HosRev">
+		select client.cl_name, HOS_RESERVATION.*
+		from HOS_RESERVATION join client
+		on HOS_RESERVATION.cl_num = client.cl_num
+		join HOSPITAL
+		on hos_reservation.hos_num = hospital.hos_num
+		join business_partner
+		on HOSPITAL.bp_id = #{bp_id}
+		and hos_date = #{hos_date}
+	</select>
+	
+	<!-- 병원 옵션별로 출력 -->
+	<select id="hosRevListeach" resultMap="HosRev"
+		parameterType="HosRev">
+		select client.cl_name, HOS_RESERVATION.*
+		from HOS_RESERVATION join client
+		on HOS_RESERVATION.cl_num = client.cl_num
+		join HOSPITAL
+		on hos_reservation.hos_num = hospital.hos_num
+		join business_partner
+		on HOSPITAL.bp_id = #{bp_id}
+		and HOS_DATE = #{hos_date}
+		and HOS_STATUS = #{hos_status}
+
+	</select>
+	
+	<!-- 병원예약관리 상세페이지 -->
+	<select id="HosRevCon" resultMap="HosRev" parameterType="string">
+	        select client.*, HOS_RESERVATION.*, pet_info.*, MEDICAL_TYPE.med_name, hospital.hos_name
+		from HOS_RESERVATION join client
+		on HOS_RESERVATION.cl_num = client.cl_num
+		join hospital
+		on HOS_RESERVATION.hos_num = hospital.hos_num
+        join pet_info
+        on pet_info.pet_num = HOS_RESERVATION.pet_num
+        join MEDICAL_TYPE
+        on HOS_RESERVATION.med_num = MEDICAL_TYPE.med_num
+        and hos_rnum = #{hos_rnum}
+        
+	</select>
+	
+		<!-- 병원 결제취소 -->
+	<select id="hosstatus" parameterType="string">
+		update HOS_RESERVATION SET HOS_STATUS = 2 WHERE hos_rnum = #{hos_rnum}
+	</select>
+	
+	
+</mapper>

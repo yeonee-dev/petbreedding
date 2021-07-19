@@ -1,0 +1,237 @@
+@charset "UTF-8";
+
+/*  */
+.mContent{
+    padding-left: 10px !important;
+	margin-bottom: 70px;
+	float: left;
+	width: 780px;
+}
+#mBoardm{
+	display:inline-block;
+}
+.mAside{
+	width: 310px;
+}
+#mBoard{
+	background-color:var(--bmenu-color);
+	color:var(--font-color);
+}
+
+.page_wrap{
+    margin-top: 30px;
+}
+
+.clickNum {
+	cusor: pointer;
+}
+
+.mboardhead select{
+    font-family: "GmarketB";
+    width: 70px;
+    height: 30px;
+    padding: 0 10px;
+    float: left;
+
+}
+.mboardhead .select2{
+    font-family: "GmarketB";
+    width: 70px;
+    height: 30px;
+    padding: 0 10px;
+    float: right;
+    
+}
+
+#writeBtn{
+    margin-top: 20px;
+    float: right;
+}
+.mboardrow{
+  margin-top: 100px;
+}
+
+.myboard {
+    
+    border: 1px solid #aaa;
+    border-left: none;
+    border-right: none;
+    border-collapse: collapse;
+  
+}
+
+.myboard td{
+ border-bottom: 1px solid #aaa;
+ border-top: 1px solid #aaa;
+ height: 50px;
+ text-align: center;
+    
+}
+.myboard th{
+     height: 50px;
+     text-align: center;
+       
+   }
+
+   .myboard tr:hover{
+    border-bottom: 1px solid #aaa;
+    border-top: 1px solid #aaa;
+    height: 50px;
+    text-align: center;
+    background-color: #a5e6fc; /*tr호버컬러*/;
+    border-collapse: collapse;
+       
+   }
+   .myboardrow{
+       float: right;
+   }
+   .basicBtn{
+    width: 80px;
+    height: 35px;
+    border-radius: 10px;
+    font-family: "GmarketB"
+   
+  }
+  #successBtn{
+      background-color: #ff9914;
+  }
+  #successBtn:hover{
+    background-color: #4dbbff;
+}
+
+.goDetailRow {
+	cursor: pointer;
+}
+
+/**MBOARDCON*/
+.conwrap{
+    margin-left: 30px;
+}
+.conhead{
+    margin-bottom: 100px;
+}
+.conhead p:nth-child(1){
+    font-weight: bold;
+}
+.conhead p:nth-child(2){
+    font-size: 30px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+}
+.conhead p:nth-child(3){
+    font-size: 15px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+    float: left;
+    margin-right: 60px;
+}
+.conhead p:nth-child(4){
+    font-size: 15px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+    float: left;
+}
+ .conimg img{
+     clear: left;
+    width: 400px;
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+.conbtn{
+    margin-bottom: 70px;
+}
+
+#listBtn{
+    
+    float: left;
+}
+#updeteBtn, #delBtn{
+    float: right;
+    margin-right: 20px;
+}
+
+.reply input{
+    width: 80%;
+    height: 80px;
+}
+
+#submitbtn{
+    margin-left: 10px;
+    width: 120px;
+    height: 70px;
+    border-radius: 20px;
+    font-size: 15px;
+}
+.mContent {
+    margin-top: 0px;
+    padding-left: 0px;
+}
+
+/*MSERVICE CON*/
+
+.conwrap{
+    margin-left: 30px;
+}
+.conhead{
+    margin-bottom: 100px;
+}
+.conhead p:nth-child(1){
+    font-weight: bold;
+}
+.conhead p:nth-child(2){
+    font-size: 30px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+}
+.conhead p:nth-child(3){
+    font-size: 15px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+    float: left;
+    margin-right: 60px;
+}
+.conhead p:nth-child(4){
+    font-size: 15px;
+    margin-right: 60px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+    float: left;
+}
+.conhead p:nth-child(5){
+    font-size: 15px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+    float: left;
+}
+ .con{
+     clear: left;
+    text-align: left;
+    margin-bottom: 50px;
+    font-weight: bold;
+}
+
+.conbtn{
+    margin-bottom: 70px;
+}
+
+#listBtn{
+    
+    float: left;
+}
+#updeteBtn, #delBtn{
+    float: right;
+    margin-right: 20px;
+}
+
+.mContent {
+    margin-top: 0px;
+    padding-left: 0px;
+}
+.basicBtn{
+    width: 80px;
+    height: 35px;
+    border-radius: 10px;
+    font-family: "GmarketB"
+   
+  }

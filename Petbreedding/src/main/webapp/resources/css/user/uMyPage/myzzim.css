@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+.myzzimhead{
+	float:left;
+	width:800px;
+    margin-bottom: 20px;
+}
+.myzzimhead h1{
+    padding-left: 30px;
+    padding-top: 20px;
+    font-size: 24px;
+    font-weight: 200;
+    margin-bottom: 40px;
+   
+}
+#notice{
+	text-align: center;
+}
+.zzimlist{
+    border-top: 1px solid #aaa;
+    height: auto;
+    overflow:hidden;
+    margin-bottom: 50px;
+}
+.subdiv {
+	padding: 20px;
+	border-bottom: 1px solid #aaa;
+}
+.zzimlist .subdiv .img{
+    float: left;
+}
+.zzimlist .subdiv .title{
+   
+    height: 100px;
+    
+}
+.zzimlist .subdiv .title h1{
+	display: inline-block;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 0px;
+    margin-top:-5px;
+
+}
+.zzimlist .subdiv .title p{
+	width: 400px;
+   display: inline-block;
+   margin-left: 30px;
+   margin-top: -80px;
+}
+.zzimlist .subdiv .con{
+    float: left;
+}
+.zzimdel{
+    float: right;
+    display: inline-block;
+    line-height: 0em;
+    margin-top: -100px;
+}
+.zzimdelBtn{
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    margin-left: 20px;
+    font-family: "GmarketM";
+}
+.myzzimrow{
+  text-align: center;
+}
+#moreBtn{
+    width: 120px;
+    height: 40px;
+    font-family: "GmarketM";
+    border-radius: 10px;
+}
+
+.subdiv{
+	display:none;
+}
+
+
+

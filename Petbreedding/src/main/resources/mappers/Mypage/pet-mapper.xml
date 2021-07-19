@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pet">
+
+	<!-- mypet 등록 -->
+	<insert id="insertMyPet">
+		INSERT INTO PET_INFO(
+		pet_num,
+		cl_num,
+		pet_name,
+		pet_kind,
+		pet_birth,
+		pet_gen,
+		pet_neut,
+		pet_exper,
+		pet_vaccin,
+		pet_bite,
+		kneecap,
+		dislike,
+		pet_others,
+		pet_img,
+		pet_weight
+		)VALUES(
+		SEQ_CTA_CHARGE.NEXTVAL,
+		#{cl_num},
+		#{pet_name},
+		#{pet_kind},
+		#{pet_birth},
+		#{pet_gen},
+		#{pet_neut},
+		#{pet_exper},
+		#{pet_vaccin},
+		#{pet_bite},
+		#{kneecap},
+		#{dislike},
+		#{pet_others},
+		#{pet_img},
+		#{pet_weight}
+		)
+	</insert>
+	
+	<!-- 등록된 펫 전체 리스트 -->
+	<select id="petlist" resultType="Pet">
+	SELECT * FROM PET_INFO 
+	</select>
+	
+	<!-- 아이디에 해당하는 리스트 -->
+	<select id="eachpet" resultType="Pet" parameterType="string">
+	SELECT * FROM PET_INFO WHERE cl_num = #{cl_num}
+	</select>
+	
+	<!-- 펫 상세보기 -->
+	<select id="petread" resultType="Pet" parameterType="string">
+	SELECT * FROM PET_INFO
+	WHERE pet_num = #{pet_num}
+	</select>
+	
+	<!-- 펫 수정 -->
+	<update id="updatepet" parameterType="Pet">
+		UPDATE PET_INFO SET
+		pet_name = #{pet_name},
+		pet_kind = #{pet_kind},
+		pet_birth = #{pet_birth},
+		pet_gen = #{pet_gen},
+		pet_neut = #{pet_neut},
+		pet_exper = #{pet_exper},
+		pet_vaccin = #{pet_vaccin},
+		pet_bite = #{pet_bite},
+		kneecap = #{kneecap},
+		dislike = #{dislike},
+		pet_others = #{pet_others},
+		pet_img = #{pet_img},
+		pet_weight = #{pet_weight}
+		WHERE pet_num = #{pet_num}
+		
+	</update>
+	
+	<!-- 펫 삭제 -->
+	<delete id="petdelete" parameterType="string">
+		DELETE FROM PET_INFO 
+		WHERE pet_num = #{pet_num}
+	</delete>
+</mapper>
+

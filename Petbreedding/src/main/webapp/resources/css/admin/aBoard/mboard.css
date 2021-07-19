@@ -1,0 +1,372 @@
+/*  */
+.mContent{
+    padding-left: 10px !important;
+	margin-bottom: 70px;
+	float: left;
+	width: 780px;
+}
+#mBoardm{
+	display:inline-block;
+}
+.mAside{
+	width: 310px;
+}
+#mBoard{
+	background-color:var(--bmenu-color);
+	color:var(--font-color);
+}
+.page_wrap{
+    margin-top: 30px;
+}
+
+
+
+
+
+
+#mboardSection {
+	padding-bottom: 201px;
+}
+
+.maCommentFrm {
+	display: flex;
+    align-items: center;
+        justify-content: flex-start;
+    margin-top: 20px;
+}
+.maCommentUpdDelFrm {
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+#maCommentText {
+	width: 823px;
+	height: 55px;
+	margin-right: 21px;
+}
+
+.mboardhead select{
+    font-family: "GmarketB";
+    width: 70px;
+    height: 30px;
+    padding: 0 10px;
+    float: left;
+
+}
+.mboardhead .select2{
+    font-family: "GmarketB";
+    width: 70px;
+    height: 30px;
+    padding: 0 10px;
+    float: right;
+    
+}
+.mboardrow{
+  margin-top: 100px;
+}
+
+.myboard {
+    
+    border: 1px solid #aaa;
+    border-left: none;
+    border-right: none;
+    border-collapse: collapse;
+  
+}
+
+.myboard td{
+ border-bottom: 1px solid #aaa;
+ border-top: 1px solid #aaa;
+ height: 50px;
+ text-align: center;
+    
+}
+.myboard th{
+     height: 50px;
+     text-align: center;
+       
+   }
+
+   .myboard tr:hover{
+    border-bottom: 1px solid #aaa;
+    border-top: 1px solid #aaa;
+    height: 50px;
+    text-align: center;
+    background-color: #a5e6fc; /*tr호버컬러*/;
+    border-collapse: collapse;
+       
+   }
+   .myboardrow{
+       float: right;
+   }
+   .basicBtn{
+    width: 80px;
+    height: 35px;
+    border-radius: 10px;
+    font-family: "GmarketB"
+   
+  }
+  #successBtn{
+      background-color: #ff9914;
+  }
+  #successBtn:hover{
+    background-color: #4dbbff;
+}
+
+.reply {
+	border-top: 1px solid var(--border-color);
+}
+
+.upDelBtn {
+	margin-right: 20px;
+}
+
+
+/**MBOARDCON*/
+.conwrap{
+    margin-left: 30px;
+}
+.conhead{
+    margin-bottom: 100px;
+}
+.conhead p:nth-child(1){
+    font-weight: bold;
+}
+.conhead p:nth-child(2){
+    font-size: 30px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+}
+.conhead p:nth-child(3){
+    font-size: 15px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+    float: left;
+    margin-right: 60px;
+}
+.conhead p:nth-child(4){
+    font-size: 15px;
+    font-family: "GmarketB";
+    word-spacing: -5px;
+    float: left;
+}
+ .conimg img{
+     clear: left;
+    width: 400px;
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+.conbtn{
+    margin-bottom: 70px;
+}
+
+#listBtn{
+    
+    float: left;
+}
+#updeteBtn, #delBtn{
+    float: right;
+    margin-right: 20px;
+}
+
+.reply input{
+    width: 80%;
+    height: 82px;
+}
+
+#submitbtn{
+    margin-left: 10px;
+    width: 120px;
+    height: 70px;
+    border-radius: 20px;
+    font-size: 15px;
+}
+.mContent {
+    margin-top: 0px;
+    padding-left: 0px;
+}
+
+
+/* MODAL */
+#my_modal {
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+#my_modal h1{
+    text-align: center;
+}
+#my_modal p {
+    text-align: center;
+}
+#my_modal #closeBtn{
+    cursor: pointer;
+}
+
+#my_modal .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#my_modal button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+#goTOPay{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+#goTOPay:hover{
+    background-color: var(--hover-color);
+}
+#nextTime{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+#nextTime:hover{
+    border: 1px solid var(--hover-color);
+}
+
+
+
+/* MODAL COMMENT */
+#my_modal_comment {
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+#my_modal_comment h1{
+    text-align: center;
+}
+#my_modal_comment p {
+    text-align: center;
+}
+#my_modal_comment #closeBtn_comment{
+    cursor: pointer;
+}
+
+#my_modal_comment .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#my_modal_comment button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+#goTOPay_comment{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+#goTOPay_comment:hover{
+    background-color: var(--hover-color);
+}
+#nextTime_comment{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+#nextTime_comment:hover{
+    border: 1px solid var(--hover-color);
+}
+
+
+/* MODAL COMMENT UPDATE */
+#my_modal_updComment {
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+#my_modal_updComment h1{
+    text-align: center;
+}
+#my_modal_updComment p {
+    text-align: center;
+}
+#my_modal_updComment #closeBtnUpdComment{
+    cursor: pointer;
+}
+
+#my_modal_updComment .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#my_modal_updComment button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+#goTOPay_updComment{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+#goTOPay_updComment:hover{
+    background-color: var(--hover-color);
+}
+#nextTime_updComment{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+#nextTime_updComment:hover{
+    border: 1px solid var(--hover-color);
+}
+
+#replyUpdCont {
+    width: 100%;
+    height: 51px;
+}
+
+.bocUpdTitle {
+	margin-top: 12px;
+    margin-bottom: 14px;
+}
+
+.mTr {
+	cursor: pointer;
+}
+
+.clickNum {
+	cursor: pointer;
+}

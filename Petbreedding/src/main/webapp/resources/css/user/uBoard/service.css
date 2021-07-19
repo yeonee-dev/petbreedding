@@ -1,0 +1,151 @@
+
+*{
+    box-sizing: border-box; 
+  }
+    
+.service{
+    width: 300px;
+    float: left;
+    margin-right: 30px;
+}
+
+.serviceTitle{
+    width: 300px;
+    height: 250px;
+    border: 1px solid#D6D6D6;
+
+   
+
+}
+.inside{
+    padding: 30px;
+}
+.inside a:hover{
+	color: var(--hover-color);
+}
+.inside h2{
+    color:#696969;
+    font-weight: 100;
+    font-size: 28px;
+    line-height: 0.5em;
+    
+}
+.inside h1{
+    color: #ff9914;
+    font-weight: 150;
+    font-size: 30px;
+    letter-spacing: -2px;
+    line-height: 0.5em;
+}
+.serviceNav{
+    border: 1px solid #D6D6D6;
+    border-top: none;
+    width: 300px;
+    height: 250px;
+    
+    
+}
+.serviceMain h1{
+    padding-top: 20px;
+    font-size: 24px;
+    font-weight: 200;
+   
+    
+  
+    
+}
+/*ACCORDIAN1*/
+
+
+    
+  .que{
+    position: relative;
+    padding: 17px 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #000;
+    
+  }
+    
+  .que::after{
+    display: inline-block;
+    content: '▽';
+    font-weight: 500px;
+    font-size: 14px;
+    color: #666;
+    margin-right: 5px;
+  }
+
+  /* .que:hover::after{
+    display: inline-block;
+    content: '▲';
+    font-weight: 500px;
+    font-size: 14px;
+    color: #666;
+    margin-right: 5px;
+  } */
+  
+  .que.on>span{
+    font-weight: bold;
+    color: #ff9914; 
+
+  }
+    
+  .anw {
+    display: none;
+    overflow: hidden;
+    font-size: 14px;
+    background-color: #f4f4f2;
+    padding: 27px 10px;
+  }
+    
+  .anw::before {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    margin-right: 5px;
+  }
+
+  /*ACCORDIAN 2*/
+  
+.que2{
+  position: relative;
+  padding: 17px 0;
+  cursor: pointer;
+  font-size: 14px;
+  color: #000;
+  
+}
+  
+.que2::before{
+  display: inline-block;
+  content: 'Q';
+  font-weight: 500px;
+  font-size: 14px;
+  color: #666;
+  margin-right: 5px;
+}
+
+.que2.on>span{
+  font-weight: bold;
+  color: #ff9914; 
+
+}
+  
+.anw2 {
+  display: none;
+  overflow: hidden;
+  font-size: 14px;
+  background-color: #f4f4f2;
+  padding: 27px 10px;
+}
+  
+.anw2::before {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  margin-right: 5px;
+  content: "A";
+}

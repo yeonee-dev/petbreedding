@@ -1,0 +1,26 @@
+@charset "UTF-8";
+.footer{  
+	height:200px;
+    position: absolute;
+    bottom: 0;
+    width: 1130px;
+	margin-left: 30px;   
+}
+.footer p {
+	font-size: 12px;
+	color: #707070;
+}
+.footMenu ul li{
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.footMenu ul li a:hover{
+    color: var(--hover-color);
+    cursor: pointer;
+}
+.footMenu2{
+    clear: both;
+}

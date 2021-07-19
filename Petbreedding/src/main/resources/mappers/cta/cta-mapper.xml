@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Cta">
+
+	<!-- HAR_SARLON 테이블  -->
+		<resultMap type="HairSalon" id="HairSalon">
+			<id column="HAR_NUM" property="harNum"/>
+			<result column="BP_ID" property="bpId"/>
+			<result column="HAR_NAME" property="shopName"/>
+			<result column="HAR_ADDR" property="shopAddr"/>
+			<result column="HAR_TEL" property="shopTel"/>
+			<result column="HOPEN_TIME" property="shopTime"/>
+			<result column="HAR_MINFO" property="shopMInfo"/>
+			<result column="HAR_CLICK" property="harClick"/>
+			<result column="Y" property="y"/>
+			<result column="X" property="x"/>
+			<result column="HAR_MIMG" property="shopMImg"/>
+			<result column="AVG_REV_VAL" property="avgRevVal"/>
+			<result column="COUNT" property="count"/>
+		</resultMap>
+
+
+
+	<!-- 울트라콜 목록 가져오기 -->
+	<select id="ctalist"  resultType="Cta">
+		SELECT CM_TYPE,PRICE
+		FROM CTA
+	</select>
+	
+	<!-- 울트라콜 상세보기 -->
+	<select id="ctacon" resultType="Cta">
+		SELECT * FROM CTA
+		WHERE CM_TYPE = #{CM_TYPE}
+	</select>
+	<!-- 결제정보 저장 -->
+	<insert id="paydata" parameterType="Ctapay" >
+		INSERT INTO cta_charge (
+			CHRG_NUM,
+			CM_CODE,
+			BP_ID,
+			CHRG_DATE
+		) VALUES (
+		SEQ_CTA_CHARGE.NEXTVAL,
+		#{CM_CODE},
+		#{BP_ID},
+		DEFAULT
+		)
+	</insert>
+	<!-- 울트라콜 적립 -->
+	<insert id="insertcta" parameterType="Ctapay">
+		INSERT INTO MY_CTA(
+			BP_ID,
+			CTA_NUMBER
+		) VALUES (
+			#{BP_ID},
+			#{CM_TYPE}
+		)
+	</insert>
+	
+	<!-- 내 울트라콜 조회 -->
+	<select id="mycta" resultType="Ctapay" parameterType="Ctapay" >
+		SELECT * FROM MY_CTA 
+		WHERE BP_ID = #{BP_ID}
+	</select>	
+	
+	<!-- 울트라콜 수정 -->
+	<update id="pluscta" parameterType="Ctapay">
+	UPDATE MY_CTA SET CTA_NUMBER = ( CTA_NUMBER + #{CM_TYPE}) 
+	WHERE BP_ID = #{BP_ID}
+	
+	</update>
+	<!-- 울트라콜 차감 -->
+	<update id="delcta" parameterType="string">
+		UPDATE MY_CTA SET CTA_NUMBER = ( CTA_NUMBER - 1) 
+	WHERE BP_ID = #{BP_ID}
+	</update>
+	
+	<!-- 울트라콜 충전된 미용실 상단 노출  -->
+	<select id="ctashop" resultMap="HairSalon">
+	select hair_salon.*, my_cta.cta_number
+	from hair_salon join my_cta
+	on hair_salon.bp_id = my_cta.bp_id
+	
+	</select>
+</mapper>
+	

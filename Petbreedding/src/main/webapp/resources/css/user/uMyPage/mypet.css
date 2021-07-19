@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+*{
+    font-family: "GmarketM";
+    src: url("../font/GmarketSansTTFMedium.ttf");
+}
+#petInfo{
+	width: 800px;
+	float: left;
+}
+.petBox{
+	margin-bottom: 90px;
+}
+.pethead{
+    margin-bottom: 150px;
+}
+.pethead h1{
+    margin-bottom: 50px;
+    font-weight: bold;
+}
+.pethead img{
+    margin-right: 80px;
+    float: left;
+}
+.pethead .petname{
+   margin-left: 20px;
+   line-height: 8.5em;
+}
+.pethead .petname a{
+    color: #000;
+    font-size: 25px;
+  
+}
+.btnwrap{
+    float: right;
+}
+.btn{
+    width:90px;
+    height: 40px;
+    border-radius: 10px;
+    background: #4dbbff;
+    border: none;
+    font-family: "GmarketB";
+    src: url("../font/GmarketSansTTFBold.ttf");
+    font-size: 13px;
+}
+.btn a{
+    color: #fff;
+}
+.btn:hover{
+    width:90px;
+    height: 40px;
+    border-radius: 10px;
+    background: #ff9914;
+    border: none;
+    font-family: "GmarketB";
+    font-size: 13px;
+}
+.petrow{
+    width: auto;
+    overflow: hidden;
+    border: 2px dashed #aaa;
+    height: 100px;
+}
+#plus{
+    font-size: 40px;
+    float: left;
+    margin-top: 0.7em;
+    margin-left: 120px;
+    left: 80px;
+    color: #000;
+}
+#plus:hover{
+    font-size: 40px;
+    float: left;
+    left: 80px;
+    color:#ff9914;
+}
+.plusp{
+    margin-left: 100px;
+    font-size: 25px;
+    font-weight: bold;
+    float: left;
+    line-height: 2em;
+    
+}
+
+/*MODAL*/
+
+/* section padding 다시 설정 */
+
+
+
+.modal{
+	display: none;
+	position: absolute;
+	top: 30%;
+	left: 40%;
+	width: 400px;
+	padding: 30px 80px 80px 80px;
+	background: white;
+	border: 1px solid #000;
+	overflow: auto;
+}
+
+.boldtext{
+	font-size: 24pt;
+	text-align: center;
+}
+
+.text{
+	text-align: center;
+}
+.btn2{
+	width: 300px;
+	margin:0 auto;
+	text-align: center;
+}
+#yesCalncle{
+	padding: 10px 30px 10px 30px;
+	border-radius: 10px;
+	width:100px;
+	margin-right: 30px;
+}
+
+#noCalncle {
+	padding: 10px 30px 10px 30px;
+	border-radius: 10px;
+	width:100px;
+}

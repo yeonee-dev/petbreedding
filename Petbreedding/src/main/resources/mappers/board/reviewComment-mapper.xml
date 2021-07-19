@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 	private String revcNum; -->
+<!-- 	private String bpId; -->
+<!-- 	private String revNum; -->
+<!-- 	private String revcCont; -->
+<!-- 	private String revcDate; -->
+<!-- 	private int depth; -->
+<!-- 	private int idx; -->
+
+<mapper namespace="ReviewComment">
+	<resultMap type="ReviewComment" id="ReviewCommentMap">
+		<id column="REVC_NUM" property="revcNum"/>
+		<result column="BP_ID" property="bpId"/>
+		<result column="REV_NUM" property="revNum"/>
+		<result column="REVC_CONT" property="revcCont"/>
+		<result column="REVC_DATE" property="revcDate"/>
+	</resultMap>
+	
+	<insert id="reviewCommentInsert" parameterType="ReviewComment">
+		INSERT INTO REVIEW_COMMENT VALUES(
+			'REVC000'||SEQ_REVIEW_COMMENT.NEXTVAL, #{bpId}, #{revNum},
+			#{revcCont}, TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		)
+	</insert>	
+</mapper>

@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+/* 페이지마다 변경되는 항목 */
+.bContent{
+	width: 750px;
+	margin: 0;
+	float:left;
+}
+.bAside{
+	width:350px;
+}
+#bMyPage{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#bMyPage a{
+	display:block;
+	color: var(--font-color);
+}
+#bMyPageM{
+	display: inline-block;
+}
+.section{
+	padding-bottom: 150px;
+}
+
+.bAside .menu{
+	border-right: 0px;
+}
+
+.bContent h1 {text-align:center;}
+.bContent label{
+    display: block;
+    margin-top: 20px;
+}
+
+.inputBox{
+    display: block;
+    width: 400px;
+    padding: 10px;
+    margin-bottom: 10px;
+    
+}
+.updateFrm {
+	width: 400px;
+    margin: 0 auto;
+}
+
+.updateFrm input {
+font-family: "GmarketM";
+    src: url("../../font/GmarketSansTTFMedium.ttf");		
+}
+
+.hpBox{
+    width: 275px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.bankbox{
+	width: 150px;
+	padding: 10px;
+    margin-bottom: 10px;
+}
+#checkBank{
+	background:url('../../../images/arrow.jpg') no-repeat 95% 50%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+.inputBox:focus, .hpBox:focus, .bankbox:focus{
+    outline: 1px solid var(--hover-color);
+    border: 1px solid var(--hover-color);
+}
+
+.hpBtn{
+    width: 120px;
+    padding: 11px;
+}
+
+.submitBtn{
+    padding: 20px;
+    display: block;
+    width: 300px;
+    margin: 30px auto;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+
+/* MODAL */
+#my_modal, #my_modal2{
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+
+#my_modal h1{
+    text-align: center;
+}
+#my_modal p {
+    text-align: center;
+}
+
+.modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#my_modal button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.locCon{
+	width: 400px;
+    margin: 30px auto;
+}
+.btnBox{
+	width: 220px;
+    margin: 20px auto;
+}
+#confirm,.refuse, #confirm2{
+	width: 100px;
+    padding: 10px;
+    outline:none;
+    cursor:pointer;
+}
+#confirm, #confirm2{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+#confirm:hover, #confirm2:hover{
+    background-color: var(--hover-color);
+}
+.refuse{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+.refuse:hover{
+    border: 1px solid var(--hover-color);
+}
+
+#tel, #num {
+	padding : 10px;
+}
+#tel {
+    width: 250px;
+}
+#num{
+	width: 355px;
+}
+#sendMessage,#cfMessage{
+	padding:10px;
+}
+#cfMessage{
+	display: none;
+}
+
+

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="notice">
+	<resultMap type="notice" id="notice">
+		<id column="NOTICE_NUM" property="notNum"/>
+		<result column="NOTICE_CONTENT" property="notCon"/>
+		<result column="NOTICE_RECEIVER" property="notReceiver"/>
+		<result column="NOTICE_PUBLISHER" property="notPublisher"/>
+		<result column="REFERENCE_NUM" property="refNum"/>
+		<result column="REFERENCE_CLASS" property="refClass"/>
+		<result column="READ_STATE" property="readState"/>
+		<result column="SHOP_NUM" property="shopNum"/>
+		<result column="SHOP_NAME" property="shopName"/>
+		<result column="SHOP_IMG" property="shopImg"/>
+		<result column="BO_TITLE" property="boTitle"/>
+		<result column="QNA_TITLE" property="qnaTitle"/>
+		<result column="NOTICE_TIME" property="notTime"/>
+	</resultMap>
+
+	<select id="notificationRead" resultType="int">
+		SELECT COUNT(NOTICE_NUM) FROM NOTICE WHERE NOTICE_RECEIVER = #{notReceiver} AND READ_STATE = 0
+	</select>
+	
+	<select id="unreadNotList" resultMap="notice">
+		SELECT NOTICE_NUM FROM NOTICE WHERE NOTICE_RECEIVER = #{notReceiver} AND READ_STATE = 0
+	</select>
+
+	<select id="getNoticeList" resultMap="notice">
+		SELECT G.*, H.QNA_TITLE
+		FROM
+		(SELECT E.*, F.BO_TITLE
+		FROM
+		(SELECT C.*, D.HOS_NUM AS SHOP_NUM, D.BP_ID, D.HOS_NAME AS SHOP_NAME, D.HOS_MIMG AS SHOP_IMG
+		FROM
+		(SELECT A.*, B.HOS_RNUM, B.HOS_NUM
+		FROM
+		(SELECT * FROM NOTICE WHERE NOTICE_RECEIVER = #{notReceiver}
+		ORDER BY NOTICE_TIME DESC ) A
+		LEFT OUTER JOIN 
+		(SELECT * FROM HOS_RESERVATION UNION SELECT * FROM HAR_RESERVATION) B
+		ON A.REFERENCE_NUM = B.HOS_RNUM) C
+		LEFT OUTER JOIN
+		(SELECT * FROM HOSPITAL UNION SELECT * FROM HAIR_SALON) D
+		ON C.HOS_NUM = D.HOS_NUM)E
+		LEFT OUTER JOIN
+		(SELECT * FROM BOARD) F 
+		ON E.REFERENCE_NUM = F.BO_NUM) G
+		LEFT OUTER JOIN
+		(SELECT * FROM QNA_BOARD) H
+		ON G.REFERENCE_NUM = H.QNA_NUM
+	</select>
+	
+	<select id="getbp_id" resultType="string">
+		SELECT A.BP_ID
+		FROM
+		(SELECT HOS_NUM, BP_ID FROM HOSPITAL UNION SELECT HAR_NUM, BP_ID FROM HAIR_SALON) A
+		WHERE A.HOS_NUM = #{shopNum}
+	</select>
+	
+	<select id="getbp_idforPay" resultType="string">
+		SELECT C.BP_ID
+		FROM
+		(SELECT A.HOS_RNUM AS RESERVATION_NUM, HOS_NUM
+		FROM
+		(SELECT HOS_RNUM, HOS_NUM FROM HOS_RESERVATION UNION SELECT HAR_RNUM, HAR_NUM FROM HAR_RESERVATION) A
+		WHERE A.HOS_RNUM = #{refNum})B
+		INNER JOIN
+		(SELECT HOS_NUM, BP_ID FROM HOSPITAL UNION SELECT HAR_NUM, BP_ID FROM HAIR_SALON)C
+		ON B.HOS_NUM = C.HOS_NUM
+	</select>
+	
+	<insert id="inReservaion">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, 'a1', 
+		#{notReceiver}, #{notPublisher}, #{refNum}, '1', 0, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<insert id="inPay">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, 'a2', 
+		#{notReceiver}, #{notPublisher}, #{refNum}, '1', 0, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<insert id="inUnreadChat">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, 'a3', 
+		#{notReceiver}, #{notPublisher}, null, '0', 0, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<select id="getOrigClNum" resultType="string">
+		SELECT CL_NUM FROM BOARD WHERE BO_NUM = #{refNum}
+	</select>
+	
+	<insert id="inBoard">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, 'a4', 
+		#{notReceiver}, null, #{refNum}, '2', 0, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<select id="getclNumInQna" resultType="string">
+		SELECT USER_NUM FROM QNA_BOARD WHERE QNA_NUM=#{refNum}
+	</select>
+	
+	<insert id="inQna">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, 'a5', 
+		#{notReceiver}, null, #{refNum}, '3', 0, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+		
+	<insert id="inPointSave">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, 'a6', 
+		#{notReceiver}, null, #{refNum}, '4', 0, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<insert id="inPointUsing">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, 'a7', 
+		#{notReceiver}, null, #{refNum}, '4', 0, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<insert id="inCancleRev">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, 'a8', 
+		#{notReceiver}, #{notPublisher}, #{refNum}, '1', 0, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<update id="updateReadState">
+		UPDATE NOTICE SET READ_STATE = 1 WHERE NOTICE_NUM = #{notNum}
+	</update>
+	
+	<delete id="deleteNotice">
+		DELETE FROM NOTICE WHERE NOTICE_NUM = #{notNum}
+	</delete>
+	
+</mapper>

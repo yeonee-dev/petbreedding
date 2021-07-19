@@ -1,0 +1,212 @@
+@charset "UTF-8";
+/* 포인트 창 */
+.point {
+	border: 1px solid #aaa;
+	height: 130px;
+	margin-top: 20px
+}
+
+.ptitle {
+	display: inline-block;
+	margin: 30px 100px 20px 30px;
+}
+
+.presult {
+	display: inline-block;
+	font-size: 26px;
+	margin: 0 0 40px 130px;
+}
+
+.presultth {
+	margin-left: 180px;
+}
+
+.presultend {
+	margin-left: 200px;
+}
+/* 기간 조회 테이블 */
+.rtable {
+	width: 100%;
+	text-align: center;
+}
+
+.rtable input {
+	font: inherit;
+}
+
+.rtable input:hover {
+	font: inherit;
+	cursor: pointer;
+}
+
+.rtable td:first-child {
+	padding-left: 50px;
+}
+
+.rtable td:last-child {
+	padding-right: 50px;
+}
+/* 예약 리스트 테이블 */
+.rlist {
+	border-collapse: collapse;
+}
+
+.rlist td {
+	border: #aaa solid 1px;
+	height: 40px;
+}
+/* 버튼 높이 */
+.basicBtn {
+	width: 70px;
+	height: 25px;
+	border-radius: 10px;
+}
+
+.rbuttoncom {
+	background-color: var(--hover-color);
+}
+
+.rlist tr:last-child td {
+	border-bottom: 0;
+}
+
+.rlist tr td:first-child {
+	border-left: 0;
+}
+
+.rlist tr td:last-child {
+	border-right: 0;
+}
+
+.rlist tr:hover {
+	background-color: var(--trhover-color);
+	cursor: pointer;
+}
+
+.rlist tr:first-child:hover {
+	background-color: var(--font-color);
+	cursor: default;
+}
+/* 더보기 버튼 */
+.divmore{
+	width:100px;
+	margin:30px auto;
+}
+#btnmore {
+	background-color: var(--font-color);
+	border: 1px solid #aaa;
+	width: 100px;
+	height: 40px;
+	outline: none;
+	cursor:pointer;
+}
+
+#btnmore:hover {
+	background-color: var(--hover-color);
+	border: 1px solid var(--hover-color);
+	color: var(--font-color);;
+	cursor: pointer;
+}
+
+
+/* 리뷰 작성 - 모달창 */
+.modalRe-Overlay {
+	width: 100%;
+	height: 1400px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.4);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	display: none;
+}
+
+#modalRe-Win {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	width: 400px;
+	height: 450px;
+	top: -100px;
+	padding: 30px;
+	position: relative;
+	background-color: var(--font-color);
+}
+#fileName{
+    font-size: 14px;
+    margin-left: 10px;
+}
+.modalRe-Win textarea {
+	resize: none;
+	overflow-y: auto;
+	border: 1px solid #aaa;
+}
+#revCont{
+	width: 310px;
+}
+.modal_close_btn {
+	float: right;
+}
+
+.modal_close_btn:hover, .btnAddFile:hover {
+	color: var(--hover-color);
+	cursor: pointer;
+}
+
+.btnReCom {
+    float: right;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    height:40px ;
+}
+/* 셀렉트 영역 스타일 */
+.select {
+	position: relative;
+	z-index: 999;
+	width: 315px;
+	height: 35px;
+	border: 1px solid #aaa;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+.select .option-list {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	overflow: hidden;
+	max-height: 0;
+	background-color: var(--font-color);
+}
+
+.select.active .option-list {
+	max-height: none;
+	width: 315px;
+	border: 1px solid #aaa;
+	margin-left: -1px;
+}
+
+.select.active li:hover {
+	background-color: var(--trhover-color);
+}
+
+.select .option-list img{
+	width: 100px;
+}
+.downArrow{
+	float: right;
+	padding-right:20px;
+}
+.select .text img{
+	width: 100px;
+}
+
+#reviewDone{
+	background-color: var(--hover-color);
+	cursor: default;
+	
+}

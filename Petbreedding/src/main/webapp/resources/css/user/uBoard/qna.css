@@ -1,0 +1,58 @@
+.section{
+	width: 800px;
+	margin: 0 auto;
+}
+h1{
+    text-align: center;
+    margin-top: 100px;
+}
+.qnatitle .qnacontent{
+    text-align: center;
+}
+.qnatitle{
+	padding-top: 30px;
+}
+.qnacontent{
+    margin-top: 30px;
+	margin-bottom: 30px;
+}
+form{
+	width:600px;
+	margin: 0 auto;
+}
+.qnatitle input{
+    width: 600px;
+    height: 30px;
+    margin-left: 30px;
+    padding: 20px;
+}
+
+.qnacontent textarea{
+    width: 600px;
+    height: 600px;
+    margin-left: 30px;
+}
+
+#browseBtn,
+#successbtn{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+#imgsrcBox{
+	    margin-top: -30px;
+    margin-left: 30px;
+}
+.btnBox{
+    padding-top: 30px;
+	width: 210px;
+	margin: 0 auto;
+}
+
+/* CKEDITOR 높이 조정 */
+.ck-editor__main, .ck-content{
+	height: 500px;
+}
+
+

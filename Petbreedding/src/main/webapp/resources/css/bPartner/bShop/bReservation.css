@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+#res{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#res a{
+	display:block;
+	color: var(--font-color);
+}
+
+.bContent{
+	width: 1000px;
+}
+
+.calendarBox{
+    float: left;
+}
+
+.calendar{
+	margin-top: 50px;
+	float:left;
+    width: 500px;
+    height: auto;
+	display:flex;
+	justify-content: center;
+}
+
+.resBox{
+    float: left;
+    width: 450px;
+    margin-left: 30px;
+    float:right;
+}
+.resBox select{
+    width: 100px;
+    padding: 5px;
+    background:url('../../../images/arrow.jpg') no-repeat 95% 50%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    font-family: "GmarketM";
+}
+.resList table{
+    margin: 0 auto;
+}
+.resList table tr{
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.resList td{
+    display: inline-block;
+    width: 90px;
+    margin-right: 10px;
+    text-align: center;
+}
+.resTime {
+	    width: 100px!important;
+}
+.status{
+    color: var(--font-color);
+    text-align: center;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.noneDis{
+    display: none;
+}
+.resInfo a{
+    padding-left: 25px;
+    text-decoration: underline;
+}
+.resInfo a:hover{
+    color: var(--hover-color);
+}
+
+.date{
+    display: inline-block;
+    font-family: "GmarketB";
+    margin-left: 170px;
+    margin-top: 30px;
+	}
+.date input{
+	font-family: "GmarketB";
+	border : none;
+	}	
+
+
+/* 예약완료. 결제완료, 결제취소 */
+.revFin{
+	background: var(--button-color);
+}
+.payFin{
+	background: var(--hover-color);
+}
+.canFin{
+	background: var(--trhover-color);
+}

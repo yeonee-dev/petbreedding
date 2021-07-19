@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="myRev">
+	
+	<!-- 미용실 예약VO -->
+	<resultMap type="HairRev" id="HairRev">
+		<id column="HAR_RNUM" property="har_rnum"/>
+		<result column="MSG_NUM" property="msg_num" />
+		<result column="CL_NUM" property="cl_num" />
+		<result column="PET_NUM" property="pet_num" />
+		<result column="STYLE_NUM" property="style_num" />
+		<result column="HAR_NUM" property="har_num" />
+		<result column="RES_DATE" property="res_date" />
+		<result column="RES_STATUS" property="res_status" />
+		<result column="RES_TIME" property="res_time" />
+		<result column="STYLE_NUM2" property="style_num2" />
+		<result column="HAR_NAME" property="har_name"/>
+		<result column="RES_CHK" property="res_chk"/>
+		<collection property="client" resultMap="Client" />
+		<collection property="hairSalon" resultMap="HairSalon" />
+		<collection property="pet" resultMap="Pet" />
+		<collection property="style" resultMap="Style" />
+	</resultMap>
+	
+	<resultMap type="Client" id="Client">
+		<id column="CL_NUM" property="cl_num" />
+		<result  column="CL_EMAIL" property="email"/>
+		<result  column="CL_NAME" property="name"/>
+		<result  column="CL_TEL" property="tel"/>
+	</resultMap>
+	
+	<!-- HAR_SARLON 테이블  -->
+	<resultMap type="HairSalon" id="HairSalon">
+		<id column="HAR_NUM" property="harNum"/>
+		<result column="HAR_NAME" property="shopName"/>
+		<result column="HAR_ADDR" property="shopAddr"/>
+		<result column="HAR_TEL" property="shopTel"/>
+		<result column="BP_ID" property="bpId"/>
+	</resultMap>
+	
+	<resultMap type="Pet" id="Pet">
+		<id column="PET_NUM" property="pet_num"/>
+		<result column="PET_NAME" property="pet_name"/>
+		<result column="PET_BIRTH" property="pet_birth"/>
+		<result column="PET_WEIGHT" property="pet_weight"/>
+	</resultMap>
+	
+	<!--스타일  -->
+	<resultMap type="Style" id="Style">
+		<id column="STYLE_NUM" property="style_num"/>
+		<result column="HAR_NUM" property="harNum"/>
+		<result column="STYLE_NAME" property="style_name"/>
+		<result column="PRICE" property="price"/>
+	</resultMap>
+	
+	<!-- 동물병원 -->
+	<resultMap type="Hospital" id="Hospital">
+		<id column="HOS_NUM" property="hosNum"/>
+		<result column="BP_ID" property="bpId"/>
+		<result column="HOS_NAME" property="shopName"/>
+		<result column="HOS_ADDR" property="shopAddr"/>
+		<result column="HOS_TEL" property="shopTel"/>
+		<result column="OPEN_TIME" property="shopTime"/>
+		<result column="HOS_MINFO" property="shopMInfo"/>
+		<result column="HOS_CONN" property="hosConn"/>
+		<result column="HOS_CLICK" property="hosClick"/>
+	</resultMap>
+	
+	<!-- 동물병원 예약VO  -->
+	<resultMap type="HosRev" id="HosRev">
+		<id column="HOS_RNUM" property="hos_rnum"/>
+		<result column="MSG_NUM" property="msg_num"/>
+		<result column="CL_NUM" property="cl_num"/>
+		<result column="PET_NUM" property="pet_num" />
+		<result column="MED_NUM" property="med_num"/>
+		<result column="HOS_NUM" property="hos_num"/>
+		<result column="HOS_DATE" property="hos_date"/>
+		<result column="MED_NUM2" property="med_num2"/>
+		<result column="HOS_STATUS" property="hos_status" />
+		<result column="HOS_TIME" property="hos_time"/>
+		<result column="RES_CHK" property="res_chk"/>
+		<collection property="pet" resultMap="Pet" />
+		<collection property="hospital" resultMap="Hospital" />
+		<collection property="medical" resultMap="MedicalType" />
+	</resultMap>
+	
+	<!-- 병원 진료 테이블 -->
+	<resultMap type="MedicalType" id="MedicalType">
+		<result column="MED_NAME" property="medName"/>
+		<result column="MED_PRICE" property="medPrice"/>
+	</resultMap>
+	
+
+	<!-- 공통 -->
+	
+	<!-- 예약확인/조회 페이지 -->
+	<select id="myRevList" parameterType="string" resultMap="HairRev">
+        SELECT HAR_RESERVATION.* , hair_salon.har_name
+		FROM HAR_RESERVATION LEFT JOIN hair_salon
+		ON CL_NUM = #{cl_num} AND hair_salon.har_num = har_reservation.har_num
+	</select>
+	
+	<!-- 결제대기 상태 카운트 -->
+	<select id="status0" resultType="int" parameterType="string">
+		SELECT h.RES_STATUS + s.HOS_STATUS as total
+		FROM (
+		    SELECT COUNT(RES_STATUS)as RES_STATUS
+		FROM HAR_RESERVATION h
+		WHERE CL_NUM = #{cl_num} AND h.RES_STATUS = 0 
+		) h
+		INNER JOIN
+		(
+		SELECT COUNT(HOS_STATUS) as HOS_STATUS 
+		FROM HOS_RESERVATION 
+		WHERE CL_NUM = #{cl_num} AND HOS_STATUS = 0
+		)s
+		on 1=1
+	</select>
+	<!-- 결제완료 상태 카운트 -->
+	<select id="status1" resultType="int" parameterType="string">
+		SELECT h.RES_STATUS + s.HOS_STATUS as total
+		FROM (
+		    SELECT COUNT(RES_STATUS)as RES_STATUS
+		FROM HAR_RESERVATION h
+		WHERE CL_NUM = #{cl_num} AND h.RES_STATUS = 1 
+		) h
+		INNER JOIN
+		(
+		SELECT COUNT(HOS_STATUS) as HOS_STATUS 
+		FROM HOS_RESERVATION 
+		WHERE CL_NUM = #{cl_num} AND HOS_STATUS = 1
+		)s
+		on 1=1
+	</select>
+	<!-- 이용완료 상태 카운트 -->
+	<select id="status2" resultType="int" parameterType="string">
+				SELECT h.RES_STATUS + s.HOS_STATUS as total
+		FROM (
+		    SELECT COUNT(RES_STATUS)as RES_STATUS
+		FROM HAR_RESERVATION h
+		WHERE CL_NUM = #{cl_num} AND h.RES_STATUS = 2 
+		) h
+		INNER JOIN
+		(
+		SELECT COUNT(HOS_STATUS) as HOS_STATUS 
+		FROM HOS_RESERVATION 
+		WHERE CL_NUM = #{cl_num} AND HOS_STATUS = 2
+		)s
+		on 1=1
+	</select>
+	
+	<!-- 날짜로 목록조회하기 -->
+	<select id="myRevListDate" parameterType="map" resultMap="HairRev">
+		
+			select  C.*
+			from(
+				select ROWNUM R, B.*
+				from(
+					    select A.* 
+					    from(
+					    SELECT HAR_RESERVATION.*, hair_salon.har_name
+					    FROM HAR_RESERVATION left join hair_salon
+					    ON CL_NUM = #{cl_num} AND hair_salon.har_num = har_reservation.har_num 
+					   <if test="#{res_date2} != null">
+							<![CDATA[
+								WHERE RES_DATE >= #{res_date} AND RES_DATE <= #{res_date2} AND CL_NUM = #{cl_num}
+						 	]]>
+						</if>
+					    union
+					    SELECT HOS_RESERVATION.*, hospital.hos_name
+					    FROM HOS_RESERVATION left join HOSPITAL
+					    ON CL_NUM = #{cl_num} AND hospital.hos_num = hos_reservation.hos_num
+					    <if test="#{res_date2} != null">
+							<![CDATA[
+								WHERE HOS_DATE >= #{res_date} AND HOS_DATE <= #{res_date2} AND CL_NUM = #{cl_num}
+						 	]]>
+						</if>
+				    )A ORDER BY RES_DATE ASC
+				)B
+			)C	
+			ORDER BY R DESC
+	</select>
+	
+	<!-- 미용실  -->
+	<!-- 미용실 예약 상세 페이지 -->
+	<select id="myRevDetail" parameterType="string" resultMap="HairRev">
+			SELECT h.*, s.style_name, c.cl_name, c.cl_tel, c.cl_email, p.pet_name, p.pet_birth, p.pet_weight, hs.har_name, hs.har_addr, hs.har_tel, hs.bp_Id
+			FROM HAR_RESERVATION h 
+			LEFT JOIN STYLE s ON h.style_num = s.style_num 
+			LEFT JOIN CLIENT c ON h.cl_num = c.cl_num
+			LEFT JOIN PET_INFO p ON h.pet_num = p.pet_num
+			LEFT JOIN HAIR_SALON hs ON h.har_num = hs.har_num
+			WHERE h.har_rnum = #{value}
+	</select>
+	<!-- 메뉴조회 -->
+	<select id="anotherMenu" parameterType="string" resultType="string">
+		SELECT s2.style_name
+		FROM HAR_RESERVATION h 
+		LEFT JOIN STYLE s2 ON h.style_num2 = s2.style_num2
+		WHERE h.har_rnum = #{har_rnum}
+	</select>
+	
+	<!-- 가격조회 -->
+	<select id="getPrice" parameterType="string" resultType="int">
+			SELECT (s.price+ NVL(s2.price,0)) as totalPrice
+			FROM HAR_RESERVATION h 
+			LEFT JOIN STYLE s ON h.style_num = s.style_num 
+			LEFT JOIN STYLE s2 ON h.style_num2 = s2.style_num2
+			WHERE h.har_rnum = #{value}
+	</select>
+		
+	<!-- 결제취소 -->
+	<select id="cancleRev" parameterType="string" resultType="int">
+		UPDATE HAR_RESERVATION SET RES_STATUS = 3 WHERE HAR_RNUM = #{har_rnum}
+	</select>
+	
+	
+	<!-- 동물병원 -->
+	<!-- 병원예약 상세 페이지 -->
+	<select id="myRevDetail2" parameterType="string" resultMap="HosRev">
+			SELECT h.*, p.pet_name, p.pet_birth, p.pet_weight, hs.hos_name, hs.hos_addr, hs.hos_tel, hs.bp_Id, m.med_name, m.med_price
+			FROM HOS_RESERVATION h 
+			LEFT JOIN PET_INFO p ON h.pet_num = p.pet_num
+			LEFT JOIN HOSPITAL hs ON h.hos_num = hs.hos_num
+			LEFT JOIN MEDICAL_TYPE m ON h.med_num = m.med_num
+			WHERE h.hos_rnum = #{value}
+	</select>
+	
+	<!-- 병원 결제취소 -->
+	<select id="cancleRev2" parameterType="string" resultType="int">
+		UPDATE HOS_RESERVATION SET HOS_STATUS = 3 WHERE HOS_RNUM = #{hos_rnum}
+	</select>
+	
+	
+</mapper>

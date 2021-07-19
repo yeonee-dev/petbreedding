@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BParterMap">
+	<resultMap type="BPartner" id="BPartner">
+		<id column="BP_ID" property="bp_Id"/>
+		<result column="BP_PWD" property="bp_pwd"/>
+		<result column="BP_NAME" property="bp_name"/>
+		<result column="BP_TEL" property="bp_tel"/>
+		<result column="BP_BANK" property="bp_bank"/>
+		<result column="BP_ACNT" property="bp_acnt"/>
+		<result column="BP_EMAIL" property="bp_email"/>
+		<result column="BP_NUM" property="bp_num"/>
+		<result column="BP_TYPE" property="bp_type"/>
+		<result column="BP_APRVE" property="bp_aprve"/>
+		<result column="BP_DELETE" property="bp_delete"/>
+		<result column="BP_REG" property="bp_reg"/>
+		<result column="REG_DATE" property="reg_date"/>
+	</resultMap>
+  	
+	<!-- 사업자 회원가입 -->
+	<insert id="insertBP" parameterType="Client">
+		INSERT INTO business_partner (BP_ID ,BP_PWD ,BP_NAME ,BP_TEL ,BP_EMAIL ,BP_NUM ,BP_TYPE ,BP_APRVE,BP_DELETE, BP_REG, REG_DATE ) 
+		VALUES('BP000' || SEQ_BUSINESS_PARTNER.NEXTVAL, #{bp_pwd},#{bp_name},#{bp_tel},#{bp_email},#{bp_num},#{bp_type}, 0,0,0, default)
+	</insert>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="checkEmail" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM business_partner WHERE BP_EMAIL = #{bp_email}
+	</select>
+	<!-- 휴대폰 중복체크 -->
+	<select id="checkHp" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM business_partner WHERE BP_TEL = #{bp_tel} 
+	</select>
+	<!-- 사업자번호 중복체크 -->
+	<select id="checkBpNum" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM business_partner WHERE BP_NUM = #{bp_num} 
+	</select>
+	
+	<!-- 사업자 회원탈퇴 신청-->
+	<update id="deleteBP" parameterType="string">
+		UPDATE business_partner SET BP_DELETE = 1 WHERE BP_ID = #{bp_Id}
+	</update>
+	
+	
+</mapper>

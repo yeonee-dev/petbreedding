@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+/* 페이지마다 변경되는 항목 */
+.bContent{
+	width: 750px;
+	text-align: center;
+	margin: 0;
+	float:left;
+}
+.bAside{
+	width:350px;
+}
+#bShop{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#bShop a{
+	display:block;
+	color: var(--font-color);
+}
+#bShopM{
+	display: inline-block;
+}
+.section{
+	padding-bottom: 150px;
+}
+
+/*정보 입력 테이블 */
+.tblInfo{
+	width: 100%;
+	text-align: left;
+	padding : 0 150px;
+	font-weight: 600;
+}
+
+.tblInfo tr{
+	height: 50px;
+}
+
+.tblInfo th input[type="text"] , .tblInfo td input[type="text"] {
+	width: 100%;
+}
+
+
+
+.basicBtn{
+	width: 100px;
+	height: 30px;
+	font-weight: 900;
+}
+
+.othercolorBtn{
+	background: var(--font-color);
+	color: var(--main-color);
+	border: 1px solid #aaa;
+}
+/* 주휴일 체크박스 */
+.wrap {
+	display: inline-block;
+	position: relative;
+	margin: 5px
+}
+.dayitem{
+	width: 30px;
+	height: 30px;
+	position: relative;
+	cursor: pointer;
+	border: 1px solid #aaa;
+	text-align: center;
+	line-height: 30px;
+}
+input[type="text"] {
+	height: 35px;	
+	margin-bottom: 10px;
+} 
+
+input[type="checkbox"] {
+	display: none;
+}
+
+input[type="checkbox"]:checked+label .dayitem{
+	background-color: var(--bmenu-color);
+	color: var(--font-color);
+}
+
+/* 등록하기 버튼*/
+.InfoRegi{
+	width: 200px;
+	height: 50px;
+	border-radius: 10px;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+#postcode{
+	width: 50%;
+}
+
+#shopAddr{
+	width: 70%;
+}
+
+#detailAddress{
+	width: 70%;
+}
+
+#extraAddress{
+	width: 70%;
+}
+
+
+/* 이미지 슬라이드 효과 */

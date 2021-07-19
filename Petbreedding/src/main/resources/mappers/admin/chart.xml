@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chart">
+
+<!-- 멤버 전체수 -->
+<select id="memberCount" resultType="int">
+	 select count(*) from client 
+</select>
+
+<!-- 사업자수 전체수 -->
+<select id="bpCount" resultType="int">
+select count(*) from business_partner
+</select>
+
+<!-- 멤버 월별 차트 -->
+<select id="memberMonth" resultType="int" parameterType="string">
+	select count(*) from client where reg_date = #{reg_date}
+</select>
+
+<!-- 사용자 월별 차트 -->
+<select id="bpMonth" resultType="int" parameterType="string">
+	select count(*) from business_partner where reg_date = #{reg_date}
+
+</select>
+
+
+<!-- 총매출 -->
+<select id="allPayPrice" resultType="int" parameterType="string">
+select sum(total_price), to_char(to_date(pay_date), 'YYYY-MM') 
+from (
+(select * from hos_pay) union all
+(select * from har_pay))
+group by
+to_char(to_date(pay_date), 'YYYY-MM')
+having to_char(to_date(pay_date), 'YYYY-MM') = #{pay_date}
+</select>
+
+<!-- 순매출 -->
+<select id="realPayPrice" resultType="int" parameterType="string">
+select sum(total_price * 0.3), to_char(to_date(pay_date), 'YYYY-MM') 
+from (
+(select * from hos_pay) union all
+(select * from har_pay))
+group by
+to_char(to_date(pay_date), 'YYYY-MM')
+having to_char(to_date(pay_date), 'YYYY-MM') = #{pay_date}
+</select>
+
+<!-- 울트라콜 점유율 -->
+<select id="ultraAll" resultType="int">
+	select count(*) from my_cta
+</select>
+
+<!-- 사업장 점유율 -->
+<select id="bpAll" resultType="int">
+	select count(*) 
+from (
+(select * from HAIR_SALON) 
+union all
+(select * from hospital)
+)
+</select>
+
+<!-- 미용실 울트라콜 점유율 -->
+<select id="HarUltra" resultType="int">
+	select count(*)
+	from hair_salon join my_cta
+	on hair_salon.bp_id = my_cta.bp_id
+</select>
+
+<!-- 병원 울트라 점유율 -->
+<select id="HosUltra" resultType="int">
+	select count(*)
+	from hospital join my_cta
+	on hospital.bp_id = my_cta.bp_id
+</select>
+</mapper>

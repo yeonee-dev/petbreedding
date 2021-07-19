@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="Board">
+	<resultMap type="Board" id="BoardMap">
+		<id column="BO_NUM" property="boNum"/>
+		<result column="CL_NUM" property="clNum"/>
+		<result column="CL_NICKNAME" property="clNickName"/>
+		<result column="BO_TITLE" property="boTitle"/>
+		<result column="BO_CONT" property="boCont"/>
+		<result column="BO_IMG" property="boImg"/>
+		<result column="BO_DATE" property="boDate"/>
+		<result column="BO_VIEW" property="boView"/>
+		<result column="BOC_CHK" property="bocChk"/>
+	</resultMap>
+	
+	
+	<!-- 게시글 전체 개수 조회 -->
+	<select id="listCount" resultType="int">
+	 	SELECT count(*) FROM BOARD
+	 </select>
+	
+	<select id="selectBoardList" parameterType="page" resultMap="BoardMap">
+			<![CDATA[
+				SELECT B.*
+				FROM (
+				    SELECT ROWNUM R, A.*
+				    FROM (
+				        SELECT * FROM BOARD 
+				        ORDER BY SUBSTR(BO_NUM, -3) DESC
+				    ) A
+				)B
+				WHERE  R>= #{start} AND R <=#{end}
+			]]>
+	</select>
+	
+	<select id="selectOneBoard" parameterType="Board" resultMap="BoardMap">
+		SELECT * FROM BOARD WHERE BO_NUM = #{boNum}
+	</select>
+	
+	<!-- 자유게시판 게시글 등록 -->
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD VALUES ('FB000' || SEQ_BOARD.nextval, #{clNum},#{clNickName},#{boTitle},#{boCont},#{boImg},SYSDATE,0,0)
+	</insert>
+
+	<!-- 검색한 게시글 조회 -->
+	 <select id="searchList" parameterType="string" resultMap="BoardMap">
+		 SELECT * FROM BOARD
+		 WHERE BO_TITLE LIKE '%'|| #{keyword} ||'%'
+		 OR BO_CONT LIKE '%'|| #{keyword} ||'%'
+		 ORDER BY BO_DATE DESC
+	 </select>
+	 
+	 <!-- 게시글 조회 수 증가 -->
+	 <update id="addReadCount" parameterType="string" flushCache="true">
+		 UPDATE BOARD SET BO_VIEW = BO_VIEW+1
+		 WHERE BO_NUM = #{boNum}
+	 </update>
+	 
+	 <update id="updateBoard" parameterType="Board">
+	 	UPDATE BOARD SET BO_TITLE = #{boTitle}, BO_CONT = #{boCont}, BO_IMG = #{boImg} WHERE BO_NUM = #{boNum}
+	 </update>
+	 
+	  <!-- 게시글 삭제 -->
+	 <delete id="deleteBoard" parameterType="string">
+	 	DELETE FROM BOARD WHERE BO_NUM = #{boNum}
+	 </delete>
+	 
+	 
+	 
+	 <!-- 내가 쓴 글 개수 -->
+	 <select id="myBoardCount" parameterType="string" resultType="int">
+	 	SELECT count(*) FROM BOARD WHERE CL_NUM = #{cl_num}
+	 </select>
+	 <!-- 내가 쓴 글 조회 -->
+	 <select id="myBoardList" parameterType="map" resultMap="BoardMap">
+	 	<![CDATA[
+		 	SELECT B.*
+			FROM (
+			    SELECT ROWNUM R, A.*
+			    FROM(
+			        SELECT * FROM BOARD 
+			        WHERE CL_NUM = #{cl_num}
+			        ORDER BY SUBSTR(BO_NUM,-3) DESC
+			    ) A
+			)B
+			WHERE R>= #{start} AND R<=#{end}
+		]]>
+	 </select>
+	 <!-- 내가 쓴 댓글 삭제 -->
+	 <delete id="myBoardDelete">
+	 	DELETE FROM BOARD
+	 	WHERE BO_NUM = ANY
+	 	<foreach collection="list" item="value" open="(" close=")" separator=",">
+		 	#{value}  		
+		</foreach>
+	 </delete>
+	 
+	
+</mapper>

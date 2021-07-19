@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+.mcontent {
+    width: 870px;
+    position: relative;
+    float: left;
+    padding-left:0px;
+}
+
+.point {
+	border: 1px solid #aaa;
+	height: 110px;
+	width: 300px;
+	margin: 20px 0px;
+}
+
+.ptitle {
+	display: inline-block;
+	margin: 30px 120px 0 30px;
+}
+
+.presult {
+	display: inline-block;
+	font-size: 26px;
+	margin: 0 0 40px 130px;
+}
+/*인기순, 거리순. 별점순 버튼*/
+.selectOpt {
+	float: left;
+	margin-top: 10px;
+	font-size: 12px;
+}
+.selectOpt input {
+	display: none;
+}
+
+.selectOpt label {
+	width: 100px;
+	cursor: pointer;
+	border-radius: 20px;
+	padding: 5px;
+	border: 1px solid #707070;
+}
+
+.selectOpt input:checked+label {
+	background: var(--hover-color);
+	color: var(--font-color);
+	border: 1px solid var(--hover-color);
+}
+
+
+/* 기간순 조회 */
+.timetblP {
+	float: left;
+	width: 600px;
+	margin-left: 50px;
+}
+
+.timetblP input {
+	font: inherit;
+}
+
+.basicBtn {
+	width: 80px;
+	height: 30px;
+	border-radius : 10px;
+}
+.pointline{
+	display:none;
+}
+
+/* 포인트 내역 테이블 */
+.pointtable {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.pointtable .pointline {
+	border-top: 1px solid #aaa;
+}
+
+.pointtable tr td {
+	padding: 30px 0px;
+	text-align: center;
+	width: 100px;
+}
+
+.pointtable td:first-child {
+	font-size: 20px;
+	padding-left: 80px;
+}
+
+.pred {
+	color: tomato;
+}
+
+.pgreen {
+	color: darkgreen;
+}
+
+.circleg {
+	border: 1px solid darkgreen;
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	line-height: 80px;
+}
+
+.circlep {
+	border: 1px solid tomato;
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	line-height: 80px;
+}
+
+.divmore {
+	text-align: center;
+}
+
+#moreBtn {
+	outline:none;
+	background-color: var(--font-color);
+	border: 1px solid #aaa;
+	width: 100px;
+	height: 40px;
+}
+
+#moreBtn:hover {
+	background-color: var(--hover-color);
+	border: 1px solid var(--hover-color);
+	color: var(--font-color);;
+	cursor: pointer;
+}
+
+#notice{
+	width:100%;
+	padding-left: 300px;
+}

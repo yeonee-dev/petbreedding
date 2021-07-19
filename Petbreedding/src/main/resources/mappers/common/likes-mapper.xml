@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="likes">
+	
+	<resultMap type="Likes" id="like">
+		<id column="LIKE_NUM" property="like_num"/>
+		<result column="CL_NUM" property="cl_num"/>
+		<result column="HAR_NUM" property="har_num"/>
+		<result column="HOS_NUM" property="hos_num"/>
+		<result column="BP_TYPE" property="bp_type"/>
+		<result column="HAR_IMG" property="har_img"/>
+		<!-- <result column="HOS_IMG" property="hos_img"/> -->
+		<collection property="hairSalon" resultMap="HairSalon" />
+		<collection property="hospital" resultMap="Hospital" />
+	</resultMap>
+	
+	<!-- 동물병원 -->
+	<resultMap type="Hospital" id="Hospital">
+		<id column="HOS_NUM" property="hosNum"/>
+		<result column="BP_ID" property="bpId"/>
+		<result column="HOS_NAME" property="shopName"/>
+		<result column="HOS_ADDR" property="shopAddr"/>
+		<result column="HOS_TEL" property="shopTel"/>
+		<result column="OPEN_TIME" property="shopTime"/>
+		<result column="HOS_MINFO" property="shopMInfo"/>
+		<result column="HOS_CONN" property="hosConn"/>
+		<result column="HOS_CLICK" property="hosClick"/>
+	</resultMap>
+
+	<!-- 미용실 테이블  -->
+	<resultMap type="HairSalon" id="HairSalon">
+		<id column="HAR_NUM" property="harNum"/>
+		<result column="BP_ID" property="bpId"/>
+		<result column="HAR_NAME" property="shopName"/>
+		<result column="HAR_ADDR" property="shopAddr"/>
+		<result column="HAR_TEL" property="shopTel"/>
+		<result column="HOPEN_TIME" property="shopTime"/>
+		<result column="HAR_MINFO" property="shopMInfo"/>
+	</resultMap>
+
+	<!-- 찜하기 등록  -->
+	<insert id="insertLike" parameterType="Likes">
+		<if test="har_num != null">
+		INSERT INTO LIKES(LIKE_NUM, CL_NUM, HAR_NUM) VALUES('LIKE000' || SEQ_LIKES.nextval, #{cl_num},#{har_num})
+		</if>
+		<if test="hos_num != null">
+		INSERT INTO LIKES(LIKE_NUM, CL_NUM, HOS_NUM) VALUES('LIKE000' || SEQ_LIKES.nextval, #{cl_num},#{hos_num})
+		</if>
+	</insert>
+	
+	<!-- 찜 조회 -->
+	<select id="selectLike" parameterType="string" resultMap="like">
+		SELECT L.*, H.BP_ID, H.HAR_NAME, H.HAR_MINFO, B.BP_TYPE, I.har_img
+		FROM LIKES L
+		RIGHT JOIN HAIR_SALON H
+		ON L.har_num = H.har_num
+		LEFT JOIN BUSINESS_PARTNER B
+		ON H.BP_ID = B.BP_ID
+		LEFT JOIN HAIR_SALON_IMG I
+		ON L.har_num = I.har_num
+		WHERE CL_NUM = #{cl_num}
+		union
+		SELECT L.*, H.BP_ID, H.HOS_NAME, H.HOS_MINFO, B.BP_TYPE, I.hos_img
+		FROM LIKES L
+		RIGHT JOIN HOSPITAL H
+		ON L.hos_num = H.hos_num
+		LEFT JOIN BUSINESS_PARTNER B
+		ON H.BP_ID = B.BP_ID
+		LEFT JOIN HOSPITAL_IMAGE I
+		ON L.hos_num = I.hos_num
+		WHERE CL_NUM = #{cl_num}
+	</select>
+	
+	<!-- 찜하기 삭제 -->
+	<delete id="deleteLike" parameterType="Likes">
+		DELETE FROM LIKES WHERE CL_NUM = #{cl_num} 
+		<if test="har_num != null">
+			AND HAR_NUM = #{har_num}
+		</if>
+		<if test="hos_num != null">
+			AND HOS_NUM = #{hos_num}
+		</if>
+	</delete>
+	
+	
+	<!-- 찜하기 카운트  -->
+	<select id="clickLike" parameterType="Likes" resultType="int">
+		SELECT COUNT(*) 
+		FROM LIKES 
+		WHERE CL_NUM =#{cl_num} 
+		<if test="har_num != null">
+		AND HAR_NUM = #{har_num}
+		</if>
+		<if test="hos_num != null">
+		AND HOS_NUM = #{hos_num}
+		</if>
+	</select>
+	
+	<!-- 찜한 미용실 카운트 -->
+	<select id="countSalon" parameterType="string" resultType="string">
+		SELECT COUNT(*)
+		FROM LIKES
+		WHERE HAR_NUM = #{har_num}
+	</select>
+	
+		<!-- 찜한 미용실 카운트 -->
+	<select id="countHos" parameterType="string" resultType="string">
+		SELECT COUNT(*)
+		FROM LIKES
+		WHERE HOS_NUM = #{hos_num}
+	</select>
+</mapper>

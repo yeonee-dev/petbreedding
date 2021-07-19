@@ -1,0 +1,34 @@
+@charset "UTF-8";
+/* aside 색입히기~ */
+#mMember{
+    color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+
+.section{
+    padding-bottom: 200px;
+}
+.memberBox{
+    width: 400px;
+    height: 200px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    line-height: 80px;
+    float: left;
+    margin-left: 20px;
+}
+.memberBox h1{
+    font-size: 40px;
+}
+.graphBox{
+    margin-top: 40px;
+    width: 400px;
+    height: 300px;
+    border: 1px solid var(--border-color);
+    float: left;
+    margin-left: 20px;
+}
+
+.mContent{
+    margin-top: 0;
+}

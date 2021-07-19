@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+/* 페이지마다 변경되는 항목 */
+.bContent{
+	width: 750px;
+	text-align: center;
+	margin: 0;
+	float:left;
+}
+.bAside{
+	width:350px;
+}
+#bMyPage{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#bMyPage a{
+	display:block;
+	color: var(--font-color);
+}
+#bMyPageM{
+	display: inline-block;
+}
+.section{
+	padding-bottom: 150px;
+}
+
+
+.qnatitle, .qnacontent,.qnaFile{
+	width : 600px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	text-align: left;
+}
+
+#h1{
+	font-size:20px;
+	padding-right: 50px;
+}
+#title {
+	width: 500px;
+	padding: 10px;
+}
+
+.myAskTitle {
+	width: 595px;
+	height: 40px;
+}
+
+#content{
+    width: 600px;
+    height: 500px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+#realInput {
+	margin-top: 10px;
+	margin-left : 26px;
+}
+.qnabtn{
+	width: 600px;
+	margin: 20px auto;
+}
+
+.msTitle{
+	width: 100%;
+	position: absolute;
+	top:20%;
+	left: 20%;
+}
+
+.msContent{
+	width: 100%;
+	position: absolute;
+	top:25%;
+	left: 20%;
+}
+
+.msBtn{
+	width: 80%;
+	position: absolute;
+	top:63%;
+	left: 47%;
+}
+
+.selectBox {
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+    -moz-appearance: none; 
+     appearance: none;
+     background: url("/petbreedding/resources/images/arrow.jpg") no-repeat 100% 50%; /* 화살표 모양의 이미지 */
+	padding:10px;
+	margin-left: 26px;
+	margin-bottom : 10px;
+	width: 500px;
+}
+
+.basicBtn{
+	font-family: "GmarketB";
+    src: url("../font/GmarketSansTTFBold.ttf");
+    padding: 10px 30px 10px 30px;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+#qnabtn {
+	display: flex;
+    justify-content: center;
+}

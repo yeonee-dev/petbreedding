@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="oftenQna">
+
+	<!-- 전체 qna 입력수 -->
+	<select id="allOftenCount" resultType="int">
+		SELECT COUNT(*) FROM OFTEN_QNA
+	</select>
+	<!-- 전체조회 -->
+	<select id="allOftenQna" parameterType="map" resultType="OftenQna">
+		<![CDATA[
+		SELECT B.* 
+		FROM (
+			SELECT ROWNUM R, A.* FROM OFTEN_QNA A 
+			ORDER BY R DESC
+		) B
+		WHERE #{start} <= R AND R <= #{end} 
+		]]>
+	</select>
+	
+	<!-- 회원 qna입력수 -->
+	<select id="COftenCount" resultType="int">
+		SELECT COUNT(*) FROM OFTEN_QNA WHERE OF_TYPE = 0 OR OF_TYPE = 1
+	</select>
+	<!-- 회원 조회 -->
+	<select id="COftenQna" parameterType="map" resultType="OftenQna">
+		<![CDATA[
+		SELECT B.* 
+		FROM (
+			SELECT ROWNUM R, A.* FROM OFTEN_QNA A
+			WHERE OF_TYPE = 0 OR OF_TYPE = 1
+			ORDER BY R DESC
+		) B
+		WHERE #{start} <= R AND R <= #{end} 
+		]]>
+	</select>
+	
+	<!-- 사업자회원 qna입력수 -->
+	<select id="BOftenCount" resultType="int">
+		SELECT COUNT(*) FROM OFTEN_QNA WHERE OF_TYPE = 0 OR OF_TYPE = 2
+	</select>
+	<!-- 사업자회원 조회 -->
+	<select id="BOftenQna" parameterType="map" resultType="OftenQna">
+		<![CDATA[
+		SELECT B.* 
+		FROM (
+			SELECT ROWNUM R, A.* FROM OFTEN_QNA A
+			WHERE OF_TYPE = 0 OR OF_TYPE = 2
+			ORDER BY R DESC
+		) B
+		WHERE #{start} <= R AND R <= #{end} 
+		]]>
+	</select>
+	
+	<!-- 자주묻는 질문 등록 -->
+	<insert id="insertOftenQna" parameterType="OftenQna" >
+		INSERT INTO OFTEN_QNA VALUES('OF000' || SEQ_OFTEN_QNA.NEXTVAL, #{of_title},#{of_cont},#{of_type})
+	</insert>
+	<!-- 자주묻는 질문 수정 -->
+	
+	<!-- 자주묻는 질문 삭제 -->
+</mapper>

@@ -1,0 +1,54 @@
+.myboardhead{
+    margin-bottom: 30px;
+    margin-left:30px;
+}
+.myboardhead h1{
+    padding-left: 50px;
+    padding-top: 20px;
+    font-size: 24px;
+    font-weight: 200;
+   
+}
+.myboard {
+    border: 1px solid #aaa;
+    border-left: none;
+    border-right: none;
+    border-collapse: collapse; 
+}
+.chBtn{
+	text-align: left !important;
+    padding-left: 11px;
+}
+.bTitle{
+	text-align: left !important;
+    padding-left: 100px;
+    overflow: hidden;
+}
+.myboard td{
+ border-bottom: 1px solid #aaa;
+ border-top: 1px solid #aaa;
+ height: 50px;
+ text-align: center;
+    
+}
+.myboard th{
+     height: 50px;
+     text-align: center;
+ }
+.goDetail{
+	cursor:pointer;
+}
+ .myboardrow{
+     float: right;
+ }
+ .basicBtn{
+  width: 80px;
+  height: 35px;
+  border-radius: 10px;
+ 
+}
+.basicBtn a{
+    color: #fff;
+    font-family: "GmarketM"
+}
+

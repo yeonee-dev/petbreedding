@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Login">
+
+	<!-- 사용자 resultMap -->
+  <resultMap type="Client" id="uLogin">
+  	<id column="CL_NUM" property="cl_num" />
+	<result  column="CL_EMAIL" property="email"/>
+	<result  column="CL_PWD" property="password"/>
+	<result  column="CL_NICKNAME" property="nickname"/>
+	<result  column="CL_NAME" property="name"/>
+	<result  column="CL_TEL" property="tel"/>
+  </resultMap>
+
+	<!-- 사업자 resultMap -->
+  <resultMap type="BPartner" id="bLogin">
+	<id column="BP_ID" property="bp_Id"/>
+	<result column="BP_PWD" property="bp_pwd"/>
+	<result column="BP_NAME" property="bp_name"/>
+	<result column="BP_TEL" property="bp_tel"/>
+	<result column="BP_BANK" property="bp_bank"/>
+	<result column="BP_ACNT" property="bp_acnt"/>
+	<result column="BP_EMAIL" property="bp_email"/>
+	<result column="BP_NUM" property="bp_num"/>
+	<result column="BP_TYPE" property="bp_type"/>
+	<result column="BP_APRVE" property="bp_aprve"/>
+	<result column="BP_DELETE" property="bp_delete"/>
+  </resultMap>
+
+   <!-- 관리자 resultMap -->
+  <resultMap type="Admin" id="mLogin">
+	<result column="ADMIN_ID" property="admin_id"/>
+	<result column="ADMIN_PWD" property="admin_pwd"/>
+  </resultMap>
+
+
+
+	<!-- 사용자 로그인 -->
+	<select id="loginMember" parameterType="Client" statementType="PREPARED" resultMap="uLogin">
+		SELECT * 
+		FROM client 
+		WHERE CL_EMAIL = #{email} AND CL_PWD = #{password}
+	</select>
+	
+	<!-- 사업자 로그인 -->
+	<select id="loginBMember" parameterType="BPartner" statementType="PREPARED" resultMap="bLogin">
+		SELECT * 
+		FROM business_partner 
+		WHERE BP_EMAIL = #{bp_email} AND BP_PWD = #{bp_pwd}
+	</select>
+  
+  	<!-- 관리자 로그인 -->
+	<select id="loginAdmin" parameterType="Admin" statementType="PREPARED" resultMap="mLogin">
+		SELECT * 
+		FROM ADMIN 
+		WHERE ADMIN_ID = #{admin_id} AND ADMIN_PWD = #{admin_pwd}
+	</select>
+	
+	<!-- 카카오, 네이버 로그인시 session 값 설정 -->
+	<select id="selectMember" parameterType="string" resultMap="uLogin">
+		SELECT * FROM CLIENT WHERE CL_NICKNAME = #{nickname}
+	</select>
+	
+	<!-- 사용자 아이디 찾기  -->
+	<select id="searchId" parameterType="Client" statementType="PREPARED" resultType="string">
+		SELECT CL_EMAIL as email 
+		FROM client
+		WHERE CL_NAME = #{name} AND CL_TEL = #{tel}
+	</select>
+	
+	<!-- 사용자 비밀번호 찾기  -->
+	<select id="searchPwd" parameterType="Client" statementType="PREPARED" resultType="int">
+		SELECT COUNT(*)
+		FROM client
+		WHERE CL_EMAIL = #{email} AND CL_TEL = #{tel}
+	</select>
+  
+  	<!-- 사용자 비밀번호 변경 -->
+  	<update id="changePwd" parameterType="Client" statementType="PREPARED">
+  		UPDATE client 
+  		SET  CL_PWD = #{password} 
+  		WHERE CL_EMAIL = #{email}
+  	</update>
+  
+  	<!-- 사업자 아이디 찾기  -->
+	<select id="searchBId" parameterType="BPartner" statementType="PREPARED" resultType="string">
+		SELECT BP_EMAIL as bp_email 
+		FROM business_partner
+		WHERE BP_NAME = #{bp_name} AND BP_TEL = #{bp_tel}
+	</select>
+	
+	<!-- 사업자 비밀번호 찾기  -->
+	<select id="searchBPwd" parameterType="BPartner" statementType="PREPARED" resultType="int">
+		SELECT COUNT(*)
+		FROM business_partner
+		WHERE BP_EMAIL = #{bp_email} AND BP_TEL = #{bp_tel}
+	</select>
+  
+  	<!-- 사업자 비밀번호 변경 -->
+  	<update id="changeBPwd" parameterType="BPartner" statementType="PREPARED">
+  		UPDATE business_partner 
+  		SET  BP_PWD = #{bp_pwd} 
+  		WHERE BP_EMAIL = #{bp_email}
+  	</update>
+  
+</mapper>

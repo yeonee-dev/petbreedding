@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+/*  */
+.mContent{
+    padding-left: 10px !important;
+	margin-bottom: 70px;
+	float: left;
+	width: 780px;
+}
+#mBoardm{
+	display:inline-block;
+}
+.mAside{
+	width: 310px;
+}
+#mBoard{
+	background-color:var(--bmenu-color);
+	color:var(--font-color);
+}
+
+
+.myboardhead{
+    margin-bottom: 50px;
+}
+.myboard {
+    border: 1px solid #aaa;
+    border-left: none;
+    border-right: none;
+    border-collapse: collapse;
+  
+}
+#allBtn{
+    text-align: left;
+    padding-left: 17px;
+}
+.myboard td{
+ border-bottom: 1px solid #aaa;
+ border-top: 1px solid #aaa;
+ height: 50px;
+ text-align: center;
+    
+}
+.myboard th{
+     height: 50px;
+     text-align: center;
+       
+   }
+
+.checkTR:hover{
+ border-bottom: 1px solid #aaa;
+ border-top: 1px solid #aaa;
+ height: 50px;
+ text-align: center;
+ background-color: #a5e6fc; /*tr호버컬러*/;
+ border-collapse: collapse;   
+}
+.inputBox{
+	padding-right: 63px;
+}
+
+
+ .myboardrow{
+     float: right;
+     margin-top: -40px;
+ }
+ .basicBtn{
+  width: 80px;
+  height: 35px;
+  border-radius: 10px;
+ 
+}
+.basicBtn a{
+    color: #fff;
+    font-family: "GmarketM"
+}
+
+/* 목록 행 (row)*/
+.checkTR {
+	cursor: pointer;
+}
+
+/*   PAGING 공통으로 쓸거면 빼고 사용해도 될 것 같음 */
+
+/* .page_wrap { */
+/* 	text-align:center; */
+/* 	font-size:0; */
+/*     margin-bottom: 40px; */
+/*  } */
+/* .page_nation { */
+/* 	display:inline-block; */
+/* } */
+/* .page_nation .none { */
+/* 	display:none; */
+/* } */
+/* .page_nation a { */
+/*     font-weight: bold; */
+/* 	display:block; */
+/* 	margin:0 3px; */
+/* 	float:left; */
+/* 	border:none; */
+/* 	width:28px; */
+/* 	height:28px; */
+/* 	line-height:28px; */
+/* 	text-align:center; */
+/* 	background-color:#fff; */
+/* 	font-size:13px; */
+/* 	color:#000; */
+/* 	text-decoration:none; */
+/* } */
+/* .page_nation .arrow { */
+/* 	border:none; */
+/*     font-weight: bold; */
+/* } */
+
+/* .page_nation .prev { */
+/* 	/* background:#f8f8f8 url('../../img/page_prev.png') no-repeat center center; */ */
+/* 	margin-right:7px; */
+
+/* } */
+/* .page_nation .next { */
+/* 	/* background:#f8f8f8 url('../../img/page_next.png') no-repeat center center; */ */
+/* 	margin-left:7px; */
+/* } */
+
+/* .page_nation a.active { */
+/* 	font-size: 15px; */
+/*     font-weight: bold; */
+/* 	color:#ff9914; */
+	
+/* } */
+/* .mContent { */
+/*     margin-top: 0px; */
+/*     padding-left: 0px; */
+/* } */

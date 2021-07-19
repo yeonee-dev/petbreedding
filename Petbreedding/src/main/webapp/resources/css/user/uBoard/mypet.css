@@ -1,0 +1,83 @@
+*{
+    font-family: "GmarketM";
+    src: url("../font/GmarketSansTTFMedium.ttf");
+}
+
+.pethead{
+    margin-bottom: 150px;
+}
+.pethead h1{
+    margin-bottom: 100px;
+    font-weight: bold;
+}
+.pethead img{
+    margin-right: 80px;
+    float: left;
+}
+.pethead .petname{
+   margin-left: 20px;
+   line-height: 8.5em;
+}
+.pethead .petname a{
+    color: #000;
+    font-size: 25px;
+  
+}
+.btnwrap{
+    float: right;
+}
+.btn{
+    width:90px;
+    height: 40px;
+    border-radius: 10px;
+    background: #4dbbff;
+    border: none;
+    font-family: "GmarketB";
+    src: url("../font/GmarketSansTTFBold.ttf");
+    font-size: 13px;
+}
+.btn a{
+    color: #fff;
+}
+.btn:hover{
+    width:90px;
+    height: 40px;
+    border-radius: 10px;
+    background: #ff9914;
+    border: none;
+    font-family: "GmarketB";
+    font-size: 13px;
+}
+.petrow{
+    justify-content: center;
+    width: auto;
+    overflow: hidden;
+    border: 2px dashed #aaa;
+    height: 150px;
+}
+#plus{
+    font-size: 50px;
+    float: left;
+    margin-top: 1.0em;
+    margin-left: 120px;
+    left: 80px;
+    color: #000;
+}
+#plus:hover{
+    font-size: 50px;
+    float: left;
+    line-height: 2.8em;
+    left: 80px;
+    color:#ff9914;
+}
+.plusp{
+    margin-left: 100px;
+    font-size: 35px;
+    font-weight: bold;
+    float: left;
+    line-height: 2.5em;
+    
+}
+
+/*PETCON*/
+

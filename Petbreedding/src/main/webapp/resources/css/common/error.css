@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+body{
+	text-align: center;
+}
+img{
+	height: 100%;
+}
+
+.errorBtn{
+	width: 180px;
+    border-radius: 10px;
+    height: 60px;
+    font-size: large;
+    font-weight: 600;
+    font-family: inherit;
+    position: absolute;
+}
+
+#mainBtn{
+	top: 70%;
+    left: 25%;
+}
+
+#backBtn{
+	top: 70%;
+    left: 45%;
+}
+
+#mainBtn500{
+	top: 84%;
+    left: 35%;
+}
+
+#backBtn500{
+	top: 84%;
+    left: 53%;
+}

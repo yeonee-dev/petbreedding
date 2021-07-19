@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.loginBox{
+    width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.IDlogo{
+    width: 260px;
+    margin: 0 auto;
+    display: block;
+}
+.loginBox label{
+    padding-left: 200px;
+}
+.loginBox input{
+    display: block;
+    width: 400px;
+    padding: 20px;
+    margin: 0 auto;
+}
+.loginBox .inputArea{
+    margin-bottom: 10px;
+        font-size: 14px;
+}
+
+#loginBtn{
+    margin-top: 30px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+#searchIdPw{
+    cursor: pointer;
+    padding-top: 20px;
+    display: inline-block;
+    float: right;
+    margin-right: 170px;
+    font-size: 14px;
+}

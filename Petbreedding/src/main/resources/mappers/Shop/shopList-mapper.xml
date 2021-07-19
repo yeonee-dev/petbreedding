@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="shopList">
+
+	<!-- 사업장 공통  -->
+	
+		<!-- 사업장 평균  별점 -->
+		<select id="selectShopRevAvg" parameterType="string" resultType="string">
+			SELECT round(avg(rev_val),2)
+			FROM(
+				   SELECT B.BP_ID, R.REV_VAL
+				   FROM business_partner B
+				   INNER JOIN review R
+				   ON (b.bp_id = r.bp_id)
+				)  
+				group by BP_ID
+				HAVING BP_ID = #{bpId}
+		</select>
+	
+		<!-- 사업장별 등록된 리뷰 갯수 -->
+		<select id="selectShopRevCount" parameterType="string" resultType="string">
+		SELECT count(*)
+		FROM(
+		      SELECT B.BP_ID, R.REV_VAL
+		      FROM business_partner B
+		      INNER JOIN review R
+		      ON (b.bp_id = r.bp_id)
+			)  
+		group by BP_ID
+		HAVING BP_ID = #{bpId}
+		</select>
+	
+
+		
+		
+	<!-- 울트라콜 매장 -->	
+	
+	
+		<!-- 울트라콜 병원 잔여수 높은 순으로 출력 -->
+		<select id="selectCtaHos" resultMap="Hospital">
+			select hospital.*, my_cta.cta_number
+			from hospital join my_cta
+			on hospital.bp_id = my_cta.bp_id
+			order by my_cta.cta_number desc
+		</select>
+	
+	
+	
+			<!-- 울트라콜 미용실 잔여수 높은 순으로 출력 -->
+		<select id="selectCtaHar" resultMap="HairSalon">
+		select hair_salon.*, my_cta.cta_number
+		from hair_salon join my_cta
+		on hair_salon.bp_id = my_cta.bp_id
+		order by my_cta.cta_number desc
+		</select>
+	
+	
+	
+	
+	
+	
+	
+			
+		<!-- 동물병원 -->
+	
+		<resultMap type="Hospital" id="Hospital">
+			<id column="HOS_NUM" property="hosNum"/>
+			<result column="BP_ID" property="bpId"/>
+			<result column="HOS_NAME" property="shopName"/>
+			<result column="HOS_ADDR" property="shopAddr"/>
+			<result column="HOS_TEL" property="shopTel"/>
+			<result column="OPEN_TIME" property="shopTime"/>
+			<result column="HOS_MINFO" property="shopMInfo"/>
+			<result column="HOS_MIMG" property="shopMImg"/>
+			
+			<result column="LIKES" property="likes"/>
+			<result column="AVG_REV_VAL" property="avgRevVal"/>
+		</resultMap>
+	
+	
+	<!-- 동물병원 키워드+위치 검색 (최신순으로 정렬만!)-->
+		
+			<!-- 검색 결과 카운팅 -->
+			<select id="countKeywordHosList" parameterType="hashmap" resultType="int">
+			<![CDATA[
+	 		SELECT count(*) 
+					FROM(
+						select * 
+						from hospital
+				        where hospital.hos_name LIKE '%' || #{keyword} || '%' AND hospital.hos_addr LIKE #{searchLoc1} || '%' AND hospital.hos_addr LIKE '%' ||  #{searchLoc2} || '%'
+						order by substr(hos_num, -3) DESC
+			)
+			]]>
+			</select>
+			
+			<!-- 최신순 정렬 -->
+			<select id="selectKeywordHosListNew" parameterType="hashmap" resultMap="Hospital">
+			<![CDATA[
+				SELECT  C.*
+						FROM(
+						    SELECT B.* 
+						    FROM(
+						        SELECT ROWNUM R , A.*
+						        FROM(
+						            select * 
+						            from hospital
+				                    where hospital.hos_name LIKE '%' || #{keyword} || '%' AND hospital.hos_addr LIKE #{searchLoc1} || '%' AND hospital.hos_addr LIKE '%' ||  #{searchLoc2} || '%'
+						            order by substr(hos_num, -3) DESC
+						        )A
+						    )B
+						) C
+						WHERE #{start}<= R AND R <= #{end}	
+			]]>
+			</select>
+			
+			
+	
+		<!-- 동물병원 주소(위치) 검색 -->
+		
+			<!-- 위치 검색 결과 카운팅 -->
+			<select id="countHosListLocNew" parameterType="hashmap" resultType="int">
+					<![CDATA[
+							   SELECT count(*) 
+							    FROM(
+							        SELECT ROWNUM R , A.*
+							        FROM(
+							            select * 
+							            from hospital
+					                    where hospital.hos_addr LIKE #{searchLoc1} || '%' AND hospital.hos_addr LIKE '%' ||  #{searchLoc2} || '%'
+							            order by substr(hos_num, -3) DESC
+							        )A
+							    )
+					]]>
+					</select>
+					
+					<!-- 동물병원 위치 검색 최신순 정렬 -->
+					<select id="selectHosListLocNew" parameterType="hashmap" resultMap="Hospital">
+					<![CDATA[
+					SELECT  C.*
+							FROM(
+							    SELECT B.* 
+							    FROM(
+							        SELECT ROWNUM R , A.*
+							        FROM(
+							            select * 
+							            from hospital
+					                    where hospital.hos_addr LIKE #{searchLoc1} || '%' AND hospital.hos_addr LIKE '%' ||  #{searchLoc2} || '%'
+							            order by substr(hos_num, -3) DESC
+							        )A
+							    )B
+							) C
+							WHERE #{start}<= R AND R <= #{end}
+					]]>
+				</select>
+				
+				<!-- 동물병원 위치 검색 인기순 정렬 -->
+				<select id="selectHosListLocLike" parameterType="hashmap" resultMap="Hospital">
+				<![CDATA[
+					SELECT  C.*
+						FROM(
+						    SELECT B.* 
+						    FROM(
+						        SELECT ROWNUM R , A.*
+			                    FROM(
+				                	SELECT hos.*, hl.likes
+				                    FROM hospital HOS
+				                    LEFT JOIN
+				                        (SELECT h.hos_num, COUNT(*) LIKES
+				                            FROM hospital H
+				                            JOIN likes L
+				                            ON (h.hos_num = l.hos_num)
+				                            GROUP BY h.hos_num
+				                    ) HL
+				                    ON HOS.hos_num = HL.hos_num 
+									WHERE HOS.hos_addr LIKE #{searchLoc1} || '%' AND HOS.hos_addr LIKE '%' ||  #{searchLoc2} || '%'
+				                    ORDER BY LIKES DESC NULLS LAST
+			                     )A
+						    )B
+						) C
+						WHERE #{start}<= R AND R <= #{end}			
+				]]>
+				</select>
+				
+				<!-- 동물병원 위치 검색 별점순 정렬 -->
+				<select id="selectHosListLocRev" parameterType="hashmap" resultMap="Hospital">
+				<![CDATA[
+					SELECT  C.*
+						FROM(
+						    SELECT B.* 
+						    FROM(
+						        SELECT ROWNUM R , A.*
+			                    FROM(
+							            SELECT HOS.*, BR.avg_rev_val
+							            FROM HOSPITAL HOS
+							            left JOIN (
+							                SELECT b.bp_id, round(avg(R.REV_VAL),2) avg_rev_val
+							                 FROM business_partner B
+							                LEFT JOIN review R
+							                ON (b.bp_id = r.bp_id)
+							                group by b.bp_id
+							            )  BR
+							             ON (hos.bp_id = br.bp_id)
+							             WHERE HOS.hos_addr LIKE #{searchLoc1} || '%' AND HOS.hos_addr LIKE '%' ||  #{searchLoc2} || '%'
+							            ORDER BY avg_rev_val DESC NULLS LAST
+			                     )A
+						    )B
+						) C
+						WHERE #{start}<= R AND R <= #{end}
+						]]>
+			</select>
+			
+
+			
+		<!-- 동물병원 전체 리스트 -->
+	
+			<!-- 동물병원 전체 리스트 카운팅 -->
+			<select id="countAllHosList" resultType="int">
+				SELECT COUNT(*) FROM HOSPITAL
+			</select>
+			
+			<!-- 동물병원 전체 리스트 - 최신순 정렬 -->
+			<select id="selectAllHosListNew"  parameterType="page" resultMap="Hospital">
+			<![CDATA[
+				SELECT  C.*
+				FROM(
+				    SELECT B.* 
+				    FROM(
+				        SELECT ROWNUM R , A.*
+				        FROM(
+				            select * 
+				             from hospital
+	             			order by substr(hos_num, -3) DESC
+				        )A
+				    )B
+				) C
+				WHERE #{start}<= R AND R <= #{end}
+				]]>
+			</select>
+		
+			<!-- 동물병원 전체 리스트 인기순 정렬 (찜) -->
+			<select id="selectAllHosListLike" parameterType="page" resultMap="Hospital">
+			<![CDATA[
+			SELECT  C.*
+				FROM(
+				    SELECT B.* 
+				    FROM(
+				        SELECT ROWNUM R , A.*
+	                    FROM(
+	                	SELECT hos.*, hl.likes
+	                    FROM hospital HOS
+	                    LEFT JOIN
+	                        (SELECT h.hos_num, COUNT(*) LIKES
+	                            FROM hospital H
+	                            JOIN likes L
+	                            ON (h.hos_num = l.hos_num)
+	                            GROUP BY h.hos_num
+	                    ) HL
+	                    ON hos.hos_num = HL.hos_num
+	                    ORDER BY LIKES DESC NULLS LAST
+	                     )A
+				    )B
+				) C
+				WHERE #{start}<= R AND R <= #{end}
+				]]>
+		</select>
+		
+		<!-- 동물병원 전체 리스트 별점순 정렬 -->
+		<select id="selectAllHosListRev" parameterType="page" resultMap="Hospital">
+		<![CDATA[
+		SELECT  C.*
+			FROM(
+			    SELECT B.* 
+			    FROM(
+			        SELECT ROWNUM R , A.*
+                    FROM(
+			            SELECT HOS.*, BR.avg_rev_val
+			            FROM HOSPITAL HOS
+			            left JOIN (
+			                SELECT b.bp_id, round(avg(R.REV_VAL),2) avg_rev_val
+			                 FROM business_partner B
+			                LEFT JOIN review R
+			                ON (b.bp_id = r.bp_id)
+			                group by b.bp_id
+			            )  BR
+			             ON (hos.bp_id = br.bp_id)
+			            ORDER BY avg_rev_val DESC NULLS LAST
+                     )A
+			    )B
+			) C
+			WHERE #{start}<= R AND R <= #{end}
+			]]>
+		</select>
+		
+		
+		<!-- 미용실 -->
+	
+		<!-- HAR_SARLON 테이블  -->
+		<resultMap type="HairSalon" id="HairSalon">
+			<id column="HAR_NUM" property="harNum"/>
+			<result column="BP_ID" property="bpId"/>
+			<result column="HAR_NAME" property="shopName"/>
+			<result column="HAR_ADDR" property="shopAddr"/>
+			<result column="HAR_TEL" property="shopTel"/>
+			<result column="HOPEN_TIME" property="shopTime"/>
+			<result column="HAR_MINFO" property="shopMInfo"/>
+			<result column="HAR_MIMG" property="shopMImg"/>
+			
+			<result column="LIKES" property="likes"/>
+			<result column="AVG_REV_VAL" property="avgRevVal"/>
+		</resultMap>
+		
+
+	
+		
+		
+		
+
+	
+		<!-- 미용실 키워드+위치 검색 (최신순으로 정렬만!)-->
+		
+			<!-- 검색 결과 카운팅 -->
+			<select id="countKeywordHarList" parameterType="hashmap" resultType="int">
+			<![CDATA[
+	 		SELECT count(*) 
+					FROM(
+						select * 
+						from hair_salon
+						where hair_salon.har_name LIKE '%' || #{keyword} || '%' AND hair_salon.har_addr LIKE #{searchLoc1} || '%' AND hair_salon.har_addr LIKE '%' ||  #{searchLoc2} || '%'
+						order by substr(har_num, -3) DESC
+
+			)
+			]]>
+			</select>
+			
+			<!-- 최신순 정렬 -->
+			<select id="selectKeywordHarListNew" parameterType="hashmap" resultMap="HairSalon">
+			<![CDATA[
+				SELECT  C.*
+						FROM(
+						    SELECT B.* 
+						    FROM(
+						        SELECT ROWNUM R , A.*
+						        FROM(
+						            select * 
+						            from hair_salon
+				                    where hair_salon.har_name LIKE '%' || #{keyword} || '%' AND hair_salon.har_addr LIKE #{searchLoc1} || '%' AND hair_salon.har_addr LIKE '%' ||  #{searchLoc2} || '%' 
+						            order by substr(har_num, -3) DESC
+						        )A
+						    )B
+						) C
+						WHERE #{start}<= R AND R <= #{end}	
+			]]>
+			</select>
+	
+	
+	<!-- 미용실 전체 리스트  -->
+	
+		<!-- 미용실 전체 리스트 카운팅 -->
+		<select id="countALLHarList" resultType="int">
+			SELECT COUNT(*) FROM HAIR_SALON
+		</select>
+		
+		
+		<!-- 미용실 전체 리스트 최신순 정렬 -->
+		<select id="selectAllHarListNew"  parameterType="page" resultMap="HairSalon">
+		<![CDATA[
+		SELECT  C.*
+		FROM(
+		    SELECT B.* 
+		    FROM(
+		        SELECT ROWNUM R , A.*
+		        FROM(
+		            select * 
+		            from hair_salon
+		            order by substr(har_num, -3) DESC
+		        )A
+		    )B
+		) C
+		WHERE #{start}<= R AND R <= #{end}
+		
+			]]>
+		</select>
+		
+		<!-- 미용실 전체 리스트 인기순 정렬 (찜 순으로) -->
+		<select id="selectAllHarListLike" parameterType="page" resultMap="HairSalon">
+			<![CDATA[
+		SELECT  C.*
+			FROM(
+			    SELECT B.* 
+			    FROM(
+			        SELECT ROWNUM R , A.*
+                    FROM(
+                	SELECT har.*, hl.likes
+                    FROM hair_salon HAR
+                    LEFT JOIN
+                        (SELECT h.har_num, COUNT(*) LIKES
+                            FROM hair_salon H
+                            JOIN likes L
+                            ON (h.har_num = l.har_num)
+                            GROUP BY h.har_num
+                    ) HL
+                    ON HAR.har_num = HL.har_num
+                    ORDER BY LIKES DESC NULLS LAST
+                     )A
+			    )B
+			) C
+			WHERE #{start}<= R AND R <= #{end}
+				]]>
+		</select>
+
+		<!-- 미용실 전체 리스트 별점순 정렬 -->
+		<select id="selectAllHarListRev" parameterType="page" resultMap="HairSalon">
+			<![CDATA[
+		SELECT  C.*
+			FROM(
+			    SELECT B.* 
+			    FROM(
+			        SELECT ROWNUM R , A.*
+                    FROM(
+			            SELECT HAR.*, BR.avg_rev_val
+			            FROM HAIR_SALON HAR
+			            left JOIN (
+			                SELECT b.bp_id, round(avg(R.REV_VAL),2) avg_rev_val
+			                 FROM business_partner B
+			                LEFT JOIN review R
+			                ON (b.bp_id = r.bp_id)
+			                group by b.bp_id
+			            )  BR
+			             ON (har.bp_id = br.bp_id)
+			            ORDER BY avg_rev_val DESC NULLS LAST
+                     )A
+			    )B
+			) C
+			WHERE #{start}<= R AND R <= #{end}
+				]]>
+		</select>
+		
+		
+		
+		
+		<!-- 미용실 주소(위치) 검색 -->
+			
+					<!-- 위치 검색 결과 카운팅 -->
+					<select id="countHarListLocNew" parameterType="hashmap" resultType="int">
+					<![CDATA[
+							    SELECT count(*) 
+							    FROM(
+							        SELECT ROWNUM R , A.*
+							        FROM(
+							            select * 
+							            from hair_salon
+					                    where hair_salon.har_addr LIKE #{searchLoc1} || '%' AND hair_salon.har_addr LIKE '%' ||  #{searchLoc2} || '%'
+							            order by substr(har_num, -3) DESC
+							        )A
+							    )
+					]]>
+					</select>
+		
+			<!-- 최신순 정렬 -->
+			<select id="selectHarListLocNew" parameterType="hashmap" resultMap="HairSalon">
+			<![CDATA[
+			SELECT  C.*
+					FROM(
+					    SELECT B.* 
+					    FROM(
+					        SELECT ROWNUM R , A.*
+					        FROM(
+					            select * 
+					            from hair_salon
+			                    where hair_salon.har_addr LIKE #{searchLoc1} || '%' AND hair_salon.har_addr LIKE '%' ||  #{searchLoc2} || '%'
+					            order by substr(har_num, -3) DESC
+					        )A
+					    )B
+					) C
+					WHERE #{start}<= R AND R <= #{end}
+			]]>
+			</select>
+								
+			<!-- 인기순 정렬 -->
+			<select id="selectHarListLocLike" parameterType="hashmap" resultMap="HairSalon">
+			<![CDATA[
+				SELECT  C.*
+					FROM(
+					    SELECT B.* 
+					    FROM(
+					        SELECT ROWNUM R , A.*
+		                    FROM(
+			                	SELECT har.*, hl.likes
+			                    FROM hair_salon HAR
+			                    LEFT JOIN
+			                        (SELECT h.har_num, COUNT(*) LIKES
+			                            FROM hair_salon H
+			                            JOIN likes L
+			                            ON (h.har_num = l.har_num)
+			                            GROUP BY h.har_num
+			                    ) HL
+			                    ON HAR.har_num = HL.har_num 
+								WHERE HAR.har_addr LIKE #{searchLoc1} || '%' AND HAR.har_addr LIKE '%' ||  #{searchLoc2} || '%'
+			                    ORDER BY LIKES DESC NULLS LAST
+		                     )A
+					    )B
+					) C
+					WHERE #{start}<= R AND R <= #{end}			
+			]]>
+			</select>
+			
+			<!-- 별점순 정렬 -->
+			<select id="selectHarListLocRev" parameterType="hashmap" resultMap="HairSalon">
+			<![CDATA[
+				SELECT  C.*
+					FROM(
+					    SELECT B.* 
+					    FROM(
+					        SELECT ROWNUM R , A.*
+		                    FROM(
+						            SELECT HAR.*, BR.avg_rev_val
+						            FROM HAIR_SALON HAR
+						            left JOIN (
+						                SELECT b.bp_id, round(avg(R.REV_VAL),2) avg_rev_val
+						                 FROM business_partner B
+						                LEFT JOIN review R
+						                ON (b.bp_id = r.bp_id)
+						                group by b.bp_id
+						            )  BR
+						             ON (har.bp_id = br.bp_id)
+						             WHERE HAR.har_addr LIKE #{searchLoc1} || '%' AND HAR.har_addr LIKE '%' ||  #{searchLoc2} || '%'
+						            ORDER BY avg_rev_val DESC NULLS LAST
+		                     )A
+					    )B
+					) C
+					WHERE #{start}<= R AND R <= #{end}
+					]]>
+			</select>
+</mapper>

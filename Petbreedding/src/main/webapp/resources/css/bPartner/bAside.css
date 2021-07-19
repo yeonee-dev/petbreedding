@@ -1,0 +1,105 @@
+@charset "UTF-8";
+/* 어사이드 넓이 지정 */
+.bAside{
+    width: 100px;
+    box-sizing: border-box;
+    float: left;
+    margin-right:0px;   
+}
+.bAside .menu p {
+    margin-top: 5px;
+}
+.bMenu{
+    width: 100px;
+    float: left;
+    border: 1px solid var(--bmenu-color);
+}
+.bAside .menu{
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid var(--bmenu-color);
+    padding-top: 20px;
+}
+
+.bAside .menu:hover{
+    color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+
+.bSideMenu{
+    width: 200px;
+    float: left;
+    border: 1px solid var(--bmenu-color);
+    display: none;
+    border-left: none;
+}
+.bBox{
+    width: 150px;
+    margin: 0 auto;
+}
+.bBox p {
+    font-size: 24px;
+}
+.bBox .bs{
+    cursor: pointer;
+    padding-bottom: 20px;
+}
+.bBox .bs:hover{
+    color: var(--hover-color);
+}
+.bmp{
+    margin-bottom: 20px;
+}
+
+/* bContent 넓이 지정 */
+.bContent {
+	overflow: hidden;
+    width: 950px;
+    margin-top: 30px;
+    padding-left: 30px;
+}
+
+
+/* section padding 다시 설정 */
+.section{
+    padding-bottom: 150px;
+}
+
+
+.modal{
+	display: none;
+	position: absolute;
+	top: 30%;
+	left: 40%;
+	width: 400px;
+	padding: 30px 80px 80px 80px;
+	background: white;
+	border: 1px solid #000;
+	overflow: auto;
+}
+
+.boldtext{
+	font-size: 24pt;
+	text-align: center;
+}
+
+.text{
+	text-align: center;
+}
+.btn{
+	width: 300px;
+	margin:0 auto;
+	text-align: center;
+}
+#yesCalncle{
+	padding: 10px 30px 10px 30px;
+	border-radius: 10px;
+	width:100px;
+	margin-right: 30px;
+}
+
+#noCalncle {
+	padding: 10px 30px 10px 30px;
+	border-radius: 10px;
+	width:100px;
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="boardComment">
+	<resultMap type="boardComment" id="boardCommentMap">
+		<id column="CO_NUM" property="coNum"/>
+		<result column="BO_NUM" property="boNum"/>
+		<result column="CL_NUM" property="clNum"/>
+		<result column="CL_NICKNAME" property="clNickName"/>
+		<result column="CO_CONT" property="coCont"/>
+		<result column="CO_DATE" property="coDate"/>
+	</resultMap>
+	
+<!-- 	<resultMap type="MyAskComment" id="MyAskCommentMap"> -->
+<!-- 		<id column="QNAC_NUM" property="qnacNum"/> -->
+<!-- 		<result column="ADMIN_ID" property="adminId"/> -->
+<!-- 		<result column="QNA_NUM" property="qnaNum"/> -->
+<!-- 		<result column="QNAC_CONT" property="qnacCont"/> -->
+<!-- 		<result column="QNAC_DATE" property="qnacDate"/> -->
+<!-- 	</resultMap> -->
+	
+		<!-- [관리자] 해당 자유 게시판의 댓글 조회  -->
+	<select id="bCommentSelectListA" resultMap="boardCommentMap">
+		SELECT * FROM BOARD_COMMENT
+	</select>
+	
+	<!-- [고객] 해당 해당 자유 게시판의 댓글 조회 (JSON) -->
+	<select id="bCommentSelectListC" parameterType="string" resultMap="boardCommentMap">
+		SELECT * FROM BOARD_COMMENT WHERE BO_NUM = #{boNum}
+		ORDER BY SUBSTR(CO_NUM,-2) DESC
+	</select>
+	
+	<!-- 자유게시판 댓글 시퀀스 더미 테이블을 이용해 가져오기 -->
+	<select id="getbCommentSeq" resultType="string">
+		<![CDATA[
+			SELECT 'CO'||SEQ_BOARD_COMMENT.NEXTVAL from DUAL
+		]]>
+	</select>
+	
+	<!-- 자유게시판 댓글 등록 -->
+	<insert id="bCommentInsert" parameterType="boardComment">
+		<![CDATA[
+			INSERT INTO BOARD_COMMENT VALUES(
+				#{coNum} ,#{boNum} ,#{clNum} ,#{clNickName}
+				,#{coCont} ,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI')
+			)
+		]]>
+	</insert>
+	
+	<!-- 자유게시판 댓글 개수 업데이트 -->
+	<update id="bocChkUpdate" parameterType="string">
+		<![CDATA[
+			UPDATE BOARD SET BOC_CHK = (SELECT COUNT(*) FROM BOARD_COMMENT WHERE BO_NUM = #{boNum})
+			WHERE BO_NUM = #{boNum}
+		]]>
+	</update>
+	
+	<update id="bCommentUpdate" parameterType="boardComment">
+		UPDATE BOARD_COMMENT SET CO_CONT = #{coCont} WHERE CO_NUM = #{coNum}
+	</update>
+	
+	<!-- 자유게시판 댓글 삭제 -->
+	 <delete id="bCommentDelete" parameterType="string">
+	 	DELETE FROM BOARD_COMMENT WHERE CO_NUM = #{coNum}
+	 </delete>
+	
+	
+	<!-- 내가 쓴 댓글 개수 -->
+	 <select id="myBoardCMCount" parameterType="string" resultType="int">
+	 	SELECT count(*) FROM BOARD_COMMENT WHERE CL_NUM = #{cl_num}
+	 </select>
+	 <!-- 내가 쓴 댓글 조회 -->
+	 <select id="myBoardCMList" parameterType="map" resultMap="boardCommentMap">
+	 	<![CDATA[
+		 	SELECT B.*
+			FROM (
+			    SELECT ROWNUM R, A.*
+			    FROM(
+			        SELECT * FROM BOARD_COMMENT 
+			        WHERE CL_NUM = #{cl_num}
+			        ORDER BY SUBSTR(CO_NUM,-2) DESC
+			    ) A
+			)B
+			WHERE R>= #{start} AND R<=#{end}
+		]]>
+	 </select>
+	 
+	<!-- 내가 쓴 댓글 삭제 -->
+	 <delete id="myCommentDelete">
+	 	DELETE FROM BOARD_COMMENT
+	 	WHERE CO_NUM = ANY
+	 	<foreach collection="list" item="value" open="(" close=")" separator=",">
+		 #{value}  		
+		</foreach>
+	 </delete>
+</mapper>

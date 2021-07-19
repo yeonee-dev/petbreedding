@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="Review">
+	<resultMap type="Review" id="ReviewMap">
+		<id column="REV_NUM" property="revNum"/>
+		<result column="BP_ID" property="bpId"/>
+		<result column="CL_NUM" property="clNum"/>
+		<result column="CL_NICKNAME" property="clNickName"/>
+		<result column="REV_CONT" property="revCont"/>
+		<result column="REV_IMG" property="revImg"/>
+		<result column="REV_DATE" property="revDate"/>
+		<result column="REV_VAL" property="revVal"/>
+		<result column="CMNT_CHK" property="comntChk"/>
+		<association property="revComment" column="revNum" javaType="ReviewComment" columnPrefix="co_">
+			<id column="REV_NUM" property="revNum"/>
+			<result column="REVC_NUM" property="revcNum"/>
+			<result column="BP_ID" property="bpId"/>
+			<result column="REVC_CONT" property="revcCont"/>
+			<result column="REVC_DATE" property="revcDate"/>
+		</association>
+	</resultMap>
+	
+		<!-- 미용실 예약VO -->
+	<resultMap type="HairRev" id="HairRev">
+		<id column="HAR_RNUM" property="har_rnum"/>
+		<result column="CL_NUM" property="cl_num" />
+		<result column="PET_NUM" property="pet_num" />
+		<result column="STYLE_NUM" property="style_num" />
+		<result column="HAR_NUM" property="har_num" />
+		<result column="RES_DATE" property="res_date" />
+		<result column="RES_STATUS" property="res_status" />
+		<result column="RES_TIME" property="res_time" />
+		<result column="STYLE_NUM2" property="style_num2" />
+		<result column="RES_CHK" property="res_chk"/>
+	</resultMap>
+	
+		<!-- 동물병원 예약VO  -->
+	<resultMap type="HosRev" id="HosRev">
+		<id column="HOS_RNUM" property="hos_rnum"/>
+		<result column="CL_NUM" property="cl_num"/>
+		<result column="PET_NUM" property="pet_num" />
+		<result column="MED_NUM" property="med_num"/>
+		<result column="HOS_NUM" property="hos_num"/>
+		<result column="HOS_DATE" property="hos_date"/>
+		<result column="MED_NUM2" property="med_num2"/>
+		<result column="HOS_STATUS" property="hos_status" />
+		<result column="HOS_TIME" property="hos_time"/>
+		<result column="RES_CHK" property="res_chk"/>
+	</resultMap>
+	
+ 	<!-- 리뷰 시퀀스 값 가져오기 -->
+ 	<select id="getRevNumFromSeq" resultType="string">
+		<![CDATA[
+			select 'REV'||SEQ_REVIEW.NEXTVAL from dual
+		]]>
+ 	</select>
+ 	
+ 	<!-- 리뷰 개수 카운트 -->
+ 	<select id="getRevCount" parameterType="string" resultType="int">
+ 		SELECT COUNT(*) FROM REVIEW WHERE BP_ID = #{bpId}
+ 	</select>
+	
+	<!-- 리뷰 댓글 달기 모달창 리뷰 정보 조회 -->
+	<select id="reviewSelectOne" parameterType="string" resultMap="ReviewMap">
+		<![CDATA[
+			SELECT * FROM REVIEW WHERE REV_NUM = #{revNum}
+		 ]]>
+	</select>
+	
+	<!-- 리뷰 평균 값 조회 -->
+	<select id="getRevValAvg" parameterType="string" resultType="string">
+		SELECT TO_CHAR(TRUNC(AVG(REV_VAL), 2), 'FM9.00') FROM REVIEW
+		WHERE BP_ID = #{bpId}
+	</select>
+	
+	<!-- 상세페이지에서 리뷰와 댓글 조회 최신 순-->
+	<select id="revRevcSelectListUpToDate" parameterType="map" resultMap="ReviewMap">
+		<![CDATA[
+            SELECT B.*
+            FROM (
+            SELECT ROWNUM R, A.*
+            FROM (
+            SELECT r.*, c.REV_NUM as co_REV_NUM, c.REVC_NUM as co_REVC_NUM, c.BP_ID as co_BP_ID, c.REVC_CONT as co_REVC_CONT, c.REVC_DATE as co_REVC_DATE
+			FROM REVIEW r left outer JOIN REVIEW_COMMENT c
+			ON r.REV_NUM = c.REV_NUM
+			WHERE r.BP_ID = #{bpId}
+            ORDER BY SUBSTR(r.REV_NUM, -3) DESC
+            ) A
+            ) B
+            WHERE R>= #{start} AND R<=#{end}
+		 ]]>
+	</select>
+	
+	<!-- 상세페이지에서 리뷰와 댓글 조회 별점 높은 순-->
+	<select id="revRevcSelectListDescStar" parameterType="map" resultMap="ReviewMap">
+		<![CDATA[
+            SELECT B.*
+            FROM (
+            SELECT ROWNUM R, A.*
+            FROM (
+			SELECT r.*, c.REV_NUM as co_REV_NUM, c.REVC_NUM as co_REVC_NUM, c.BP_ID as co_BP_ID, c.REVC_CONT as co_REVC_CONT, c.REVC_DATE as co_REVC_DATE
+			FROM REVIEW r left outer JOIN REVIEW_COMMENT c
+			ON r.REV_NUM = c.REV_NUM
+			WHERE r.BP_ID = #{bpId}
+			ORDER BY r.REV_VAL DESC
+            ) A
+            ) B
+            WHERE R>= #{start} AND R<=#{end}
+		 ]]>
+	</select>
+	
+	<!-- 상세페이지에서 리뷰와 댓글 조회 별점 낮은 순-->
+	<select id="revRevcSelectListAscStar" parameterType="map" resultMap="ReviewMap">
+		<![CDATA[
+            SELECT B.*
+            FROM (
+            SELECT ROWNUM R, A.*
+            FROM (
+			SELECT r.*, c.REV_NUM as co_REV_NUM, c.REVC_NUM as co_REVC_NUM, c.BP_ID as co_BP_ID, c.REVC_CONT as co_REVC_CONT, c.REVC_DATE as co_REVC_DATE
+			FROM REVIEW r left outer JOIN REVIEW_COMMENT c
+			ON r.REV_NUM = c.REV_NUM
+			WHERE r.BP_ID = #{bpId}
+			ORDER BY SUBSTR(r.REV_VAL, -1) ASC, SUBSTR(r.REV_NUM, -1) ASC
+            ) A
+            ) B
+            WHERE R>= #{start} AND R<=#{end}
+		 ]]>
+	</select>
+	
+	<!-- 사업자 관리 페이지에서 리뷰 조회 -->
+	<select id="reviewSelectList" parameterType="map" resultMap="ReviewMap">
+		<![CDATA[
+			SELECT B.* 
+			FROM (
+			    SELECT ROWNUM R, A.* FROM REVIEW A
+			    WHERE BP_ID = #{bpId}
+			    ORDER BY SUBSTR(REV_NUM, -2)DESC
+			) B
+			WHERE #{start}<= R AND R<=#{end}
+		 ]]>
+	</select>
+	
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview" parameterType="Review">
+		<![CDATA[
+			INSERT INTO REVIEW VALUES(
+			#{revNum}, #{bpId},
+			#{clNum}, #{clNickName}, #{revCont}, #{revImg},
+			TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{revVal}, 0
+			)
+		]]>
+ 	</insert>
+ 	
+ 	<!-- 리뷰 댓글 여부 업데이트 -->
+	<update id="updateCmntChk" parameterType="string">
+		UPDATE REVIEW SET CMNT_CHK = 1 WHERE REV_NUM = #{revNum}
+	</update>
+	
+	<!-- 미용실 리뷰 작성 여부 업데이트 -->
+	<update id="updateHarResChk" parameterType="string">
+		UPDATE HAR_RESERVATION SET RES_CHK = 1 WHERE HAR_RNUM = #{har_rnum}
+	</update>
+	
+	<!-- 병원 리뷰 작성 여부 업데이트 -->
+	<update id="updateHosResChk" parameterType="string">
+		UPDATE HOS_RESERVATION SET RES_CHK = 1 WHERE HOS_RNUM = #{hos_rnum}
+	</update>
+	
+</mapper>

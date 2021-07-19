@@ -1,0 +1,153 @@
+@charset "UTF-8";
+@font-face {
+    font-family: "GmarketB";
+    src: url("../../font/GmarketSansTTFBold.ttf");
+}
+@font-face {
+    font-family: "GmarketM";
+    src: url("../../font/GmarketSansTTFMedium.ttf");
+}
+
+/* 컬러는 여기서 선택해 가세요 */
+:root {
+    --main-color: #000; /*기본 폰트색상*/
+    --hover-color: #ff9914; /*버튼 호버시 배경색상*/
+    --button-color:#4dbbff; /*버튼 기본 배경색상*/
+    --font-color:#fff;  /*버튼 기본 폰트색상*/
+    --trhover-color: #a5e6fc; /*tr호버컬러*/
+    --border-color:#aaa; /*박스 컬러*/
+    --bmenu-color: #030e2e; /*비즈니스 aside 호버컬러*/
+}
+html,body {
+    height: 100% ;
+    min-height: 100% !important;
+}
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: "GmarketM";
+}
+
+input,
+button {
+	 box-sizing: border-box;
+}
+
+/*전체 가운데 정렬*/
+.wrapper{
+    min-height: 100% ;
+    position: relative;
+    max-width: 1190px;
+    overflow: hidden;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+/*section실제 콘텐츠가 적히는 부분*/
+.section{
+    width: 1130px;
+    padding-bottom: 250px;
+    margin: 50px auto;
+    overflow:hidden;
+}
+
+/*ul 왼쪽 공백 padding 없애기*/
+ul {
+	margin-top: 0;
+    -webkit-padding-start: 0px;
+}
+ul li {   
+    list-style: none;    
+}
+a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+/* a:visited{
+    color: var(--main-color);
+} */
+
+
+/*버튼의 기본은 여기에 들어있습니다. border-radius랑 width padding만 알아서 설정해주세요*/
+.basicBtn{
+	background-color : var(--button-color);
+	color : var(--font-color);
+	outline: none;
+	border:none;
+	cursor:pointer;
+}
+.basicBtn:hover{
+	background-color : var(--hover-color);
+}
+
+/*기본 input text class입니다! (로그인 화면 기준)*/
+.basicTextInput {
+  width: 600px;
+  padding: 20px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+
+/*TOP 버튼*/
+#MOVE_TOP_BTN {
+    position: fixed;
+    right: 2%;
+    bottom: 50px;
+    display: none;
+    z-index: 999;
+    background: #707070;
+    color: var(--font-color);
+    padding: 10px;
+    border-radius: 20px;
+    width: 50px;
+    text-align: center;
+}
+
+/* 알림 css */
+.notice{
+	position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-top: auto;
+    z-index: 99999;
+    border: 1px solid #aaa;
+    padding: 10px;
+    background-color: var(--font-color);
+    width: 330px;
+    animation: noticeAni 5s ease-in 1 forwards;
+
+}
+
+.notice:hover{
+	background-color: var(--thhover-color);
+    cursor: pointer;
+}
+
+.notice img{
+	width: 70px;
+}
+
+.noticetext{
+	display: inline-block;
+    margin-top: 30px;
+    position: absolute;
+    margin-left: 20px;
+}
+
+@keyframes noticeAni{
+	0%{
+		opacity: 0;
+	}
+	25%{
+		opacity: 1;
+	}
+	90%{
+		opacity: 1;
+	}
+	100%{
+		opacity: 0;
+	}
+}

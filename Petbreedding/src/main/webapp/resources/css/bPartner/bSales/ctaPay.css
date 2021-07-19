@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+#cta{
+	color: var(--font-color);
+    background-color: var(--bmenu-color);
+}
+#cta a{
+	display:block;
+	color: var(--font-color);
+}
+
+.bContent{
+	width: 1000px;
+	margin-top:0;
+}
+
+.section {
+    padding-bottom: 140px !important;
+}
+
+
+#name {margin-left:50px;}
+#tel,#email{margin-left:65px;}
+
+
+p {
+  margin: 0 0 30px 0;
+}
+
+.mb30 {
+  margin-bottom: 30px;
+}
+.mt15 {
+  margin-top: 15px;
+}
+
+.mr30 {
+  margin-right: 30px;
+}
+
+.spaceBw {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalPrice {
+  margin-right: 30px;
+}
+
+#cpFrm {
+	margin-bottom: 50px;
+	margin-left: 35px;
+}
+
+.container {
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.title {
+	margin-bottom: 20px;
+	font-size: 30px;
+}
+
+.payBtn {
+  display: block;
+  width: 400px;
+  padding: 20px;
+  margin: 30px auto;
+  font-size: 16px;
+}
+.payBtn{
+	 font-family: "GmarketB";
+	  src: url("../font/GmarketSansTTFBold.ttf");
+}
+
+.detail {
+	padding-left: 24px;
+	color: var(--hover-color);
+	text-decoration: underline;
+    text-underline-position: under;
+    margin-top: 5px;
+    cursor: pointer;
+}

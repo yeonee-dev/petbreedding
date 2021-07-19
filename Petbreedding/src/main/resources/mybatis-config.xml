@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+	<settings> <!-- 입력 값이 Null일 경우 “”이 아닌 Null로 처리 -->
+		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting value="false" name="cacheEnabled" />
+		<setting value="STATEMENT" name="localCacheScope" />
+	</settings>
+		 
+		 
+	<typeAliases>
+		<typeAlias type="kh.com.petbreedding.client.model.vo.Client" alias="Client"/>
+		<typeAlias type="kh.com.petbreedding.mypage.model.vo.MyPet" alias="MyPet"/>
+		<typeAlias type="kh.com.petbreedding.common.model.vo.Likes" alias="Likes"/>
+		<typeAlias type="kh.com.petbreedding.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="kh.com.petbreedding.cta.model.vo.Cta" alias="Cta"/>
+		<typeAlias type="kh.com.petbreedding.cta.model.vo.CtaPay" alias="Ctapay"/>
+		<typeAlias type="kh.com.petbreedding.bmypage.model.vo.HairSalon" alias="HairSalon"/>
+		<typeAlias type="kh.com.petbreedding.bmypage.model.vo.HairDayOff" alias="HairDayOff"/>
+		<typeAlias type="kh.com.petbreedding.bmypage.model.vo.HairSalonImg" alias="HairSalonImg"/>
+		<typeAlias type="kh.com.petbreedding.bmypage.model.vo.Hospital" alias="Hospital"/>
+		<typeAlias type="kh.com.petbreedding.bmypage.model.vo.HosDayOff" alias="HosDayOff"/>
+		<typeAlias type="kh.com.petbreedding.bmypage.model.vo.HospitalImg" alias="HospitalImg"/>
+		<typeAlias type="kh.com.petbreedding.BP.model.vo.BPartner" alias="BPartner"/>
+		<typeAlias type="kh.com.petbreedding.Admin.model.vo.Admin" alias="Admin"/>
+		<typeAlias type="kh.com.petbreedding.mypage.model.vo.MyPet" alias="Pet"/>
+		<typeAlias type="kh.com.petbreedding.board.model.vo.Review" alias="Review"/>
+		<typeAlias type="kh.com.petbreedding.bmypage.model.vo.Style" alias="Style"/>
+		<typeAlias type="kh.com.petbreedding.Shop.model.vo.HairShopReservation" alias="HairRev"/>
+		<typeAlias type="kh.com.petbreedding.mypage.model.vo.MyPoint" alias="MyPoint"/>
+		<typeAlias type="kh.com.petbreedding.Chat.model.vo.ChatRoom" alias="ChatRoom"/>
+		<typeAlias type="kh.com.petbreedding.Chat.model.vo.ChatMessage" alias="ChatMessage"/>
+		<typeAlias type="kh.com.petbreedding.Chat.model.vo.ChatList" alias="ChatList"/>
+		<typeAlias type="kh.com.petbreedding.Shop.model.vo.HarPay" alias="HarPay"/>
+		<typeAlias type="kh.com.petbreedding.Shop.model.vo.HospitalReservation" alias="HosRev"/>
+		<typeAlias type="kh.com.petbreedding.board.model.vo.MyAsk" alias="MyAsk"/>
+		<typeAlias type="kh.com.petbreedding.Shop.model.vo.HosPay" alias="HosPay"/>
+		<typeAlias type="kh.com.petbreedding.board.model.vo.CustomerService" alias="CustomerService"/>
+		<typeAlias type="kh.com.petbreedding.common.model.vo.Pagination" alias="page"/>
+		<typeAlias type="kh.com.petbreedding.board.model.vo.MyAskComment" alias="MyAskComment"/>
+		<typeAlias type="kh.com.petbreedding.bmypage.model.vo.MedicalType" alias="MedicalType"/>
+		<typeAlias type="kh.com.petbreedding.board.model.vo.B_comment" alias="boardComment"/>
+		<typeAlias type="kh.com.petbreedding.mypage.model.vo.Notice" alias="notice"/>
+		<typeAlias type="kh.com.petbreedding.board.model.vo.ReviewComment" alias="ReviewComment"/>
+		<typeAlias type="kh.com.petbreedding.board.model.vo.OftenQna" alias="OftenQna"/>
+		<!-- TODO -->
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mappers/Client/client-mapper.xml" />
+		<mapper resource="mappers/common/login-mapper.xml" />
+		<mapper resource="mappers/cta/cta-mapper.xml" />
+		<mapper resource="mappers/Shop/shop-mapper.xml"/>
+		<mapper resource="mappers/board/board-mapper.xml"/>
+		<mapper resource="mappers/BP/bPartner-mapper.xml"/>
+		<mapper resource="mappers/common/memberInfoModify-mapper.xml" />
+		<mapper resource="mappers/Mypage/pet-mapper.xml"/>
+		<mapper resource="mappers/board/review-mapper.xml"/>
+		<mapper resource="mappers/admin/waitForPartner-mapper.xml"/>
+		<mapper resource="mappers/Shop/shopRev-mapper.xml"/>
+		<mapper resource="mappers/Mypage/myRev-mapper.xml"/>
+		<mapper resource="mappers/Mypage/myPoint-mapper.xml"/>
+		<mapper resource="mappers/Shop/shopPay-mapper.xml"/>
+		<mapper resource="mappers/Shop/shopMenu-mapper.xml"/>
+		<mapper resource="mappers/Chat/Chat-mapper.xml"/>
+		<mapper resource="mappers/board/myAsk-mapper.xml"/>
+		<mapper resource="mappers/board/myAskComment-mapper.xml"/>
+		<mapper resource="mappers/board/customerService-mapper.xml"/>
+		<mapper resource="mappers/BP/bPRev-mapper.xml"/>
+		<mapper resource="mappers/common/likes-mapper.xml"/>
+		<mapper resource="mappers/board/boardComment-mapper.xml"/>
+		<mapper resource="mappers/Mypage/notice-mapper.xml"/>
+		<mapper resource="mappers/board/reviewComment-mapper.xml"/>
+		<mapper resource="mappers/Shop/shopList-mapper.xml"/>
+		<mapper resource="mappers/board/oftenQna-mapper.xml"/>
+		<mapper resource="mappers/admin/chart.xml"/>
+	</mappers>
+	
+</configuration>

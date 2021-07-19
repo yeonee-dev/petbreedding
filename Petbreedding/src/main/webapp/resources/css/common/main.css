@@ -1,0 +1,194 @@
+@charset "UTF-8";
+
+.container{
+    z-index: -1;
+    position: absolute;
+    overflow: hidden;
+    height: 100%;
+}
+.container .footer{
+	margin-left: 230px !important;
+}
+.container .footWrap{ 
+    max-width: 1190px;
+    width: 1190px;
+    
+}
+.containerV{
+    opacity: 0.5;
+}
+
+
+/*비디오 버튼들 숨기기*/
+/* 전체화면 버튼 */ video::-webkit-media-controls-fullscreen-button {display: none !important;} 
+/* 일시정지, 재생 버튼 */ video::-webkit-media-controls-play-button {display: none !important;} 
+/* 재생 슬라이드..? */ video::-webkit-media-controls-timeline {display: none !important;} 
+/* 현재 진행 시간 */ video::-webkit-media-controls-current-time-display{display: none !important;} 
+/* 전체 시간 */ video::-webkit-media-controls-time-remaining-display {display: none !important;} 
+/* 음소거 버튼 */ video::-webkit-media-controls-mute-button {display: none !important;} 
+/* 볼륨 조절 슬라이드 */ video::-webkit-media-controls-volume-slider {display: none !important;} 
+/* 전체화면 전환 버튼*/ video::-webkit-media-controls-fullscreen-button { display: none !important; }
+
+.section{
+    overflow: hidden;
+    height: auto;
+}
+
+/*탭*/
+.tabmenu{ 
+  width:1000px; 
+  margin: 0px auto; 
+  margin-top: 80px;
+  position:relative; 
+  overflow: hidden;
+  height: 500px;
+  opacity: 0.9;
+}
+.tabmenu ul{
+    overflow: hidden;
+    height: auto;
+}
+.tabmenu ul li{
+  display:  inline-block;
+  width:50%; 
+  float:left;  
+  text-align:center; 
+  background :#f9f9f9;
+  line-height:40px;
+}
+.tabmenu label{
+  display:block;
+  width:100%; 
+  height:40px;
+  line-height:40px;
+  padding: 10px;
+  cursor: pointer;
+}
+.tabmenu .Tmenu{display:none;}
+.tabCon{
+  width: 1000px;
+  height: 300px;
+  display:none; 
+  text-align:left; 
+  padding: 60px 60px 60px 60px;
+  position:absolute; 
+  left:0; 
+  box-sizing: border-box; 
+  background-color : #f9f9f9;
+
+}
+.tabmenu input:checked ~ label{
+  background:#ff9914;
+  color: #fff;
+  
+}
+.tabmenu input:checked ~ .tabCon{
+  display:block;
+}
+
+/*위치 버튼*/
+.loc{
+    color: #ff9914;
+}
+.nowLocation{
+    margin-left: 100px;
+}
+
+/*검색상자*/
+.tabInput{
+    width: 600px;
+    padding: 20px;
+    margin-left: 100px;
+    border-radius: 5px;
+    box-sizing: content-box;
+}
+.tabInput ::placeholder{
+    font-size: 20px;
+}
+.searchB{
+    padding: 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: no-repeat;
+}
+.searchB .SRB{
+    font-size: 20px;
+    z-index: 1;
+    position: absolute;
+    left: 750px;
+    top: 120px;
+}
+
+
+/* MODAL */
+#my_modal {
+    display: none;
+    width: 500px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+
+#my_modal p {
+    text-align: center;
+}
+#my_modal #closeBtn{
+    cursor: pointer;
+}
+
+#my_modal .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* select 박스 */
+#locCon {
+    width: 330px;
+    margin: 0 auto;
+}
+#locCon select {
+    padding: 10px;   
+    border: #707070;
+}
+#locCon #chooseLoc{
+    width: 100px;
+    margin-left: 10px;
+}
+#locCon #changeLoc{
+    display: inline-block;
+    margin-left: 10px;
+    background: var(--button-color);
+    color: var(--font-color);
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    width: 50px;
+    outline: none;
+    cursor: pointer;
+}
+#locCon #changeLoc:hover{
+    background: var(--hover-color);
+}
+#Loc{
+    margin-left: 20px;
+    color: var(--hover-color);
+}
+
+/* 지도 */
+
+
+#map0 {
+	width: 644px;
+	height: 200px;
+	margin-left: 100px;
+	margin-bottom: 10px;
+}
+#map1 {
+	width: 644px;
+	height: 200px;
+	margin-left: 100px;
+	margin-bottom: 10px;
+}

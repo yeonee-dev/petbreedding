@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+.mContent{
+    padding-left: 10px !important;
+	margin-bottom: 70px;
+	float: left;
+	width: 780px;
+}
+#mBoardm{
+	display:inline-block;
+}
+.mAside{
+	width: 310px;
+}
+#mBoard{
+	background-color:var(--bmenu-color);
+	color:var(--font-color);
+}
+
+
+.myboardhead{.select select
+
+    margin-bottom: 50px;
+}
+.myboard {
+    border: 1px solid #aaa;
+    border-left: none;
+    border-right: none;
+    border-collapse: collapse;
+  
+}
+
+.select{
+	display: inline-block;
+	margin-bottom: 30px;
+}
+.select select { 
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+    -moz-appearance: none; 
+     appearance: none;
+     background: url("/petbreedding/resources/images/arrow.jpg") no-repeat 100% 50%; /* 화살표 모양의 이미지 */
+     padding:10px;
+     width: 80px;
+} 
+#myAskBtn{
+	float:right;
+}
+.myboard td{
+ border-bottom: 1px solid #aaa;
+ border-top: 1px solid #aaa;
+ height: 50px;
+ text-align: center;
+    
+}
+.myboard th{
+     height: 50px;
+     text-align: center;
+       
+   }
+.mboardrow{
+	margin-bottom: 20px;
+}
+.checkTR:hover{
+ border-bottom: 1px solid #aaa;
+ border-top: 1px solid #aaa;
+ height: 50px;
+ text-align: center;
+ background-color: #a5e6fc; /*tr호버컬러*/;
+ border-collapse: collapse;   
+}
+.inputBox{
+	padding-right: 63px;
+}
+ .basicBtn{
+  width: 80px;
+  height: 35px;
+  border-radius: 10px;
+ 
+}
+.basicBtn a{
+    color: #fff;
+}
+.mTr{
+	cursor:pointer;
+}

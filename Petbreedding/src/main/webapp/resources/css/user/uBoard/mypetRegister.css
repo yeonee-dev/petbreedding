@@ -1,0 +1,102 @@
+input[type="radio"] {
+  display: none;
+}
+
+ul label {
+  cursor: pointer;
+}
+
+/*margin*/
+.m_20 {
+  margin-bottom: 20px;
+}
+.m_10 {
+  margin-bottom: 10px;
+}
+
+/*container*/
+#petInfoFrm {
+  width: 600px;
+  margin: 20px 0px 20px 430px;
+}
+
+.petInfo_container {
+  width: 600px;
+}
+.img_container {
+  display: flex;
+  justify-content: center;
+}
+
+/*select box*/
+.selectBox {
+  width: 600px;
+  height: 60px;
+  font-size: 14px;
+}
+
+.selectTime {
+  float: left;
+  margin-right: 15px;
+  width: 190px;
+}
+
+#DATE {
+  margin-right: 0px;
+}
+
+/*list*/
+.genderList {
+  float: left;
+  border: 1px solid var(--border-color);
+  margin-right: 15px;
+  width: 188px;
+  padding: 20px 0px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.hateList {
+  float: left;
+  border: 1px solid var(--border-color);
+  width: 102px;
+  margin-right: 20px;
+  padding: 20px 0px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.otherslist {
+  float: left;
+  border: 1px solid var(--border-color);
+  width: 136px;
+  margin-right: 16px;
+  padding: 20px 0px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.genderList:hover,
+.hateList:hover,
+.otherslist:hover {
+  background: var(--hover-color);
+  color: var(--font-color);
+}
+
+.list_neut,
+.hateListL,
+.otherslistL {
+  margin-right: 0px;
+}
+
+/*에러 메세지*/
+.errorMsg {
+  display: none;
+}
+
+/*register button*/
+#petInfo_register {
+  width: 600px;
+  padding: 20px;
+  font-size: 16px;
+}

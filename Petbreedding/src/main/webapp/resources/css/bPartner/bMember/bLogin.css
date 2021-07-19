@@ -1,0 +1,196 @@
+@charset "UTF-8";
+
+.blFrm {
+	width: 400px;
+	margin: 0 auto;
+}
+
+.loginBox{
+    width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.IDlogo{
+    width: 260px;
+    margin: 0 auto;
+    display: block;
+}
+
+.loginBox input{
+    display: block;
+    width: 400px;
+    padding: 20px;
+    margin: 0 auto;
+}
+.loginBox .inputArea{
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#loginBtn{
+    margin-top: 30px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+#searchIdPw{
+    cursor: pointer;
+    padding-top: 20px;
+    display: inline-block;
+    float: right;
+    font-size: 14px;
+}
+#errorText{
+	color:red;
+	margin-top: 10px;
+	font-size:14px;
+}
+
+/* MODAl */
+/* The Modal (background) */
+.searchModal_Container {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  }
+/* Modal Content/Box */
+.searchModal_box {
+    position: relative;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 40px;
+    border: 1px solid var(--border-color);
+    width: 700px; /* Could be more or less, depending on screen size */
+  }
+  
+  .searchModal_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+  }
+   
+  #searchBtn {
+    width: 160px;
+    height: 40px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  #modalExit {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+  }
+
+  
+/*탭*/
+.tabmenu{ 
+    width: 640px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+  }
+  .tabmenu ul{
+      overflow: hidden;
+      height: auto;
+  }
+  .tabmenu ul li{
+    display:  inline-block;
+    width:50%; 
+    float:left;  
+    text-align:center; 
+    background :#f9f9f9;
+    line-height:40px;
+  }
+  .tabmenu .searchBtn{
+    display:block;
+    width:100%; 
+    height:40px;
+    line-height:40px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .tabmenu .Tmenu{display:none;}
+  .tabCon{
+    width: 640px;
+    display:none; 
+    text-align:left; 
+    padding: 30px;
+    position:absolute; 
+    left:0; top:74px; 
+    box-sizing: border-box; 
+    background-color : #f9f9f9;
+  
+  }
+  .tabInput{
+      width: 300px;
+      margin-bottom: 10px;
+      padding: 10px;
+      display: inline-block;
+      margin: 0 auto;
+  }
+  .tabmenu input:checked ~ label{
+    background:#ff9914;
+    color: #fff;
+    
+  }
+  .tabmenu input:checked ~ .tabCon{
+    display:block;
+  }
+  .searchB{
+    width: 100px;
+    padding: 10px;
+    margin: 20px auto;
+    display: block;
+    border-radius: 10px;
+  }
+  
+  
+  /* 아이디 /비번찾기 활성화 비활성화 */
+#searchIdFrm, #searchPwdFrm{
+	width: 400px;
+    margin: 0 auto;
+}
+#nameS,#newPwd{
+	margin-right: 50px;
+}
+.search{
+	display:inline-block ;
+}
+
+#findId, #findPwd{
+	display:none;
+} 
+#findId p {
+	text-align : center;
+}
+#emailS{
+	margin-right:35px;
+}
+
+#newPwdBox{
+	width:450px;
+	margin:0 auto;
+}
+#changePwd{
+	width:120px;
+	margin-top:0;
+}
+  
+.error{
+	font-size:14px;
+	padding-top:10px;
+}
+#pw_check, #pw_check2{
+	padding:0;
+}

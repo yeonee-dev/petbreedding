@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.waitingPage{
+	border: 1px solid #000000;
+    width: 600px;
+    height: 300px;
+    margin: 200px auto;
+    text-align: center;
+    display: table;
+}
+
+.waitingPage p {
+    font-size: 14px;
+}
+
+.pageContent{
+   vertical-align: middle;
+   display: table-cell;
+}
+
+.pageContent button{
+	background-color:#4DBBFF;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    padding: 10px 100px 10px 100px;
+    border-radius: 10px;
+    cursor: pointer;
+}

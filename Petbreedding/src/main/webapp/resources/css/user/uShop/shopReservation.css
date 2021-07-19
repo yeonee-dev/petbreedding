@@ -1,0 +1,302 @@
+@charset "UTF-8";
+/*서비스 선택*/
+.selectService{
+    margin-top: 60px;
+}
+.rev_text{
+    padding: 40px 50px;
+}
+
+.menu_box{
+    display: inline-block;
+    box-sizing: border-box;
+    border: 2px solid var(--border-color);
+    padding: 10px;
+    width: 160px !important;
+    margin-left: 50px;
+    cursor: pointer;
+}
+.chooseMenu{
+	border: 2px solid var(--hover-color);
+}
+.normalMenu{
+	border: 2px solid var(--border-color)!important;
+}
+.menu_time{font-size: 14px; text-align: right;}
+
+
+/*반려견 선택*/
+.dog_box{
+    display: inline-block;
+    border: 2px solid var(--border-color);
+    width: 160px !important;
+    margin-left: 50px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.dog_name{
+	padding-top: 20px;
+	border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+.dog_img_area{
+    width: 160px;
+    height: 100px;
+    position: relative;
+    padding-top: 10px;
+}
+.chooseDog{border: 2px solid var(--hover-color);}
+.normalDog{border: 2px solid var(--border-color)!important;}
+#addDogBox{
+	display: inline-block;
+    border: 2px solid var(--border-color);
+    width: 160px !important;
+    margin-left: 50px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px dashed var(--border-color);
+}
+#addDogBox:hover{
+    border: 2px dashed var(--hover-color);
+}
+.dog_img_area .addDog{
+    font-size: 50px;
+    position: absolute;
+    top: 25px;
+    left: 55px;
+}
+
+/* 추가메뉴 */
+.plus{
+	display: inline-block;
+    box-sizing: border-box;
+    border: 2px solid var(--border-color);
+    padding: 10px;
+    width: 160px !important;
+    margin-left: 50px;
+    cursor: pointer;
+}
+.choosePlus{
+	border: 2px solid var(--hover-color);
+}
+.normalPlus{
+	border: 2px solid var(--border-color)!important;
+}
+
+
+/*달력*/
+#calendar_box{
+    float: left;
+    width: 500px;
+}
+.calendar{
+    height: auto;
+    margin-left: 50px;
+    padding-left: 90px;
+    padding-bottom: 10px;
+}
+
+.choose_date{
+    margin-left: 40px;
+    float: left;
+    display:none;
+}
+#choDate{
+	border:none;
+	background: none;
+	outline:none;
+	color: transparent;
+  	text-shadow: 0 0 0 black;
+  	font-family: GmarketM;
+}
+.time{
+ 	width: 80px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    text-align: center;
+    padding: 8px;
+    float: left;
+    margin-left: 30px;
+    cursor: pointer; 
+}
+.time input{
+	border:none;
+	background: none;
+	outline:none;
+	color: transparent;
+  	text-shadow: 0 0 0 black;
+  	cursor: pointer;
+  	font-family: GmarketM;
+  	text-align: center;
+  	width: 50px;
+}
+.time{
+ 	width: 80px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    text-align: center;
+    padding: 8px;
+    float: left;
+    margin-left: 30px;
+    cursor: pointer; 
+}
+.time input{
+	border:none;
+	background: none;
+	outline:none;
+	color: transparent;
+  	text-shadow: 0 0 0 black;
+  	cursor: pointer;
+  	font-family: GmarketM;
+  	text-align: center;
+  	width: 50px;
+}
+.cannotCheck{
+ 	width: 80px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    text-align: center;
+    padding: 8px;
+    float: left;
+    margin-left: 30px;
+}
+.cannotCheck input{
+	border:none;
+	background: none;
+	outline:none;
+	color: transparent;
+  	text-shadow: 0 0 0 black;
+  	font-family: GmarketM;
+  	text-align: center;
+  	width: 50px;
+  	text-decoration: line-through;
+}
+.chooseTime{
+	background-color: var(--hover-color);
+    border: 1px solid var(--hover-color);  
+}
+.normalTime{
+	background-color: none;
+    border: 1px solid var(--border-color);
+    color: var(--main-color);
+}
+.times{
+    padding-bottom: 50px;
+}
+#fourthChoose{
+    overflow: hidden;    
+}
+
+/*예약안내*/
+.reservatoin_info{
+    clear: both;
+    margin-left: 50px;
+}
+.infoTitle{
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+
+/*예약버튼*/
+.btnBox{
+    padding-top: 50px;
+    width: 300px;
+    margin: 0 auto;
+}
+#reservation_btn{
+    width: 300px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background-color: var(--button-color);
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: var(--font-color);
+}
+#reservation_btn:hover{
+    background-color: var(--hover-color);
+}
+
+/* 나타났다 안보였다하게하기! */
+#secondChoose, #thirdChoose, #fourthChoose, #fifthChoose, #btnBox{
+    display: none;
+}
+
+/*슬라이드*/
+.swiper-container {overflow: visible;}
+.swiper-slide {
+    opacity:0.4; 
+    transition:opacity 0.3s; 
+}
+
+/*슬라이드 화면 안에 들어온거는 흐림효과 하지말기~*/
+.swiper-slide-active,
+.swiper-slide-active + .swiper-slide,
+.swiper-slide-active + .swiper-slide + .swiper-slide,
+.swiper-slide-active + .swiper-slide + .swiper-slide + .swiper-slide {opacity:1}
+
+.swpBtn{
+    margin-top: 30px !important;
+    z-index: 99;
+}
+
+/* MODAL */
+#my_modal {
+    display: none;
+    width: 500px;
+    height: 200px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+#my_modal h1{
+    text-align: center;
+}
+#my_modal p {
+    text-align: center;
+}
+#my_modal #closeBtn{
+    cursor: pointer;
+}
+
+#my_modal .modal_close_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#my_modal button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+#goTOPay{
+    border: none;
+    color: var(--font-color);
+    background-color: var(--button-color);
+}
+#goTOPay:hover{
+    background-color: var(--hover-color);
+}
+#nextTime{
+    background-color: var(--font-color);
+    border: 1px solid var(--button-color);
+}
+#nextTime:hover{
+    border: 1px solid var(--hover-color);
+}
+
